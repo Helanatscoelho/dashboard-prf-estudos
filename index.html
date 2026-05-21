@@ -13,14 +13,16 @@ body{background:linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a);font-family:
 .header p{color:var(--bl);font-size:.8em;margin-top:2px}
 .clock{font-size:1.7em;color:var(--bg);font-weight:700;text-shadow:0 0 10px var(--bg);font-variant-numeric:tabular-nums}
 .motiv{text-align:center;padding:9px;background:linear-gradient(90deg,transparent,rgba(0,198,255,.12),transparent);color:var(--gold);font-style:italic;font-size:.9em;transition:opacity .4s}
-/* TABS - FIXED */
 .tabs-nav{display:flex;gap:6px;padding:12px 18px;background:rgba(0,0,0,.3);flex-wrap:wrap}
-.tb{padding:9px 18px;border:none;border-radius:22px;cursor:pointer;font-size:.82em;font-weight:600;transition:all .25s;background:rgba(27,58,107,0.6);color:#8fa3c7;border:1px solid rgba(255,255,255,.08)}
+.tb{padding:9px 18px;border-radius:22px;cursor:pointer;font-size:.82em;font-weight:600;transition:all .25s;background:rgba(27,58,107,0.6);color:#8fa3c7;border:1px solid rgba(255,255,255,.08)}
 .tb:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(30,111,217,.4);color:#fff}
 .tb.active{background:#1e6fd9 !important;color:#fff !important;box-shadow:0 4px 14px rgba(30,111,217,.6);border-color:#00c6ff !important}
 .tb.urg{border-color:#ff9800 !important}
 .tc{display:none;padding:18px}
 .tc.active{display:block !important}
+.tc-iframe{display:none;width:100%;height:calc(100vh - 160px)}
+.tc-iframe.active{display:block !important}
+.iframe-container{width:100%;height:calc(100vh - 160px);border:none;background:#0d1b2a}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
@@ -131,7 +133,6 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 .rcat-item-desc{font-size:.75em;color:#8fa3c7;margin-top:3px;line-height:1.5}
 .time-sel{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
 .srow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-/* CRONOGRAMA DIÁRIO */
 .day-card{background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:8px;border-left:5px solid;transition:all .2s;cursor:default}
 .day-card:hover{background:rgba(255,255,255,.08)}
 .day-card.today-card{background:rgba(30,111,217,.25);border-color:#00c6ff;box-shadow:0 0 15px rgba(0,198,255,.25)}
@@ -152,732 +153,550 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 .month-sep{text-align:center;padding:10px;margin:10px 0;background:linear-gradient(90deg,transparent,rgba(255,215,0,.15),transparent);border-radius:8px;font-weight:700;color:#ffd700;font-size:.9em}
 @keyframes float-up{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-130px) scale(0.4)}}
 .cracker{position:fixed;pointer-events:none;z-index:200;font-size:1.8em;animation:float-up 1.5s ease forwards}
+.iframe-warn{background:rgba(255,152,0,.15);border:1px solid #ff9800;border-radius:10px;padding:12px;margin-bottom:10px;font-size:.85em;color:#ff9800;display:flex;align-items:center;gap:8px}
 @media(max-width:768px){.g2,.g3,.g4,.mg,.sg{grid-template-columns:1fr}}
-</style></head><body>
-<!-- HEADER -->
+</style>
+</head>
+<body>
 <div class="header">
-  <div>
-    <h1>🚔 Dashboard PRF &amp; Marketing — Helena</h1>
-    <p>Foco. Disciplina. Aprovação! 💙 | Início: 20/05/2026</p>
-  </div>
-  <div class="tac">
-    <div class="clock" id="clock">00:00:00</div>
-    <div style="font-size:.7em;color:#8fa3c7" id="dateD"></div>
-  </div>
+<div>
+<h1>🚔 Dashboard PRF &amp; Marketing — Helena</h1>
+<p>Foco. Disciplina. Aprovação! 💙 | Início: 20/05/2026</p>
+</div>
+<div class="tac">
+<div class="clock" id="clock">00:00:00</div>
+<div style="font-size:.7em;color:#8fa3c7" id="dateD"></div>
+</div>
 </div>
 <div class="motiv" id="motiv"></div>
 
-<!-- TABS NAV — onclick passa 'this' explicitamente -->
 <div class="tabs-nav">
-  <button class="tb active" id="btn-hoje" onclick="sw('hoje',this)">🏠 Hoje</button>
-  <button class="tb urg" id="btn-prf" onclick="sw('prf',this)">🚔 Cronograma PRF</button>
-  <button class="tb urg" id="btn-mat" onclick="sw('mat',this)">📚 Matérias</button>
-  <button class="tb" id="btn-metodo" onclick="sw('metodo',this)">🎯 Método + Pomodoro</button>
-  <button class="tb urg" id="btn-mkt" onclick="sw('mkt',this)">📱 Marketing</button>
-  <button class="tb" id="btn-agenda" onclick="sw('agenda',this)">📅 Agenda</button>
-  <button class="tb" id="btn-cal" onclick="sw('cal',this)">🗓️ Calendário</button>
-  <button class="tb" id="btn-rec" onclick="sw('rec',this)">🎁 Recompensas</button>
-  <button class="tb" id="btn-cfg" onclick="sw('cfg',this)">⚙️ Config</button>
+<button class="tb active" id="btn-hoje" onclick="sw('hoje',this)">🏠 Hoje</button>
+<button class="tb urg" id="btn-prf" onclick="sw('prf',this)">🚔 Cronograma PRF</button>
+<button class="tb urg" id="btn-mat" onclick="sw('mat',this)">📚 Matérias</button>
+<button class="tb" id="btn-metodo" onclick="sw('metodo',this)">🎯 Método</button>
+<button class="tb" id="btn-pomodoro" onclick="sw('pomodoro',this)">⏱ Pomodoro</button>
+<button class="tb" id="btn-questoes" onclick="sw('questoes',this)">✏️ Questões</button>
+<button class="tb" id="btn-chatgpt" onclick="sw('chatgpt',this)">🤖 ChatGPT</button>
+<button class="tb urg" id="btn-mkt" onclick="sw('mkt',this)">📱 Marketing</button>
+<button class="tb" id="btn-agenda" onclick="sw('agenda',this)">📅 Agenda</button>
+<button class="tb" id="btn-cal" onclick="sw('cal',this)">🗓️ Calendário</button>
+<button class="tb" id="btn-rec" onclick="sw('rec',this)">🎁 Recompensas</button>
+<button class="tb" id="btn-cfg" onclick="sw('cfg',this)">⚙️ Config</button>
 </div>
-
 <!-- ===== ABA HOJE ===== -->
 <div id="tc-hoje" class="tc active">
-  <div class="sg">
-    <div class="sb"><div class="snum" id="sDias">0</div><div class="slbl">Dias Estudados</div></div>
-    <div class="sb"><div class="snum" id="sStrk">0🔥</div><div class="slbl">Sequência</div></div>
-    <div class="sb"><div class="snum" id="sHrs">0h</div><div class="slbl">Horas Totais</div></div>
-    <div class="sb"><div class="snum" id="sDiaNum">0/120</div><div class="slbl">Dia no Cronograma</div></div>
-  </div>
-
-  <!-- HOJE NO CRONOGRAMA -->
-  <div class="ts" id="todayStudyBlock">
-    <div class="fbw" style="flex-wrap:wrap;gap:10px;margin-bottom:12px">
-      <div>
-        <div style="font-size:.78em;color:#8fa3c7;margin-bottom:4px" id="todayDateLabel">📅 Carregando...</div>
-        <div style="font-size:1.2em;font-weight:700;color:#fff" id="todaySubj1">📖 Carregando...</div>
-        <div style="font-size:1em;font-weight:700;color:#4aa8ff;margin-top:5px" id="todaySubj2">📖 Carregando...</div>
-        <div style="color:#4aa8ff;font-size:.82em;margin-top:5px" id="todayMeta">Carregando...</div>
-      </div>
-      <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn">🎓 Abrir Gran Cursos</a>
-    </div>
-    <div class="mg">
-      <div class="mb"><div class="ico">🎬</div><div class="lbl">Madrugada (04–06:30)</div><div class="tim" style="color:#00c6ff">Videoaula + PDF</div></div>
-      <div class="mb"><div class="ico">✏️</div><div class="lbl">Noite (18–22h)</div><div class="tim" style="color:#ff4081">PDF + 50 Questões</div></div>
-      <div class="mb"><div class="ico">📊</div><div class="lbl">Dia no cronograma</div><div class="tim" style="color:#ffd700" id="cronDayNum">Dia 1</div></div>
-    </div>
-  </div>
-
-  <div class="g2">
-    <div class="card">
-      <h3>⏰ Agenda de Hoje — <span id="todayDow" style="color:#ffd700">Quarta</span></h3>
-      <div id="todayBlocks"></div>
-    </div>
-    <div class="card">
-      <h3>✅ Checklist do Dia</h3>
-      <div id="checkList"></div>
-      <button class="btn btn-s w100 mt8" onclick="compDay()">✅ Concluí o estudo de hoje!</button>
-    </div>
-  </div>
-
-  <!-- Planejar amanhã -->
-  <div class="plan-box mt12">
-    <h4>🗓️ Planejar Amanhã — <span id="tomorrowLabel" style="color:#ffd700"></span></h4>
-    <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-bottom:10px" id="tomorrowAuto"></div>
-    <div class="g2">
-      <div>
-        <div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Matéria principal:</div>
-        <select class="sel w100 mb8" id="planSubj">
-          <option>Direito Constitucional</option><option>Língua Portuguesa</option>
-          <option>Direito Administrativo</option><option>Raciocínio Lógico-Matemático</option>
-          <option>Direito Penal</option><option>Legislação de Trânsito</option>
-          <option>Direito Processual Penal</option><option>Legislação Especial</option>
-          <option>Direitos Humanos</option><option>Informática</option>
-          <option>Física</option><option>Ética e Cidadania</option>
-          <option>Geopolítica</option><option>Espanhol</option><option>Redação Discursiva</option>
-        </select>
-        <div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Tópico específico:</div>
-        <input class="inp w100 mb8" id="planTopic" placeholder="Ex: Direitos Fundamentais, Art. 5º...">
-        <div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Meta de questões:</div>
-        <input type="number" class="inp" id="planQ" value="50" min="10" max="200" style="width:100px">
-      </div>
-      <div>
-        <div style="font-size:.8em;color:#8fa3c7;margin-bottom:6px">Método:</div>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
-          <label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkVid" checked> 🎬 Videoaula</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkPdf" checked> 📄 PDF/Resumo</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkQst" checked> ✏️ Questões</label>
-        </div>
-        <div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Observações:</div>
-        <textarea class="inp w100" id="planNote" rows="3" placeholder="Dúvidas, pontos importantes..."></textarea>
-      </div>
-    </div>
-    <div style="display:flex;gap:7px;margin-top:10px">
-      <button class="btn btn-p" onclick="savePlan()">💾 Salvar plano</button>
-      <button class="btn btn-w" onclick="loadPlan()">📋 Ver plano salvo</button>
-    </div>
-    <div id="planPreview" style="margin-top:8px;font-size:.82em;color:#8fa3c7"></div>
-  </div>
-
-  <div class="rc mt12">
-    <div class="rt">🎁 Recompensa de Hoje — Escolha após estudar!</div>
-    <div class="rl">
-      <div class="ri" onclick="quickRew('🎸 Tocar violão 30min')">🎸 Violão</div>
-      <div class="ri" onclick="quickRew('📖 Leitura prazerosa')">📖 Leitura</div>
-      <div class="ri" onclick="quickRew('💬 Conversar com amigos')">💬 Amigos</div>
-      <div class="ri" onclick="quickRew('🎮 Jogar 30min')">🎮 Jogo</div>
-      <div class="ri" onclick="quickRew('🚶 Caminhar 20min')">🚶 Caminhar</div>
-      <div class="ri" onclick="quickRew('🎬 Episódio série')">🎬 Série</div>
-      <div class="ri" onclick="quickRew('☕ Café tranquilo')">☕ Café</div>
-      <div class="ri" onclick="sw('rec',document.getElementById('btn-rec'))">🎁 Ver todas →</div>
-    </div>
-  </div>
+<div class="sg">
+<div class="sb"><div class="snum" id="sDias">0</div><div class="slbl">Dias Estudados</div></div>
+<div class="sb"><div class="snum" id="sStrk">0🔥</div><div class="slbl">Sequência</div></div>
+<div class="sb"><div class="snum" id="sHrs">0h</div><div class="slbl">Horas Totais</div></div>
+<div class="sb"><div class="snum" id="sDiaNum">0/120</div><div class="slbl">Dia no Cronograma</div></div>
+</div>
+<div class="ts" id="todayStudyBlock">
+<div class="fbw" style="flex-wrap:wrap;gap:10px;margin-bottom:12px">
+<div>
+<div style="font-size:.78em;color:#8fa3c7;margin-bottom:4px" id="todayDateLabel">📅 Carregando...</div>
+<div style="font-size:1.2em;font-weight:700;color:#fff" id="todaySubj1">📖 Carregando...</div>
+<div style="font-size:1em;font-weight:700;color:#4aa8ff;margin-top:5px" id="todaySubj2">📖 Carregando...</div>
+<div style="color:#4aa8ff;font-size:.82em;margin-top:5px" id="todayMeta">Carregando...</div>
+</div>
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn">🎓 Abrir Gran Cursos</a>
+</div>
+<div class="mg">
+<div class="mb"><div class="ico">🎬</div><div class="lbl">Madrugada (04–06:30)</div><div class="tim" style="color:#00c6ff">Videoaula + PDF</div></div>
+<div class="mb"><div class="ico">✏️</div><div class="lbl">Noite (18–22h)</div><div class="tim" style="color:#ff4081">PDF + 50 Questões</div></div>
+<div class="mb"><div class="ico">📊</div><div class="lbl">Dia no cronograma</div><div class="tim" style="color:#ffd700" id="cronDayNum">Dia 1</div></div>
+</div>
+</div>
+<div class="g2">
+<div class="card">
+<h3>⏰ Agenda de Hoje — <span id="todayDow" style="color:#ffd700">—</span></h3>
+<div id="todayBlocks"></div>
+</div>
+<div class="card">
+<h3>✅ Checklist do Dia</h3>
+<div id="checkList"></div>
+<button class="btn btn-s w100 mt8" id="btnConcluir" onclick="compDay()">✅ Concluí o estudo de hoje!</button>
+</div>
+</div>
+<div class="plan-box mt12">
+<h4>🗓️ Planejar Amanhã — <span id="tomorrowLabel" style="color:#ffd700"></span></h4>
+<div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-bottom:10px" id="tomorrowAuto"></div>
+<div class="g2">
+<div>
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Matéria principal:</div>
+<select class="sel w100 mb8" id="planSubj">
+<option>Direito Constitucional</option><option>Língua Portuguesa</option>
+<option>Direito Administrativo</option><option>Raciocínio Lógico-Matemático</option>
+<option>Direito Penal</option><option>Legislação de Trânsito</option>
+<option>Direito Processual Penal</option><option>Legislação Especial</option>
+<option>Direitos Humanos</option><option>Informática</option>
+<option>Física</option><option>Ética e Cidadania</option>
+<option>Geopolítica</option><option>Espanhol</option><option>Redação Discursiva</option>
+</select>
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Tópico específico:</div>
+<input class="inp w100 mb8" id="planTopic" placeholder="Ex: Direitos Fundamentais, Art. 5º...">
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Meta de questões:</div>
+<input type="number" class="inp" id="planQ" value="50" min="10" max="200" style="width:100px">
+</div>
+<div>
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:6px">Método:</div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkVid" checked> 🎬 Videoaula</label>
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkPdf" checked> 📄 PDF/Resumo</label>
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkQst" checked> ✏️ Questões</label>
+</div>
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Observações:</div>
+<textarea class="inp w100" id="planNote" rows="3" placeholder="Dúvidas, pontos importantes..."></textarea>
+</div>
+</div>
+<div style="display:flex;gap:7px;margin-top:10px">
+<button class="btn btn-p" onclick="savePlan()">💾 Salvar plano</button>
+<button class="btn btn-w" onclick="loadPlan()">📋 Ver plano salvo</button>
+</div>
+<div id="planPreview" style="margin-top:8px;font-size:.82em;color:#8fa3c7"></div>
+</div>
+<div class="rc mt12">
+<div class="rt">🎁 Recompensa de Hoje — Escolha após estudar!</div>
+<div class="rl">
+<div class="ri" onclick="quickRew('🎸 Tocar violão 30min')">🎸 Violão</div>
+<div class="ri" onclick="quickRew('📖 Leitura prazerosa')">📖 Leitura</div>
+<div class="ri" onclick="quickRew('💬 Conversar com amigos')">💬 Amigos</div>
+<div class="ri" onclick="quickRew('🎮 Jogar 30min')">🎮 Jogo</div>
+<div class="ri" onclick="quickRew('🚶 Caminhar 20min')">🚶 Caminhar</div>
+<div class="ri" onclick="quickRew('🎬 Episódio série')">🎬 Série</div>
+<div class="ri" onclick="quickRew('☕ Café tranquilo')">☕ Café</div>
+<div class="ri" onclick="sw('rec',document.getElementById('btn-rec'))">🎁 Ver todas →</div>
+</div>
+</div>
 </div>
 <!-- ===== ABA CRONOGRAMA PRF ===== -->
 <div id="tc-prf" class="tc">
-  <div class="stit">🚔 Cronograma PRF — 4 Meses | Início: 20/05/2026</div>
-  <div style="background:rgba(30,111,217,.15);border:1px solid rgba(0,198,255,.3);border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
-    📌 <strong style="color:#00c6ff">2 matérias por dia útil</strong> | Sábado: 1 matéria leve + questões | Domingo: revisão livre<br>
-    🔴 Matérias vermelhas = urgentes (maior peso na prova) | 🟡 Amarelas = médio | 🟢 Verdes = complementares
-  </div>
-
-  <!-- Filtros -->
-  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="btn btn-p" onclick="filterCron('all')">📅 Todos os dias</button>
-    <button class="btn btn-p" onclick="filterCron('mes1')">🔴 Mês 1</button>
-    <button class="btn btn-p" onclick="filterCron('mes2')">🟠 Mês 2</button>
-    <button class="btn btn-p" onclick="filterCron('mes3')">🟡 Mês 3</button>
-    <button class="btn btn-p" onclick="filterCron('mes4')">🟢 Mês 4</button>
-    <button class="btn btn-w" onclick="filterCron('today')">📍 Ir para Hoje</button>
-  </div>
-
-  <div id="cronGrid"></div>
+<div class="stit">🚔 Cronograma PRF — 4 Meses | Início: 20/05/2026</div>
+<div style="background:rgba(30,111,217,.15);border:1px solid rgba(0,198,255,.3);border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
+📌 <strong style="color:#00c6ff">2 matérias por dia útil</strong> | Sábado: 1 matéria leve + questões | Domingo: revisão livre<br>
+🔴 Matérias vermelhas = urgentes | 🟡 Amarelas = médio | 🟢 Verdes = complementares
+</div>
+<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+<button class="btn btn-p" onclick="filterCron('all')">📅 Todos os dias</button>
+<button class="btn btn-p" onclick="filterCron('mes1')">🔴 Mês 1</button>
+<button class="btn btn-p" onclick="filterCron('mes2')">🟠 Mês 2</button>
+<button class="btn btn-p" onclick="filterCron('mes3')">🟡 Mês 3</button>
+<button class="btn btn-p" onclick="filterCron('mes4')">🟢 Mês 4</button>
+<button class="btn btn-w" onclick="filterCron('today')">📍 Ir para Hoje</button>
+</div>
+<div id="cronGrid"></div>
 </div>
 
 <!-- ===== ABA MATÉRIAS ===== -->
 <div id="tc-mat" class="tc">
-  <div class="stit">📚 Matérias PRF — Conteúdo Completo</div>
-  <div class="g2">
-    <div>
-      <div class="card mb8">
-        <h3>📜 Direito Constitucional <span class="bx bx-r" style="margin-left:auto">~30 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Princípios Fundamentais (Art. 1–4) <span>▼</span></div>
-          <div class="topic-sub">Fundamentos: soberania, cidadania, dignidade, valores sociais, pluralismo. Objetivos: construir sociedade livre, erradicar pobreza, reduzir desigualdades, promover o bem. Relações internacionais: 10 princípios do art. 4º. <strong style="color:#ff9800">⚡ Cai muito! Decore os fundamentos e objetivos.</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Direitos Fundamentais — Art. 5º <span>▼</span></div>
-          <div class="topic-sub">O artigo mais cobrado! Rol de direitos: igualdade, legalidade, inviolabilidade. Remédios constitucionais: HC, MS, HD, MI, AP. <strong style="color:#ff4081">🔥 Leia o Art. 5º completo 3 vezes antes de fazer questões!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Organização do Estado (Art. 18–43) <span>▼</span></div>
-          <div class="topic-sub">União, Estados, DF, Municípios. Competências: exclusivas (art.21), privativas (art.22), concorrentes (art.24), comuns (art.23). Intervenção federal/estadual. <strong style="color:#ff9800">Diferença entre competências é clássica nas provas!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Administração Pública — Art. 37 (LIMPE) <span>▼</span></div>
-          <div class="topic-sub"><strong style="color:#ff4081">LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência</strong> — aparece em TODA prova! Servidores públicos (art.37-41): concurso, estabilidade, vencimento, acumulação. Improbidade (Lei 8.429/92).</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Poderes + Controle de Constitucionalidade <span>▼</span></div>
-          <div class="topic-sub">Legislativo, Executivo, Judiciário, MP. ADI, ADC, ADPF, ADO. STF, STJ, TRF. <strong style="color:#8fa3c7">Foco nas competências dos órgãos superiores.</strong></div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('constitucional','Direito Constitucional')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-constitucional" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>📝 Língua Portuguesa <span class="bx bx-o" style="margin-left:auto">~25 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Interpretação de Texto <span>▼</span></div>
-          <div class="topic-sub"><strong style="color:#ff4081">50% das questões de Português!</strong> Ideia principal, inferência, vocabulário em contexto. Dica: leia 1 artigo por dia. Treino diário é insubstituível aqui.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Gramática — Morfologia e Sintaxe <span>▼</span></div>
-          <div class="topic-sub">Classes de palavras, sujeito e predicado, concordância verbal e nominal, regência. <strong style="color:#ff9800">Concordância e regência = campeões de questões!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Ortografia, Crase e Pontuação <span>▼</span></div>
-          <div class="topic-sub">Novo acordo ortográfico, hífen, crase (regras principais), vírgula e ponto e vírgula. Faça 20 questões de crase por semana.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('portugues','Língua Portuguesa')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-portugues" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>⚖️ Direito Administrativo <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Princípios + Atos Administrativos <span>▼</span></div>
-          <div class="topic-sub"><strong style="color:#ff4081">LIMPE é o mais cobrado!</strong> Elementos do ato: Competência, Finalidade, Forma, Motivo, Objeto. Vícios, anulação vs revogação, convalidação.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Licitações — Lei 14.133/21 <span>▼</span></div>
-          <div class="topic-sub">Nova lei substituiu a 8.666! Modalidades: Pregão, Concorrência, Leilão, Diálogo Competitivo. Dispensa e Inexigibilidade. Contratos, aditivos, extinção.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Servidores (Lei 8.112/90) + Improbidade <span>▼</span></div>
-          <div class="topic-sub">Provimento, vacância, estabilidade, responsabilidade civil/penal/administrativa. Improbidade (Lei 8.429/92): enriquecimento ilícito, dano ao erário, violação de princípios.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('administrativo','Direito Administrativo')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-administrativo" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>🧮 Raciocínio Lógico <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Lógica Proposicional <span>▼</span></div>
-          <div class="topic-sub">Proposições, conectivos (e/ou/se...então/sse), tabela-verdade, negação, silogismos. <strong style="color:#ff4081">🔥 Resolva 15 questões de lógica por dia!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Matemática Básica <span>▼</span></div>
-          <div class="topic-sub">Porcentagem (aparece em 80% das provas!), razão e proporção, regra de 3, juros simples, sequências. Calcule mentalmente no dia a dia.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Raciocínio Analítico <span>▼</span></div>
-          <div class="topic-sub">Diagramas de Venn, tabelas lógicas, problemas de agrupamento. Dica: desenhe sempre — nunca resolva mentalmente.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('raciocinio','Raciocínio Lógico')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-raciocinio" style="width:0%"></div></div>
-      </div>
-    </div>
-
-    <div>
-      <div class="card mb8" style="border-color:rgba(255,64,81,.25)">
-        <h3 style="color:#ff4081">🚦 Legislação de Trânsito (CTB) <span class="bx bx-r" style="margin-left:auto">EXCLUSIVO PRF</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Sistema Nacional de Trânsito <span>▼</span></div>
-          <div class="topic-sub">SNT: CONTRAN, DENATRAN, PRF, DETRAN, CIRETRAN, órgãos municipais. Competências de cada. <strong style="color:#ff4081">🔥 Composição e competências = muito cobrado!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Habilitação, Infrações e Pontuação <span>▼</span></div>
-          <div class="topic-sub">Categorias de CNH (A,B,AB,C,D,E), renovação, cassação. Infrações: leves (3pts), médias (4pts), graves (5pts), gravíssimas (7pts). Suspensão com 20pts em 12 meses. <strong style="color:#ff9800">Tabela de infrações gravíssimas — decore!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Sinalização de Trânsito <span>▼</span></div>
-          <div class="topic-sub">Vertical (regulamentação=obrigação, advertência=perigo, indicação=informação), Horizontal (faixas, marcas). Ordem de prioridade: agente &gt; semáforo &gt; sinalização &gt; norma. <strong style="color:#ff4081">🔥 Provas mostram imagens de placas!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Resoluções CONTRAN Essenciais <span>▼</span></div>
-          <div class="topic-sub">Res. 432/13 (alcoolemia: 0,05mg/L = infração; 0,34mg/L = crime), Res. 277/08 (cinto), velocidades máximas. Crimes de trânsito: art. 291-312 CTB.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('transito','Legislação de Trânsito')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-transito" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>🔒 Direito Penal <span class="bx bx-o" style="margin-left:auto">~15 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Teoria do Crime <span>▼</span></div>
-          <div class="topic-sub">Fato típico (conduta+resultado+nexo+tipicidade), ilicitude (legítima defesa, estado de necessidade), culpabilidade. Dolo e culpa. Tentativa, desistência, arrependimento. <strong style="color:#ff4081">🔥 Teoria do crime = essencial!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Penas e Extinção da Punibilidade <span>▼</span></div>
-          <div class="topic-sub">Penas privativas, restritivas, multa. Regimes penitenciários. Penas alternativas. Prescrição pela pena máxima e pela pena aplicada.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Crimes Específicos PRF <span>▼</span></div>
-          <div class="topic-sub">Crimes de trânsito (art. 291-312 CTB), embriaguez ao volante, homicídio culposo. Lei de Drogas (11.343/06): tráfico vs uso pessoal. <strong style="color:#ff9800">Para PRF: foco em crimes do CTB!</strong></div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('penal','Direito Penal')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-penal" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>⚖️ D. Processual Penal <span class="bx bx-o" style="margin-left:auto">~12 questões</span></h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Inquérito Policial <span>▼</span></div>
-          <div class="topic-sub">Características (dispensável, inquisitório, sigiloso, não contraditório). Instauração, diligências, prazo (30+30 dias solto; 5+5 preso). <strong style="color:#ff4081">🔥 IP aparece em toda prova policial!</strong></div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Prisões e Medidas Cautelares <span>▼</span></div>
-          <div class="topic-sub">Flagrante (próprio, impróprio, presumido), preventiva (requisitos do art.312), temporária (Lei 7.960/89 — 5+5 crimes comuns; 30+30 hediondos). Medidas alternativas art.319 CPP.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('processual','D. Processual Penal')">📊 Progresso</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-processual" style="width:0%"></div></div>
-      </div>
-
-      <div class="card mb8">
-        <h3>🌍 Direitos Humanos + 📋 Leg. Especial</h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Direitos Humanos — Tratados <span>▼</span></div>
-          <div class="topic-sub">Declaração Universal (1948), CADH (Pacto de San José), Estatuto da Criança (ECA), Estatuto do Idoso. Sistemas de proteção (ONU, OEA).</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Legislação Especial PRF <span>▼</span></div>
-          <div class="topic-sub">Lei de Drogas (11.343/06), Estatuto do Desarmamento (10.826/03), Lei de Org. Criminosas (12.850/13), Crimes Hediondos (8.072/90). <strong style="color:#ff9800">Diferenciar tráfico de porte para uso pessoal!</strong></div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('dh','Direitos Humanos')">📊 D. Humanos</button>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('especial','Leg. Especial')">📊 Leg. Especial</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-dh" style="width:0%"></div></div>
-        <div class="pb mt8"><div class="pf" id="prog-especial" style="width:0%"></div></div>
-      </div>
-
-      <div class="card">
-        <h3>💻 Informática + ⚡ Física + 🌐 Outros</h3>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Informática (Mês 4) <span>▼</span></div>
-          <div class="topic-sub">Windows, Office (Word/Excel/PowerPoint), Internet (navegadores, e-mail, segurança), Redes básicas. Fácil de aprender — boa relação custo/benefício!</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Física (Exclusivo PRF) <span>▼</span></div>
-          <div class="topic-sub">Cinemática (MRU, MRUV), dinâmica (leis de Newton), fluidos, energia e trabalho. Foco em aplicações de trânsito: velocidade, frenagem, colisões.</div>
-        </div>
-        <div class="topic" onclick="this.classList.toggle('open')">
-          <div class="topic-title">📌 Ética, Geopolítica, Espanhol, Redação <span>▼</span></div>
-          <div class="topic-sub">Ética: código de conduta PRF, serviço público. Geopolítica: fronteiras, drogas, acordos. Espanhol: gramática básica, interpretação. Redação: dissertação-argumentativa.</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('informatica','Informática')">📊 Info</button>
-          <button class="lbtn" style="font-size:.78em" onclick="openProgModal('fisica','Física')">📊 Física</button>
-        </div>
-        <div class="pb mt8"><div class="pf" id="prog-informatica" style="width:0%"></div></div>
-        <div class="pb mt8"><div class="pf" id="prog-fisica" style="width:0%"></div></div>
-      </div>
-    </div>
-  </div>
+<div class="stit">📚 Matérias PRF — Conteúdo Completo</div>
+<div class="g2">
+<div>
+<div class="card mb8">
+<h3>📜 Direito Constitucional <span class="bx bx-r" style="margin-left:auto">~30 questões</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Princípios Fundamentais (Art. 1–4) <span>▼</span></div><div class="topic-sub">Fundamentos: soberania, cidadania, dignidade. Objetivos: Art. 3º. Relações internacionais: Art. 4º. <strong style="color:#ff9800">⚡ Cai muito!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Direitos Fundamentais — Art. 5º <span>▼</span></div><div class="topic-sub">O artigo mais cobrado! Remédios: HC, MS, HD, MI, AP. <strong style="color:#ff4081">🔥 Leia o Art. 5º 3 vezes!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Organização do Estado (Art. 18–43) <span>▼</span></div><div class="topic-sub">Competências: exclusivas (art.21), privativas (art.22), concorrentes (art.24), comuns (art.23). <strong style="color:#ff9800">Diferença entre competências!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Administração Pública — Art. 37 (LIMPE) <span>▼</span></div><div class="topic-sub"><strong style="color:#ff4081">LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência</strong> — aparece em TODA prova!</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('constitucional','Direito Constitucional')">📊 Progresso</button>
 </div>
-<!-- ===== ABA MÉTODO + POMODORO ===== -->
+<div class="pb mt8"><div class="pf" id="prog-constitucional" style="width:0%"></div></div>
+</div>
+<div class="card mb8">
+<h3>📝 Língua Portuguesa <span class="bx bx-o" style="margin-left:auto">~25 questões</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Interpretação de Texto <span>▼</span></div><div class="topic-sub"><strong style="color:#ff4081">50% das questões!</strong> Leia 1 artigo por dia.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Gramática — Morfologia e Sintaxe <span>▼</span></div><div class="topic-sub">Concordância verbal/nominal, regência. <strong style="color:#ff9800">Campeões de questões!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Ortografia, Crase e Pontuação <span>▼</span></div><div class="topic-sub">Novo acordo ortográfico, crase (regras principais), vírgula.</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('portugues','Língua Portuguesa')">📊 Progresso</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-portugues" style="width:0%"></div></div>
+</div>
+<div class="card mb8">
+<h3>⚖️ Direito Administrativo <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Princípios + Atos Administrativos <span>▼</span></div><div class="topic-sub"><strong style="color:#ff4081">LIMPE é o mais cobrado!</strong> Anulação vs revogação.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Licitações — Lei 14.133/21 <span>▼</span></div><div class="topic-sub">Nova lei! Modalidades: Pregão, Concorrência, Leilão.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Servidores (Lei 8.112/90) + Improbidade <span>▼</span></div><div class="topic-sub">Estabilidade, responsabilidade. Improbidade: Lei 8.429/92.</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('administrativo','Direito Administrativo')">📊 Progresso</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-administrativo" style="width:0%"></div></div>
+</div>
+<div class="card mb8">
+<h3>🧮 Raciocínio Lógico <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Lógica Proposicional <span>▼</span></div><div class="topic-sub">Proposições, conectivos, tabela-verdade, silogismos. <strong style="color:#ff4081">🔥 15 questões/dia!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Matemática Básica <span>▼</span></div><div class="topic-sub">Porcentagem (80% das provas!), razão, proporção, juros.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Raciocínio Analítico <span>▼</span></div><div class="topic-sub">Diagramas de Venn, tabelas lógicas. Sempre desenhe!</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('raciocinio','Raciocínio Lógico')">📊 Progresso</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-raciocinio" style="width:0%"></div></div>
+</div>
+</div>
+<div>
+<div class="card mb8" style="border-color:rgba(255,64,81,.25)">
+<h3 style="color:#ff4081">🚦 Legislação de Trânsito (CTB) <span class="bx bx-r" style="margin-left:auto">EXCLUSIVO PRF</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Sistema Nacional de Trânsito <span>▼</span></div><div class="topic-sub">SNT: CONTRAN, DENATRAN, PRF, DETRAN. <strong style="color:#ff4081">🔥 Muito cobrado!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Habilitação, Infrações e Pontuação <span>▼</span></div><div class="topic-sub">Categorias CNH. Infrações: leves(3pts), médias(4pts), graves(5pts), gravíssimas(7pts). 20pts = suspensão.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Sinalização de Trânsito <span>▼</span></div><div class="topic-sub">Vertical, horizontal. Ordem: agente &gt; semáforo &gt; sinalização &gt; norma. <strong style="color:#ff4081">🔥 Provas mostram imagens!</strong></div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('transito','Leg. Trânsito')">📊 Progresso</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-transito" style="width:0%"></div></div>
+</div>
+<div class="card mb8">
+<h3>🔒 Direito Penal <span class="bx bx-o" style="margin-left:auto">~15 questões</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Teoria do Crime <span>▼</span></div><div class="topic-sub">Fato típico, ilicitude, culpabilidade. Dolo e culpa. <strong style="color:#ff4081">🔥 Essencial!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Penas e Extinção da Punibilidade <span>▼</span></div><div class="topic-sub">Penas privativas, restritivas, multa. Prescrição.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Crimes Específicos PRF <span>▼</span></div><div class="topic-sub">Crimes de trânsito (art. 291-312 CTB), Lei de Drogas.</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('penal','Direito Penal')">📊 Progresso</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-penal" style="width:0%"></div></div>
+</div>
+<div class="card mb8">
+<h3>⚖️ D. Processual Penal + D. Humanos</h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Inquérito Policial <span>▼</span></div><div class="topic-sub">Características, prazo. <strong style="color:#ff4081">🔥 IP aparece em toda prova policial!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Direitos Humanos — Tratados <span>▼</span></div><div class="topic-sub">DUDH (1948), CADH, ECA, Estatuto do Idoso.</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('processual','D. Processual')">📊</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('dh','D. Humanos')">📊</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-processual" style="width:0%"></div></div>
+<div class="pb mt8"><div class="pf" id="prog-dh" style="width:0%"></div></div>
+</div>
+<div class="card">
+<h3>💻 Informática + ⚡ Física + 🌐 Outros</h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Informática (Mês 4) <span>▼</span></div><div class="topic-sub">Windows, Office, Internet, Redes básicas.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Física (Exclusivo PRF) <span>▼</span></div><div class="topic-sub">Cinemática, dinâmica, fluidos. Foco em trânsito.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Ética, Geopolítica, Espanhol, Redação <span>▼</span></div><div class="topic-sub">Ética PRF, fronteiras, espanhol básico, dissertação.</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('informatica','Informática')">📊</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('fisica','Física')">📊</button>
+</div>
+<div class="pb mt8"><div class="pf" id="prog-informatica" style="width:0%"></div></div>
+<div class="pb mt8"><div class="pf" id="prog-fisica" style="width:0%"></div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== ABA MÉTODO ===== -->
 <div id="tc-metodo" class="tc">
-  <div class="stit">🎯 Método de Estudo + Timer Pomodoro</div>
-  <div class="g2">
-    <div class="card" style="border-color:rgba(0,198,255,.3)">
-      <h3 class="gold">⏱ Timer Pomodoro</h3>
-      <div style="text-align:center;padding:16px">
-        <div class="pomo-ring" id="pomoRing"><span id="pomoTime">25:00</span></div>
-        <div style="font-size:.88em;color:#8fa3c7;margin-bottom:12px" id="pomoStatus">🟢 Sessão de Estudo</div>
-        <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
-          <button class="btn btn-p" onclick="pomoCfg(25,5)">25/5 min</button>
-          <button class="btn btn-p" onclick="pomoCfg(50,10)">50/10 min</button>
-          <button class="btn btn-p" onclick="pomoCfg(90,15)">90/15 min</button>
-        </div>
-        <div style="display:flex;gap:7px;justify-content:center">
-          <button class="btn btn-s" id="pomoBtn" onclick="togglePomo()">▶ Iniciar</button>
-          <button class="btn btn-w" onclick="resetPomo()">⏹ Reset</button>
-        </div>
-        <div style="margin-top:10px;font-size:.8em;color:#8fa3c7">Sessão <span id="pomoCount">1</span>/4 | Total hoje: <span id="pomoTotal">0</span> 🍅</div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>📊 Sessões Diárias</h3>
-      <div style="font-weight:700;color:#00c6ff;font-size:.85em;margin-bottom:8px">🌙 04:00–06:30 (2h30)</div>
-      <div class="mg mb8">
-        <div class="mb"><div class="ico">🎬</div><div class="lbl">Videoaula 1.5x</div><div class="tim" style="color:#00c6ff">1h 15min</div></div>
-        <div class="mb"><div class="ico">📄</div><div class="lbl">PDF Resumido</div><div class="tim" style="color:#00e676">45min</div></div>
-        <div class="mb"><div class="ico">📝</div><div class="lbl">Mapa Mental</div><div class="tim" style="color:#ffd700">30min</div></div>
-      </div>
-      <div style="font-weight:700;color:#ff9800;font-size:.85em;margin-bottom:8px">🌆 18:00–22:00 (4h)</div>
-      <div class="mg mb8">
-        <div class="mb"><div class="ico">📖</div><div class="lbl">Revisão PDF</div><div class="tim" style="color:#00c6ff">1h</div></div>
-        <div class="mb"><div class="ico">✏️</div><div class="lbl">Questões (min 50)</div><div class="tim" style="color:#ff4081">2h</div></div>
-        <div class="mb"><div class="ico">🔄</div><div class="lbl">Revisão Erros</div><div class="tim" style="color:#ffd700">1h</div></div>
-      </div>
-      <div style="background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:9px;padding:10px;font-size:.82em;line-height:1.8">
-        ✅ Videoaulas em 1.5x — economiza 30% do tempo<br>
-        ✅ Mínimo 50 questões por noite<br>
-        ✅ Anote TODOS os erros num caderninho<br>
-        ✅ Releia os erros no dia seguinte<br>
-        ✅ Meta mensal: 1.200+ questões
-      </div>
-    </div>
-  </div>
-  <div class="card mt12">
-    <h3>📈 Controle de Questões — Hoje</h3>
-    <div class="g3" id="questGrid"></div>
-    <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
-      <span style="font-size:.85em;color:#8fa3c7">Adicionar:</span>
-      <select class="sel" id="qSubj"><option>Direito Constitucional</option><option>Língua Portuguesa</option><option>Direito Administrativo</option><option>Raciocínio Lógico</option><option>Direito Penal</option><option>Legislação de Trânsito</option><option>Outras</option></select>
-      <input type="number" class="inp" id="qNum" value="50" min="1" max="300" style="width:80px">
-      <button class="btn btn-s" onclick="addQuest()">+ Registrar</button>
-    </div>
-  </div>
+<div class="stit">🎯 Método de Estudo</div>
+<div class="g2">
+<div class="card">
+<h3>📊 Sessões Diárias</h3>
+<div style="font-weight:700;color:#00c6ff;font-size:.85em;margin-bottom:8px">🌙 04:00–06:30 (2h30)</div>
+<div class="mg mb8">
+<div class="mb"><div class="ico">🎬</div><div class="lbl">Videoaula 1.5x</div><div class="tim" style="color:#00c6ff">1h 15min</div></div>
+<div class="mb"><div class="ico">📄</div><div class="lbl">PDF Resumido</div><div class="tim" style="color:#00e676">45min</div></div>
+<div class="mb"><div class="ico">📝</div><div class="lbl">Mapa Mental</div><div class="tim" style="color:#ffd700">30min</div></div>
+</div>
+<div style="font-weight:700;color:#ff9800;font-size:.85em;margin-bottom:8px">🌆 18:00–22:00 (4h)</div>
+<div class="mg mb8">
+<div class="mb"><div class="ico">📖</div><div class="lbl">Revisão PDF</div><div class="tim" style="color:#00c6ff">1h</div></div>
+<div class="mb"><div class="ico">✏️</div><div class="lbl">Questões (min 50)</div><div class="tim" style="color:#ff4081">2h</div></div>
+<div class="mb"><div class="ico">🔄</div><div class="lbl">Revisão Erros</div><div class="tim" style="color:#ffd700">1h</div></div>
+</div>
+<div style="background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:9px;padding:10px;font-size:.82em;line-height:1.8">
+✅ Videoaulas em 1.5x — economiza 30% do tempo<br>
+✅ Mínimo 50 questões por noite<br>
+✅ Anote TODOS os erros num caderninho<br>
+✅ Releia os erros no dia seguinte<br>
+✅ Meta mensal: 1.200+ questões
+</div>
+</div>
+<div class="card">
+<h3>📈 Controle de Questões — Hoje</h3>
+<div class="g3" id="questGrid"></div>
+<div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
+<span style="font-size:.85em;color:#8fa3c7">Adicionar:</span>
+<select class="sel" id="qSubj"><option>Direito Constitucional</option><option>Língua Portuguesa</option><option>Direito Administrativo</option><option>Raciocínio Lógico</option><option>Direito Penal</option><option>Legislação de Trânsito</option><option>Outras</option></select>
+<input type="number" class="inp" id="qNum" value="50" min="1" max="300" style="width:80px">
+<button class="btn btn-s" onclick="addQuest()">+ Registrar</button>
+</div>
+</div>
+</div>
+<div class="card mt12">
+<h3 class="gold">⏱ Timer Pomodoro Rápido</h3>
+<div style="text-align:center;padding:16px">
+<div class="pomo-ring" id="pomoRing"><span id="pomoTime">25:00</span></div>
+<div style="font-size:.88em;color:#8fa3c7;margin-bottom:12px" id="pomoStatus">🟢 Sessão de Estudo</div>
+<div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
+<button class="btn btn-p" onclick="pomoCfg(25,5)">25/5 min</button>
+<button class="btn btn-p" onclick="pomoCfg(50,10)">50/10 min</button>
+<button class="btn btn-p" onclick="pomoCfg(90,15)">90/15 min</button>
+</div>
+<div style="display:flex;gap:7px;justify-content:center">
+<button class="btn btn-s" id="pomoBtn" onclick="togglePomo()">▶ Iniciar</button>
+<button class="btn btn-w" onclick="resetPomo()">⏹ Reset</button>
+</div>
+<div style="margin-top:10px;font-size:.8em;color:#8fa3c7">Sessão <span id="pomoCount">1</span>/4 | Total hoje: <span id="pomoTotal">0</span> 🍅</div>
+<div style="margin-top:12px">
+<button class="btn btn-p w100" onclick="sw('pomodoro',document.getElementById('btn-pomodoro'))">⏱ Abrir Pomodoro Completo (Gran Cursos)</button>
+</div>
+</div>
+</div>
 </div>
 
+<!-- ===== ABA POMODORO (IFRAME) ===== -->
+<div id="tc-pomodoro" class="tc-iframe">
+<div class="iframe-warn">⚠️ <span>Se o conteúdo não carregar, <a href="https://gerenciador.grancursosonline.com.br/" target="_blank" style="color:#ffd700">clique aqui para abrir em nova aba</a></span></div>
+<iframe src="https://gerenciador.grancursosonline.com.br/" class="iframe-container" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
+</div>
+
+<!-- ===== ABA QUESTÕES (IFRAME) ===== -->
+<div id="tc-questoes" class="tc-iframe">
+<div style="padding:8px 18px">
+<div class="iframe-warn">⚠️ <span>Se não carregar, <a href="https://questoes.grancursosonline.com.br/aluno/novo-programa-de-estudo/prf-policial-rodoviario-federal" target="_blank" style="color:#ffd700">abrir em nova aba</a></span></div>
+</div>
+<iframe src="https://questoes.grancursosonline.com.br/aluno/novo-programa-de-estudo/prf-policial-rodoviario-federal" class="iframe-container" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation" style="height:calc(100vh - 200px)"></iframe>
+</div>
+
+<!-- ===== ABA CHATGPT (IFRAME) ===== -->
+<div id="tc-chatgpt" class="tc-iframe">
+<div style="padding:8px 18px">
+<div class="iframe-warn">⚠️ <span>Se não carregar (bloqueio de iframe), <a href="https://chatgpt.com/c/6a0e590f-176c-83e9-8ff3-19790882e4f1" target="_blank" style="color:#ffd700">abrir em nova aba</a></span></div>
+</div>
+<iframe src="https://chatgpt.com/c/6a0e590f-176c-83e9-8ff3-19790882e4f1" class="iframe-container" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation" style="height:calc(100vh - 200px)"></iframe>
+</div>
 <!-- ===== ABA MARKETING ===== -->
 <div id="tc-mkt" class="tc">
-  <div class="stit">📱 Marketing — 3 Meses (Mai–Jul 2026)</div>
-  <div style="background:rgba(255,64,81,.1);border:1px solid #ff4081;border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
-    ⚡ <strong style="color:#ff4081">URGÊNCIA:</strong> 3 meses — 09:00–12:00 (dias úteis, 3h/dia).
-    <strong style="color:#ffd700">Reservatório de Dopamina = TODOS os dias sem exceção!</strong>
-  </div>
-  <div class="rcat" style="border-color:rgba(255,215,0,.4)">
-    <h4 style="color:#ffd700">⭐ Reservatório de Dopamina <span class="bx bx-r" style="margin-left:8px">DIÁRIO — PRIORIDADE MÁXIMA</span></h4>
-    <div class="rcat-item" id="rc-dopamina">
-      <div class="rcat-item-ico">📊</div>
-      <div class="rcat-item-info">
-        <div class="rcat-item-name">Reservatório de Dopamina</div>
-        <div class="rcat-item-desc">⏱ 15–20 min/dia | <strong style="color:#ff4081">NÃO pule nenhum dia!</strong> Streak atual: <span id="dopDays">0</span> dias 🔥<br>Dica: estude logo ao acordar ou nos 5 primeiros min do almoço.</div>
-        <div class="pb mt8"><div class="pf" id="prog-dopamina" style="width:0%"></div></div>
-      </div>
-      <button class="btn btn-s" style="font-size:.75em;flex-shrink:0" onclick="markDop()">✅ Feito!</button>
-    </div>
-  </div>
-  <div class="g2">
-    <div>
-      <div class="rcat" style="border-color:rgba(255,64,81,.3)">
-        <h4 style="color:#ff4081">🔴 MÊS 1 (Mai–Jun 2026)</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎯</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Pedro Sobral — Live Gratuita <span class="bx bx-r">URGENTE</span></div>
-            <div class="rcat-item-desc">Tráfego pago. ⏱ 09:00–10:30 (Seg+Ter Mês 1)<br>📌 Meta Ads, Google Ads, estratégia de anúncios<br>🎯 Aplique: crie 1 campanha teste após cada aula</div>
-            <div class="pb mt8"><div class="pf" id="prog-pedro" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('pedro','Pedro Sobral')">📊</button>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🤖</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Curso de Claude (IA) <span class="bx bx-r">URGENTE</span></div>
-            <div class="rcat-item-desc">Automação com IA. ⏱ 09:00–10:30 (Qua+Qui Mês 1)<br>📌 Prompts, automações, criação de conteúdo<br>🎯 Automatize 1 tarefa de marketing/semana</div>
-            <div class="pb mt8"><div class="pf" id="prog-claude" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('claude','Curso Claude')">📊</button>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">👑</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Comunidade Carol Cantelli <span class="bx bx-o">MÊS 1–2</span></div>
-            <div class="rcat-item-desc">Marketing digital. ⏱ 2x/semana, 30–40 min<br>📌 Conteúdo, presença digital, vendas<br>🎯 Implemente 1 estratégia nova/semana</div>
-            <div class="pb mt8"><div class="pf" id="prog-carol" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('carol','Carol Cantelli')">📊</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="rcat" style="border-color:rgba(30,111,217,.3)">
-        <h4 style="color:#4aa8ff">🔵 MÊS 2–3 — Produção de Vídeo</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎬</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Curso Fill Rocha — Vídeo <span class="bx bx-b">MÊS 2</span></div>
-            <div class="rcat-item-desc">Produção de vídeo. ⏱ 1h/dia Seg–Qua Mês 2<br>📌 Filmagem, edição, roteiro, thumbnail<br>🎯 Produza 1 vídeo curto/semana</div>
-            <div class="pb mt8"><div class="pf" id="prog-fill" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('fill','Fill Rocha')">📊</button>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎥</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Curso Vídeo Extra 1 <span class="bx bx-b">MÊS 2–3</span></div>
-            <div class="rcat-item-desc">⏱ 1h/dia Qui–Sex Mês 2 + início Mês 3<br>Técnicas avançadas + distribuição de conteúdo</div>
-            <div class="pb mt8"><div class="pf" id="prog-vid1" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid1','Vídeo Extra 1')">📊</button>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">📹</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Curso Vídeo Extra 2 <span class="bx bx-g">MÊS 3</span></div>
-            <div class="rcat-item-desc">⏱ Mês 3 completo | YouTube, Reels, TikTok<br>🎯 Lançar canal profissional ao final!</div>
-            <div class="pb mt8"><div class="pf" id="prog-vid2" style="width:0%"></div></div>
-          </div>
-          <button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid2','Vídeo Extra 2')">📊</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="stit">📱 Marketing — 3 Meses (Mai–Jul 2026)</div>
+<div style="background:rgba(255,64,81,.1);border:1px solid #ff4081;border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
+⚡ <strong style="color:#ff4081">URGÊNCIA:</strong> 3 meses — 09:00–12:00. <strong style="color:#ffd700">Reservatório de Dopamina = TODOS os dias!</strong>
+</div>
+<div class="rcat" style="border-color:rgba(255,215,0,.4)">
+<h4 style="color:#ffd700">⭐ Reservatório de Dopamina <span class="bx bx-r" style="margin-left:8px">DIÁRIO</span></h4>
+<div class="rcat-item" id="rc-dopamina">
+<div class="rcat-item-ico">📊</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Reservatório de Dopamina</div>
+<div class="rcat-item-desc">⏱ 15–20 min/dia | <strong style="color:#ff4081">NÃO pule!</strong> Streak: <span id="dopDays">0</span> dias 🔥</div>
+<div class="pb mt8"><div class="pf" id="prog-dopamina" style="width:0%"></div></div>
+</div>
+<button class="btn btn-s" style="font-size:.75em;flex-shrink:0" onclick="markDop()">✅ Feito!</button>
+</div>
+</div>
+<div class="g2">
+<div>
+<div class="rcat" style="border-color:rgba(255,64,81,.3)">
+<h4 style="color:#ff4081">🔴 MÊS 1 (Mai–Jun 2026)</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎯</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Pedro Sobral — Live Gratuita <span class="bx bx-r">URGENTE</span></div>
+<div class="rcat-item-desc">Tráfego pago. ⏱ 09:00–10:30 (Seg+Ter Mês 1)</div>
+<div class="pb mt8"><div class="pf" id="prog-pedro" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('pedro','Pedro Sobral')">📊</button>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🤖</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Curso de Claude (IA) <span class="bx bx-r">URGENTE</span></div>
+<div class="rcat-item-desc">Automação com IA. ⏱ 09:00–10:30 (Qua+Qui Mês 1)</div>
+<div class="pb mt8"><div class="pf" id="prog-claude" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('claude','Curso Claude')">📊</button>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">👑</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Comunidade Carol Cantelli <span class="bx bx-o">MÊS 1–2</span></div>
+<div class="rcat-item-desc">Marketing digital. ⏱ 2x/semana</div>
+<div class="pb mt8"><div class="pf" id="prog-carol" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('carol','Carol Cantelli')">📊</button>
+</div>
+</div>
+</div>
+<div>
+<div class="rcat" style="border-color:rgba(30,111,217,.3)">
+<h4 style="color:#4aa8ff">🔵 MÊS 2–3 — Produção de Vídeo</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎬</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Curso Fill Rocha — Vídeo <span class="bx bx-b">MÊS 2</span></div>
+<div class="rcat-item-desc">Produção de vídeo. ⏱ 1h/dia Seg–Qua Mês 2</div>
+<div class="pb mt8"><div class="pf" id="prog-fill" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('fill','Fill Rocha')">📊</button>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎥</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Curso Vídeo Extra 1 <span class="bx bx-b">MÊS 2–3</span></div>
+<div class="rcat-item-desc">⏱ 1h/dia Qui–Sex Mês 2</div>
+<div class="pb mt8"><div class="pf" id="prog-vid1" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid1','Vídeo Extra 1')">📊</button>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">📹</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Curso Vídeo Extra 2 <span class="bx bx-g">MÊS 3</span></div>
+<div class="rcat-item-desc">⏱ Mês 3 | YouTube, Reels, TikTok</div>
+<div class="pb mt8"><div class="pf" id="prog-vid2" style="width:0%"></div></div>
+</div>
+<button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid2','Vídeo Extra 2')">📊</button>
+</div>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ===== ABA AGENDA ===== -->
-<div id="tc-agenda" class="tc">
-  <div class="stit">📅 Agenda Semanal Completa</div>
-  <div class="g2">
-    <div class="card">
-      <h3>📋 Segunda a Sexta</h3>
-      <div class="tblk tb-sl"><div class="tr">00:00–04:00</div><div class="td">😴 Sono (4h)</div></div>
-      <div class="tblk tb-st"><div class="tr" id="agManha">04:00–06:30</div><div class="td">📚 Estudo — Videoaula + PDF</div></div>
-      <div class="tblk tb-fr"><div class="tr">06:30–09:00</div><div class="td">🌅 Preparação, café, oração</div></div>
-      <div class="tblk tb-mk"><div class="tr" id="agMkt">09:00–12:00</div><div class="td">📱 Marketing + Reservatório</div></div>
-      <div class="tblk tb-fr"><div class="tr">12:00–13:00</div><div class="td">🍽️ Almoço + descanso</div></div>
-      <div class="tblk tb-wk"><div class="tr" id="agWork">13:00–18:00</div><div class="td">💼 Trabalho</div></div>
-      <div class="tblk tb-st"><div class="tr" id="agNoite">18:00–22:00</div><div class="td">🚔 Estudo — PDF + Questões</div></div>
-      <div class="tblk tb-sl"><div class="tr">22:00–04:00</div><div class="td">😴 Sono (6h)</div></div>
-    </div>
-    <div>
-      <div class="card mb8">
-        <h3>⛪ Sábado</h3>
-        <div class="tblk tb-ch"><div class="tr">07:30–09:00</div><div class="td">⛪ Servir na Missa</div></div>
-        <div class="tblk tb-mk"><div class="tr">09:00–12:00</div><div class="td">📱 Marketing + Reservatório</div></div>
-        <div class="tblk tb-st"><div class="tr">13:00–15:00</div><div class="td">📚 Concurso — Questões</div></div>
-        <div class="tblk tb-ch"><div class="tr">15:00–16:00</div><div class="td">⛪ Comunhão</div></div>
-        <div class="tblk tb-ch"><div class="tr">16:00–18:00</div><div class="td">⛪ Catecismo</div></div>
-        <div class="tblk tb-lz"><div class="tr">18:00–22:00</div><div class="td">🎁 LAZER — Violão, amigos!</div></div>
-      </div>
-      <div class="card">
-        <h3>⛪ Domingo</h3>
-        <div class="tblk tb-ch"><div class="tr">07:00–09:00</div><div class="td">⛪ Missa dominical</div></div>
-        <div class="tblk tb-mk"><div class="tr">09:30–10:00</div><div class="td">📱 Reservatório (30min)</div></div>
-        <div class="tblk tb-st"><div class="tr">10:00–12:00</div><div class="td">📚 Revisão leve + questões</div></div>
-        <div class="tblk tb-lz"><div class="tr">12:00+</div><div class="td">🎁 DESCANSO TOTAL!</div></div>
-      </div>
-    </div>
-  </div>
+<!-- ===== ABA AGENDA (IFRAME Google Calendar) ===== -->
+<div id="tc-agenda" class="tc-iframe">
+<div style="padding:8px 18px 0">
+<div class="iframe-warn">📅 <span>Agenda Google Calendar — <a href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank" style="color:#ffd700">Abrir em nova aba</a></span></div>
 </div>
-
+<iframe src="https://calendar.google.com/calendar/u/0/r?pli=1" class="iframe-container" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation" style="height:calc(100vh - 200px)"></iframe>
+</div>
 <!-- ===== ABA CALENDÁRIO ===== -->
 <div id="tc-cal" class="tc">
-  <div class="stit">🗓️ Calendário Interativo</div>
-  <div class="g2">
-    <div class="card">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <button class="btn btn-p" onclick="prevMonth()">◀</button>
-        <span style="flex:1;text-align:center;font-weight:700;color:#ffd700" id="calTitle"></span>
-        <button class="btn btn-p" onclick="nextMonth()">▶</button>
-      </div>
-      <div class="cg" id="calGrid"></div>
-      <div style="display:flex;gap:10px;margin-top:10px;font-size:.75em;flex-wrap:wrap">
-        <span>🟢 Estudou</span><span>🟡 Igreja/Descanso</span><span>🔵 Hoje</span>
-      </div>
-    </div>
-    <div class="card">
-      <h3>📊 Mês Atual</h3>
-      <div id="monthStats"></div>
-      <div style="margin-top:12px">
-        <h3 style="color:#4aa8ff;font-size:.9em;margin-bottom:8px">📝 Dia: <span id="selDay" style="color:#ffd700">—</span></h3>
-        <div id="selDayInfo" style="background:rgba(255,255,255,.05);border-radius:9px;padding:12px;min-height:60px;font-size:.83em;color:#8fa3c7">Clique em um dia</div>
-        <textarea class="inp w100 mt8" id="dayNote" rows="3" placeholder="Nota do dia (o que estudou, dificuldades, vitórias...)"></textarea>
-        <div style="display:flex;gap:7px;margin-top:7px">
-          <button class="btn btn-p" onclick="saveNote()">💾 Salvar nota</button>
-          <button class="btn btn-s" onclick="markStudied()">✅ Marcar estudado</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="stit">🗓️ Calendário Interativo</div>
+<div class="g2">
+<div class="card">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<button class="btn btn-p" onclick="prevMonth()">◀</button>
+<span style="flex:1;text-align:center;font-weight:700;color:#ffd700" id="calTitle"></span>
+<button class="btn btn-p" onclick="nextMonth()">▶</button>
 </div>
+<div class="cg" id="calGrid"></div>
+<div style="display:flex;gap:10px;margin-top:10px;font-size:.75em;flex-wrap:wrap">
+<span>🟢 Estudou</span><span>🟡 Igreja/Descanso</span><span>🔵 Hoje</span>
+</div>
+</div>
+<div class="card">
+<h3>📊 Mês Atual</h3>
+<div id="monthStats"></div>
+<div style="margin-top:12px">
+<h3 style="color:#4aa8ff;font-size:.9em;margin-bottom:8px">📝 Dia: <span id="selDay" style="color:#ffd700">—</span></h3>
+<div id="selDayInfo" style="background:rgba(255,255,255,.05);border-radius:9px;padding:12px;min-height:60px;font-size:.83em;color:#8fa3c7">Clique em um dia</div>
+<textarea class="inp w100 mt8" id="dayNote" rows="3" placeholder="Nota do dia..."></textarea>
+<div style="display:flex;gap:7px;margin-top:7px">
+<button class="btn btn-p" onclick="saveNote()">💾 Salvar nota</button>
+<button class="btn btn-s" onclick="markStudied()">✅ Marcar estudado</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 <!-- ===== ABA RECOMPENSAS ===== -->
 <div id="tc-rec" class="tc">
-  <div class="stit">🎁 Recompensas — Celebre Cada Vitória!</div>
-  <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.25);border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em;color:#8fa3c7">
-    🎯 <strong style="color:#ffd700">Regra:</strong> Após cada sessão completa → escolha 1 recompensa. Após 7 dias seguidos → recompensa especial! 🏆
-  </div>
-  <div class="g2">
-    <div>
-      <div class="rcat" style="border-color:rgba(74,168,255,.3)">
-        <h4 style="color:#4aa8ff">📖 Leitura Prazerosa</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">💕</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Romance</div>
-            <div class="rcat-item-desc">✨ Sugestões: <em>"A Culpa é das Estrelas"</em> (John Green), <em>"It Ends With Us"</em> (Colleen Hoover), <em>"O Caderno de Noah"</em>, <em>"Me Chame Pelo Seu Nome"</em><br>💡 Romance é ideal para desacelerar o cérebro pós-estudo intenso.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="30" min="15" max="120" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🔮</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Fantasia / Aventura</div>
-            <div class="rcat-item-desc">✨ Sugestões: <em>"Harry Potter"</em>, <em>"O Hobbit"</em>, <em>"Percy Jackson"</em>, <em>"Duna"</em>, <em>"O Senhor dos Anéis"</em><br>💡 Fantasia estimula criatividade e reduz ansiedade de prova.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="30" min="15" max="120" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">💡</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Desenvolvimento Pessoal</div>
-            <div class="rcat-item-desc">✨ Sugestões: <em>"Atomic Habits"</em> (James Clear), <em>"Mindset"</em> (Carol Dweck), <em>"O Poder do Hábito"</em>, <em>"Essencialismo"</em>, <em>"Vai Lá e Faz"</em><br>💡 Reforça a mentalidade de crescimento para os estudos! 🌱</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="20" min="10" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">😂</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Humor / Crônicas</div>
-            <div class="rcat-item-desc">✨ Sugestões: Luis Fernando Veríssimo (crônicas), <em>"Causo de Gastronomia"</em>, Millôr Fernandes, charges e HQs<br>💡 Rir libera tensão — ótimo após maratona de questões!</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="20" min="10" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rcat" style="border-color:rgba(0,230,118,.3)">
-        <h4 style="color:#00e676">🎸 Música & Violão</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎸</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Tocar Violão</div>
-            <div class="rcat-item-desc">🎵 Sugestões: Gospel favoritas, MPB clássica, Sertanejo, Pop acústico<br>📚 Aprenda 1 música nova por semana — acordes: Dó, Sol, Mi, Lá, Ré<br>💡 A música reduz o cortisol (hormônio do estresse) em até 60%!</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="30" min="15" max="90" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎤</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Cantar À Vontade</div>
-            <div class="rcat-item-desc">Volume máximo, músicas favoritas, sem julgamento! 😄<br>💡 Cantar libera endorfinas — é terapêutico de verdade!</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="20" min="10" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="rcat" style="border-color:rgba(255,215,0,.35)">
-        <h4 style="color:#ffd700">💬 Tempo Social</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')" id="rewAmigos">
-          <div class="rcat-item-ico">💬</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Conversar com Amigos</div>
-            <div class="rcat-item-desc">Ligue, mande mensagem, café virtual ou presencial 💙<br>Dica: conte que está estudando para PRF — amigos te motivam!<br>Conexão social é fundamental para o bem-estar emocional.</div>
-            <div class="time-sel">
-              <span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span>
-              <input type="number" class="inp" id="socialMinutes" value="30" min="10" max="120" style="width:70px;font-size:.8em" onclick="event.stopPropagation()">
-              <span style="font-size:.78em;color:#8fa3c7">min</span>
-              <button class="btn btn-p" style="font-size:.72em;padding:4px 8px" onclick="event.stopPropagation();startSocialTimer()">⏱ Iniciar timer</button>
-            </div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">☕</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Café / Chá com Calma</div>
-            <div class="rcat-item-desc">Sem celular, sem estudo. Só você e o momento ☕<br>Prepara a bebida, senta num lugar confortável — mindful coffee!<br>15–20 minutos de paz total fazem milagres.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="20" min="10" max="45" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rcat" style="border-color:rgba(124,77,255,.3)">
-        <h4 style="color:#b39ddb">🎬 Entretenimento</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎬</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">1 Episódio de Série</div>
-            <div class="rcat-item-desc">⚖️ Sugestões com conexão jurídica: <em>Boston Legal</em>, <em>Suits</em>, <em>How to Get Away with Murder</em><br>🎭 Para relaxar: <em>The Crown</em>, <em>Sherlock</em>, <em>Dark</em>, <em>Stranger Things</em><br>Regra: 1 episódio = 1 sessão completa de estudo ✅</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Duração:</span><input type="number" class="inp" value="45" min="20" max="90" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🎮</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Jogar</div>
-            <div class="rcat-item-desc">🧩 Jogos de lógica: xadrez online, Wordle, Duolingo (espanhol!), puzzle<br>🎯 Jogos estratégia: exercitam raciocínio — aproveitamento real!<br>Qualquer jogo que te dê alegria conta 🎮</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="30" min="15" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rcat" style="border-color:rgba(0,198,255,.3)">
-        <h4 style="color:#00c6ff">🧘 Descanso Ativo</h4>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🚶</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Caminhada ao Ar Livre</div>
-            <div class="rcat-item-desc">Caminhe sem fone, olhando ao redor ☀️<br>💡 O exercício consolida a memória — você lembra mais do que estudou!<br>O sol recarrega energia para a próxima sessão.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Duração:</span><input type="number" class="inp" value="20" min="10" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🛁</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Banho Relaxante + Ritual</div>
-            <div class="rcat-item-desc">Banho quente, skincare, hidratação, roupa confortável 🌸<br>Rituais de cuidado sinalizam ao cérebro: "mudei de modo".<br>Coloque música tranquila ou podcast motivacional.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="30" min="15" max="60" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-        <div class="rcat-item" onclick="this.classList.toggle('selected')">
-          <div class="rcat-item-ico">🙏</div>
-          <div class="rcat-item-info">
-            <div class="rcat-item-name">Meditação / Oração Contemplativa</div>
-            <div class="rcat-item-desc">Respiração profunda ou oração silenciosa 🙏<br>Apps: Calm, Insight Timer (gratuitos)<br>Ótimo para ansiedade pré-prova e clareza mental.</div>
-            <div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱ Tempo:</span><input type="number" class="inp" value="15" min="5" max="30" style="width:70px;font-size:.8em" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card mt12">
-    <h3 class="gold">🏆 Conquistas</h3>
-    <div id="achList"></div>
-  </div>
+<div class="stit">🎁 Recompensas — Celebre Cada Vitória!</div>
+<div class="g2">
+<div>
+<div class="rcat" style="border-color:rgba(74,168,255,.3)">
+<h4 style="color:#4aa8ff">📖 Leitura Prazerosa</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">💕</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Romance</div>
+<div class="rcat-item-desc">"A Culpa é das Estrelas", "It Ends With Us", "O Caderno de Noah"</div>
+<div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="30" min="15" max="120" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
+</div>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">💡</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Desenvolvimento Pessoal</div>
+<div class="rcat-item-desc">"Atomic Habits", "Mindset", "O Poder do Hábito"</div>
+<div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="20" min="10" max="60" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
+</div>
+</div>
+</div>
+<div class="rcat" style="border-color:rgba(0,230,118,.3)">
+<h4 style="color:#00e676">🎸 Música & Violão</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎸</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Tocar Violão</div>
+<div class="rcat-item-desc">Gospel, MPB, Sertanejo. Aprenda 1 música nova/semana!</div>
+<div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="30" min="15" max="90" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="rcat" style="border-color:rgba(255,215,0,.35)">
+<h4 style="color:#ffd700">💬 Tempo Social</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')" id="rewAmigos">
+<div class="rcat-item-ico">💬</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Conversar com Amigos</div>
+<div class="rcat-item-desc">Ligue, mande mensagem, café virtual ou presencial 💙</div>
+<div class="time-sel">
+<span style="font-size:.78em;color:#8fa3c7">⏱</span>
+<input type="number" class="inp" id="socialMinutes" value="30" min="10" max="120" style="width:70px" onclick="event.stopPropagation()">
+<span style="font-size:.78em;color:#8fa3c7">min</span>
+<button class="btn btn-p" style="font-size:.72em;padding:4px 8px" onclick="event.stopPropagation();startSocialTimer()">⏱ Timer</button>
+</div>
+</div>
+</div>
+</div>
+<div class="rcat" style="border-color:rgba(124,77,255,.3)">
+<h4 style="color:#b39ddb">🎬 Entretenimento</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎬</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">1 Episódio de Série</div>
+<div class="rcat-item-desc">Boston Legal, Suits, The Crown, Stranger Things</div>
+<div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="45" min="20" max="90" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
+</div>
+</div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')">
+<div class="rcat-item-ico">🎮</div>
+<div class="rcat-item-info">
+<div class="rcat-item-name">Jogar</div>
+<div class="rcat-item-desc">Xadrez, Wordle, Duolingo (espanhol!), puzzle</div>
+<div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="30" min="15" max="60" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card mt12">
+<h3 class="gold">🏆 Conquistas</h3>
+<div id="achList"></div>
+</div>
 </div>
 
 <!-- ===== ABA CONFIG ===== -->
 <div id="tc-cfg" class="tc">
-  <div class="stit">⚙️ Configurações</div>
-  <div class="g2">
-    <div class="card">
-      <h3>⏰ Horários</h3>
-      <div class="srow"><div class="slbl">📚 Início Estudo Manhã</div><input type="time" class="inp" id="cStM" value="04:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">📚 Fim Estudo Manhã</div><input type="time" class="inp" id="cEndM" value="06:30" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">📱 Início Marketing</div><input type="time" class="inp" id="cStMkt" value="09:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">📱 Fim Marketing</div><input type="time" class="inp" id="cEndMkt" value="12:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">💼 Início Trabalho</div><input type="time" class="inp" id="cStWk" value="13:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">💼 Fim Trabalho</div><input type="time" class="inp" id="cEndWk" value="18:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">🚔 Início Estudo Noite</div><input type="time" class="inp" id="cStN" value="18:00" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">🚔 Fim Estudo Noite</div><input type="time" class="inp" id="cEndN" value="22:00" onchange="saveCfg()"></div>
-    </div>
-    <div class="card">
-      <h3>🎯 Metas</h3>
-      <div class="srow"><div class="slbl">Meta questões/dia</div><input type="number" class="inp" id="cQ" value="50" min="10" max="300" style="width:100px" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">Horas estudo/dia</div><input type="number" class="inp" id="cH" value="6.5" min="1" max="14" step=".5" style="width:100px" onchange="saveCfg()"></div>
-      <div class="srow"><div class="slbl">Seu nome</div><input type="text" class="inp" id="cNome" value="Helena" style="width:140px" onchange="saveCfg()"></div>
-      <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
-        <button class="btn btn-s w100" onclick="saveCfg()">💾 Salvar tudo</button>
-        <button class="btn btn-d w100" onclick="resetAll()">🔄 Resetar estatísticas</button>
-      </div>
-    </div>
-  </div>
+<div class="stit">⚙️ Configurações</div>
+<div class="g2">
+<div class="card">
+<h3>⏰ Horários</h3>
+<div class="srow"><div class="slbl">📚 Início Estudo Manhã</div><input type="time" class="inp" id="cStM" value="04:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">📚 Fim Estudo Manhã</div><input type="time" class="inp" id="cEndM" value="06:30" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">📱 Início Marketing</div><input type="time" class="inp" id="cStMkt" value="09:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">📱 Fim Marketing</div><input type="time" class="inp" id="cEndMkt" value="12:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">💼 Início Trabalho</div><input type="time" class="inp" id="cStWk" value="13:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">💼 Fim Trabalho</div><input type="time" class="inp" id="cEndWk" value="18:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">🚔 Início Estudo Noite</div><input type="time" class="inp" id="cStN" value="18:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">🚔 Fim Estudo Noite</div><input type="time" class="inp" id="cEndN" value="22:00" onchange="saveCfg()"></div>
+</div>
+<div class="card">
+<h3>🎯 Metas</h3>
+<div class="srow"><div class="slbl">Meta questões/dia</div><input type="number" class="inp" id="cQ" value="50" min="10" max="300" style="width:100px" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">Horas estudo/dia</div><input type="number" class="inp" id="cH" value="6.5" min="1" max="14" step=".5" style="width:100px" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">Seu nome</div><input type="text" class="inp" id="cNome" value="Helena" style="width:140px" onchange="saveCfg()"></div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+<button class="btn btn-s w100" onclick="saveCfg()">💾 Salvar tudo</button>
+<button class="btn btn-d w100" onclick="resetAll()">🔄 Resetar estatísticas</button>
+</div>
+</div>
+</div>
 </div>
 
 <!-- MODAIS -->
@@ -886,57 +705,66 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 
 <div class="notif" id="notif">✅</div>
 <div id="socialBox" style="position:fixed;bottom:80px;right:20px;background:#1b3a6b;border:2px solid #ffd700;border-radius:14px;padding:16px 20px;z-index:998;display:none;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.5)">
-  <div style="color:#ffd700;font-weight:700;margin-bottom:6px">💬 Tempo com Amigos</div>
-  <div style="font-size:2.2em;font-weight:700;color:#00c6ff;font-variant-numeric:tabular-nums" id="socialClock">00:00</div>
-  <button class="btn btn-d mt8" onclick="stopSocial()">✅ Encerrar</button>
+<div style="color:#ffd700;font-weight:700;margin-bottom:6px">💬 Tempo com Amigos</div>
+<div style="font-size:2.2em;font-weight:700;color:#00c6ff;font-variant-numeric:tabular-nums" id="socialClock">00:00</div>
+<button class="btn btn-d mt8" onclick="stopSocial()">✅ Encerrar</button>
 </div>
 <script>
 // ============================================================
-// TABS FIX — sw() recebe o botão clicado diretamente
+// TABS NAVIGATION
 // ============================================================
 function sw(id, btn) {
-  document.querySelectorAll('.tc').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
-  const tab = document.getElementById('tc-' + id);
+  // Hide all regular tabs and iframes
+  document.querySelectorAll('.tc, .tc-iframe').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  // Deactivate all tab buttons
+  document.querySelectorAll('.tb').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  // Activate selected tab
+  var tab = document.getElementById('tc-' + id);
   if (tab) tab.classList.add('active');
+  // Activate button
   if (btn) btn.classList.add('active');
+  // Save current tab
+  try { localStorage.setItem('prf_lastTab', id); } catch(e) {}
 }
 
 // ============================================================
 // QUOTES + RELÓGIO
 // ============================================================
-const QUOTES = [
-  '"A disciplina de hoje é a vitória de amanhã!"',
-  '"Cada questão resolvida é um passo para a aprovação! 🚔"',
-  '"PRF — você nasceu para esta missão, Helena!"',
-  '"Foque. Estude. Passe. Repita. 💙"',
-  '"Seu sonho de ser policial vale cada madrugada de estudo!"',
-  '"A aprovação não é sorte, é consequência da disciplina!"',
-  '"Cada hora de estudo te separa da maioria que desistiu."',
-  '"Você está mais perto hoje do que estava ontem!"',
-  '"Mente focada, coração firme. PRF 2026! 🔥"',
-  '"A farda se conquista com esforço constante, não com talento!"'
+var QUOTES = [
+'"A disciplina de hoje é a vitória de amanhã!"',
+'"Cada questão resolvida é um passo para a aprovação! 🚔"',
+'"PRF — você nasceu para esta missão, Helena!"',
+'"Foque. Estude. Passe. Repita. 💙"',
+'"Seu sonho de ser policial vale cada madrugada de estudo!"',
+'"A aprovação não é sorte, é consequência da disciplina!"',
+'"Você está mais perto hoje do que estava ontem!"',
+'"Mente focada, coração firme. PRF 2026! 🔥"'
 ];
-let qIdx = 0;
-const motivEl = document.getElementById('motiv');
+var qIdx = 0;
+var motivEl = document.getElementById('motiv');
 motivEl.textContent = QUOTES[0];
-motivEl.style.transition = 'opacity .4s';
-setInterval(() => {
+setInterval(function() {
   qIdx = (qIdx + 1) % QUOTES.length;
   motivEl.style.opacity = '0';
-  setTimeout(() => { motivEl.textContent = QUOTES[qIdx]; motivEl.style.opacity = '1'; }, 400);
+  setTimeout(function() { motivEl.textContent = QUOTES[qIdx]; motivEl.style.opacity = '1'; }, 400);
 }, 9000);
 
 function tick() {
-  const n = new Date();
-  const p = v => String(v).padStart(2, '0');
+  var n = new Date();
+  var p = function(v) { return String(v).padStart(2, '0'); };
   document.getElementById('clock').textContent = p(n.getHours()) + ':' + p(n.getMinutes()) + ':' + p(n.getSeconds());
-  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  var months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   document.getElementById('dateD').textContent = days[n.getDay()] + ', ' + n.getDate() + ' ' + months[n.getMonth()] + ' ' + n.getFullYear();
-  const dowNames = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
-  document.getElementById('todayDow').textContent = dowNames[n.getDay()];
-  document.getElementById('todayBlocks').innerHTML = buildBlocks(n.getDay());
+  var dowNames = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  var todayDow = document.getElementById('todayDow');
+  if (todayDow) todayDow.textContent = dowNames[n.getDay()];
+  var todayBlocksEl = document.getElementById('todayBlocks');
+  if (todayBlocksEl) todayBlocksEl.innerHTML = buildBlocks(n.getDay());
 }
 setInterval(tick, 1000);
 tick();
@@ -944,308 +772,518 @@ tick();
 // ============================================================
 // LOCAL STORAGE
 // ============================================================
-const LS = {
-  get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
-  set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+var LS = {
+  get: function(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e) { return d; } },
+  set: function(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
 };
 
 // ============================================================
 // STATS
 // ============================================================
-let stats = LS.get('prf_stats3', { days: 0, streak: 0, hours: 0, lastDate: '' });
+var stats = LS.get('prf_stats3', { days: 0, streak: 0, hours: 0, lastDate: '' });
 function renderStats() {
   document.getElementById('sDias').textContent = stats.days;
   document.getElementById('sStrk').textContent = stats.streak + '🔥';
   document.getElementById('sHrs').textContent = stats.hours + 'h';
-  const dayNum = getCronDayNum();
+  var dayNum = getCronDayNum();
   document.getElementById('sDiaNum').textContent = dayNum + '/120';
   document.getElementById('cronDayNum').textContent = 'Dia ' + dayNum;
 }
 renderStats();
 
 // ============================================================
-// CRONOGRAMA — 2 matérias/dia, início 20/05/2026
+// NOTIFICATIONS
 // ============================================================
-const START_DATE = new Date('2026-05-20'); // Quarta-feira, dia 1
-
-// Lista completa de dias do cronograma
-// formato: { mat1, mat2, cls1, cls2, notes }
-const CRON = [
-  // ---- MÊS 1 — SEMANA 1 (20–24/Mai)
-  { mat1:'📜 Direito Constitucional', mat2:'📝 Língua Portuguesa', cls1:'mat-1', cls2:'mat-2', note:'Art. 1–4 + Interpretação de texto' },
-  { mat1:'📜 Direito Constitucional', mat2:'📝 Língua Portuguesa', cls1:'mat-1', cls2:'mat-2', note:'Art. 5º Direitos Fundamentais + Morfologia' },
-  { mat1:'📜 Direito Constitucional', mat2:'📝 Língua Portuguesa', cls1:'mat-1', cls2:'mat-2', note:'HC, MS, HD, MI + Concordância verbal' },
-  // SAB 23/Mai
-  { mat1:'📜 Const. — Revisão', mat2:'✏️ 80 Questões Mistas', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão + questões' },
-  // DOM 24/Mai — Domingo: revisão livre (não conta como dia pesado)
-  { mat1:'📜 Const. — Revisão leve', mat2:'📝 Port. — Revisão leve', cls1:'mat-rev', cls2:'mat-rev', note:'Revisão leve dominical' },
-  // ---- SEMANA 2 (25–31/Mai)
-  { mat1:'📜 Direito Constitucional', mat2:'📝 Língua Portuguesa', cls1:'mat-1', cls2:'mat-2', note:'Organização do Estado (Art.18-30) + Sintaxe' },
-  { mat1:'📜 Direito Constitucional', mat2:'📝 Língua Portuguesa', cls1:'mat-1', cls2:'mat-2', note:'Competências União/Estados/Municípios + Coesão' },
-  { mat1:'📜 Direito Constitucional', mat2:'⚖️ Direito Administrativo', cls1:'mat-1', cls2:'mat-2', note:'Administração Pública Art.37 (LIMPE) + Princípios Admin' },
-  { mat1:'📜 Direito Constitucional', mat2:'⚖️ Direito Administrativo', cls1:'mat-1', cls2:'mat-2', note:'Poderes da República + Atos Administrativos' },
-  { mat1:'📜 Direito Constitucional', mat2:'⚖️ Direito Administrativo', cls1:'mat-1', cls2:'mat-2', note:'Controle Constitucionalidade + Licitações (Lei 14133)' },
-  { mat1:'📜 Const. + Adm. Revisão', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão semanal + questões' },
-  { mat1:'🔄 Revisão leve', mat2:'📝 Português livre', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo — revisão' },
-  // ---- SEMANA 3 (1–7/Jun)
-  { mat1:'⚖️ Direito Administrativo', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Servidores 8.112/90 + Ortografia e Crase' },
-  { mat1:'⚖️ Direito Administrativo', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Improbidade 8.429/92 + Pontuação e Regência' },
-  { mat1:'🧮 Raciocínio Lógico', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Proposições + conectivos + Interpretação avançada' },
-  { mat1:'🧮 Raciocínio Lógico', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Tabela-verdade + Silogismos + Redação básica' },
-  { mat1:'🧮 Raciocínio Lógico', mat2:'⚖️ Adm. Revisão', cls1:'mat-2', cls2:'mat-rev', note:'Lógica matemática (%) + Revisão Administrativo' },
-  { mat1:'🧮 Raciocínio — Revisão', mat2:'✏️ 100 Questões Mistas', cls1:'mat-rev', cls2:'mat-sim', note:'Sábado — revisão + simulado' },
-  { mat1:'🔄 Revisão geral Mês 1', mat2:'📖 Leitura/descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo — descanso ativo' },
-  // ---- SEMANA 4 (8–14/Jun)
-  { mat1:'🧮 Raciocínio Lógico', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Diagramas de Venn + tabelas + interpretação' },
-  { mat1:'🧮 Raciocínio Lógico', mat2:'📝 Língua Portuguesa', cls1:'mat-2', cls2:'mat-2', note:'Sequências + porcentagem + gramática revisão' },
-  { mat1:'🔒 Direito Penal', mat2:'📜 Const. Revisão', cls1:'mat-2', cls2:'mat-rev', note:'Teoria do crime + revisão Constitucional' },
-  { mat1:'🔒 Direito Penal', mat2:'⚖️ Adm. Revisão', cls1:'mat-2', cls2:'mat-rev', note:'Dolo/culpa/tentativa + revisão Administrativo' },
-  { mat1:'🔒 Direito Penal', mat2:'🧮 Lógica Revisão', cls1:'mat-2', cls2:'mat-rev', note:'Penas + extinção punibilidade + revisão Lógica' },
-  { mat1:'🔒 Penal + Simulado MÊS 1', mat2:'✏️ 120 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'FIM MÊS 1 — SIMULADO GERAL!' },
-  { mat1:'🏆 Revisão Mês 1 completa', mat2:'🎁 Recompensa especial!', cls1:'mat-rev', cls2:'mat-sim', note:'Domingo — celebre 1 mês de estudos!' },
-  // ---- MÊS 2 — SEMANA 5 (15–21/Jun)
-  { mat1:'🔒 Direito Penal', mat2:'🌍 Direitos Humanos', cls1:'mat-3', cls2:'mat-4', note:'Crimes específicos + Declaração Universal' },
-  { mat1:'🔒 Direito Penal', mat2:'🌍 Direitos Humanos', cls1:'mat-3', cls2:'mat-4', note:'Crimes trânsito CTB + CADH + ECA' },
-  { mat1:'📋 Legislação Especial', mat2:'🌍 Direitos Humanos', cls1:'mat-3', cls2:'mat-4', note:'Lei de Drogas 11.343 + Estatuto do Idoso' },
-  { mat1:'📋 Legislação Especial', mat2:'🧮 Lógica Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Estatuto Desarmamento + revisão lógica' },
-  { mat1:'📋 Legislação Especial', mat2:'📝 Port. Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Org. Criminosas + revisão português' },
-  { mat1:'📋 Leg. Especial Revisão', mat2:'✏️ 100 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Sábado — questões temáticas' },
-  { mat1:'🔄 Revisão', mat2:'📖 Leitura/descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo' },
-  // ---- SEMANA 6 (22–28/Jun)
-  { mat1:'⚖️ D. Processual Penal', mat2:'🔒 Penal Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Inquérito Policial + revisão Penal' },
-  { mat1:'⚖️ D. Processual Penal', mat2:'🔒 Penal Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Prisões (flagrante, preventiva, temporária)' },
-  { mat1:'⚖️ D. Processual Penal', mat2:'📜 Const. Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Medidas cautelares + Ação Penal' },
-  { mat1:'⚖️ D. Processual Penal', mat2:'⚖️ Adm. Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Provas + competência + revisão Admin' },
-  { mat1:'⚖️ D. Processual Penal', mat2:'🧮 Lógica Revisão', cls1:'mat-3', cls2:'mat-rev', note:'Procedimentos + revisão Lógica' },
-  { mat1:'⚖️ DPP Revisão + Simulado', mat2:'✏️ 120 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Sábado simulado' },
-  { mat1:'🔄 Revisão geral Mês 2', mat2:'🎁 Descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo — FIM MÊS 2' },
-  // ---- MÊS 3 — SEMANA 7 (29/Jun–5/Jul)
-  { mat1:'🚦 Legislação de Trânsito', mat2:'📜 Const. Revisão', cls1:'mat-1', cls2:'mat-rev', note:'SNT — composição e competências' },
-  { mat1:'🚦 Legislação de Trânsito', mat2:'⚖️ Adm. Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Habilitação — categorias CNH' },
-  { mat1:'🚦 Legislação de Trânsito', mat2:'🔒 Penal Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Infrações — tabela e pontuação' },
-  { mat1:'🚦 Legislação de Trânsito', mat2:'🧮 Lógica Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Sinalização vertical e horizontal' },
-  { mat1:'🚦 Legislação de Trânsito', mat2:'📝 Port. Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Resoluções CONTRAN essenciais' },
-  { mat1:'🚦 Trânsito Revisão', mat2:'✏️ 100 Questões CTB', cls1:'mat-rev', cls2:'mat-sim', note:'Sábado — simulado CTB' },
-  { mat1:'🔄 Revisão', mat2:'📖 Descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo' },
-  // ---- SEMANA 8 (6–12/Jul)
-  { mat1:'🚦 Legislação de Trânsito', mat2:'⚖️ DPP Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Crimes de trânsito CTB art.291-312' },
-  { mat1:'🚦 Legislação de Trânsito', mat2:'📋 Leg. Especial Rev.', cls1:'mat-1', cls2:'mat-rev', note:'Veículos + CRLV + fiscalização' },
-  { mat1:'🚦 Trânsito Consolidação', mat2:'📜 Const. Revisão', cls1:'mat-1', cls2:'mat-rev', note:'Revisão completa CTB' },
-  { mat1:'⚡ Física (PRF)', mat2:'🚦 Trânsito Revisão', cls1:'mat-4', cls2:'mat-rev', note:'Cinemática + dinâmica (aplicação trânsito)' },
-  { mat1:'⚡ Física (PRF)', mat2:'🚦 Trânsito Revisão', cls1:'mat-4', cls2:'mat-rev', note:'Fluidos + energia + frenagem' },
-  { mat1:'⚡ Física + Simulado CTB', mat2:'✏️ 120 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Sábado — simulado CTB + Física' },
-  { mat1:'🔄 Revisão geral Mês 3', mat2:'🎁 Descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo — FIM MÊS 3' },
-  // ---- MÊS 4 — SEMANA 9 (13–19/Jul)
-  { mat1:'💻 Informática', mat2:'📜 Const. Revisão', cls1:'mat-5', cls2:'mat-rev', note:'Windows + Office' },
-  { mat1:'💻 Informática', mat2:'⚖️ Adm. Revisão', cls1:'mat-5', cls2:'mat-rev', note:'Internet + Segurança + Redes' },
-  { mat1:'🤝 Ética e Cidadania', mat2:'💻 Info Revisão', cls1:'mat-4', cls2:'mat-rev', note:'Ética no serviço público + código PRF' },
-  { mat1:'🌐 Geopolítica', mat2:'🤝 Ética Revisão', cls1:'mat-4', cls2:'mat-rev', note:'Brasil e mundo + fronteiras + tráfico' },
-  { mat1:'🇪🇸 Espanhol', mat2:'🌐 Geopolítica Rev.', cls1:'mat-5', cls2:'mat-rev', note:'Gramática básica + interpretação espanhol' },
-  { mat1:'✍️ Redação Discursiva', mat2:'✏️ 100 Questões Mistas', cls1:'mat-5', cls2:'mat-sim', note:'Sábado — redação + questões' },
-  { mat1:'🔄 Revisão geral', mat2:'📖 Descanso', cls1:'mat-rev', cls2:'mat-rev', note:'Domingo' },
-  // ---- SEMANAS 10-12 — REVISÃO TOTAL + SIMULADOS
-  { mat1:'📜 Const. + ⚖️ Adm. Revisão', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão final Constitucional + Administrativo' },
-  { mat1:'🧮 Lógica + 📝 Port. Revisão', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão final Lógica + Português' },
-  { mat1:'🔒 Penal + ⚖️ DPP Revisão', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão final Direito Penal + Processual' },
-  { mat1:'🚦 Trânsito + 📋 Leg.Esp. Rev.', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão final Trânsito + Legislação Especial' },
-  { mat1:'💻 Info + ⚡ Física + 🤝 Ética', mat2:'✏️ 80 Questões', cls1:'mat-rev', cls2:'mat-sim', note:'Revisão final matérias complementares' },
-  { mat1:'🏆 SIMULADO FINAL COMPLETO', mat2:'📊 Análise de erros', cls1:'mat-sim', cls2:'mat-rev', note:'Simulado total + análise detalhada de erros' },
-  { mat1:'🎉 PARABÉNS! 4 MESES!', mat2:'🎁 Recompensa ESPECIAL!', cls1:'mat-sim', cls2:'mat-rev', note:'Você chegou ao fim do cronograma! 🏆' }
-];
-
-function getCronDayNum() {
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  const start = new Date(START_DATE);
-  start.setHours(0,0,0,0);
-  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-  return Math.max(1, Math.min(diff + 1, CRON.length));
+function showNotif(msg) {
+  var n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(function() { n.classList.remove('show'); }, 3500);
 }
-
-function addDays(date, n) {
-  const d = new Date(date);
-  d.setDate(d.getDate() + n);
-  return d;
-}
-
-function formatDate(d) {
-  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set'];
-  return days[d.getDay()] + ' ' + String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
-}
-
-function isWeekend(d) { return d.getDay() === 0 || d.getDay() === 6; }
-
-function buildCronGrid(filter) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const todayNum = getCronDayNum();
-  let html = '';
-  let prevMonth = -1;
-  const monthNames = ['','MÊS 1 — FUNDAMENTOS (Mai–Jun)','MÊS 2 — DIREITO + LÓGICA (Jun)','MÊS 3 — ESPECÍFICO PRF (Jun–Jul)','MÊS 4 — COMPLEMENTOS + REVISÃO (Jul–Set)'];
-
-  for (let i = 0; i < CRON.length; i++) {
-    const d = addDays(START_DATE, i);
-    const isToday = (i + 1 === todayNum);
-    const isDone = LS.get('prf_done_' + d.toDateString(), false) || LS.get('prf_studied_' + d.toDateString(), false);
-    const dow = d.getDay();
-    const isWknd = (dow === 0 || dow === 6);
-
-    // Determine month group
-    let monthGroup = 1;
-    if (i >= 28 && i < 56) monthGroup = 2;
-    else if (i >= 56 && i < 84) monthGroup = 3;
-    else if (i >= 84) monthGroup = 4;
-
-    if (filter === 'mes1' && monthGroup !== 1) continue;
-    if (filter === 'mes2' && monthGroup !== 2) continue;
-    if (filter === 'mes3' && monthGroup !== 3) continue;
-    if (filter === 'mes4' && monthGroup !== 4) continue;
-
-    // Month separator
-    if (monthGroup !== prevMonth) {
-      html += '<div class="month-sep">📅 ' + monthNames[monthGroup] + '</div>';
-      prevMonth = monthGroup;
-    }
-
-    let cls = 'day-card';
-    if (isToday) cls += ' today-card';
-    else if (isDone) cls += ' done-card';
-    else if (isWknd) cls += ' weekend-card';
-
-    const borderColor = isToday ? '#00c6ff' : isDone ? '#00e676' : isWknd ? '#ffd700' : monthGroup === 1 ? '#ff4081' : monthGroup === 2 ? '#ff9800' : monthGroup === 3 ? '#ffd700' : '#00e676';
-
-    const entry = CRON[i];
-    html += '<div class="' + cls + '" id="cron-day-' + (i+1) + '" style="border-left-color:' + borderColor + '">';
-    html += '<div class="day-header">';
-    html += '<div><div class="day-date">' + formatDate(d) + (isToday ? ' ← HOJE 📍' : '') + '</div>';
-    html += '<div class="day-dow">Dia ' + (i+1) + (isWknd ? (dow===6 ? ' — Sábado' : ' — Domingo') : '') + (isDone ? ' ✅' : '') + '</div></div>';
-    html += '<div style="display:flex;gap:5px;align-items:center">';
-    html += '<button class="btn ' + (isDone ? 'btn-p' : 'btn-s') + '" style="font-size:.7em;padding:4px 8px" onclick="toggleDayCron('' + d.toDateString() + '',' + (i+1) + ')">' + (isDone ? '✅ Feito' : '○ Marcar') + '</button>';
-    html += '</div></div>';
-    html += '<div class="day-mats">';
-    html += '<span class="day-mat ' + entry.cls1 + '">' + entry.mat1 + '</span>';
-    html += '<span class="day-mat ' + entry.cls2 + '">' + entry.mat2 + '</span>';
-    if (entry.note) html += '<span class="day-mat" style="background:rgba(255,255,255,.06);color:#8fa3c7;border:1px solid rgba(255,255,255,.15);font-style:italic">💡 ' + entry.note + '</span>';
-    html += '</div></div>';
-  }
-  return html;
-}
-
-function filterCron(f) {
-  const grid = document.getElementById('cronGrid');
-  grid.innerHTML = buildCronGrid(f);
-  if (f === 'today') {
-    const todayEl = document.getElementById('cron-day-' + getCronDayNum());
-    if (todayEl) todayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-}
-// Build on load
-filterCron('all');
-
-function toggleDayCron(dateStr, num) {
-  const cur = LS.get('prf_done_' + dateStr, false) || LS.get('prf_studied_' + dateStr, false);
-  LS.set('prf_studied_' + dateStr, !cur);
-  filterCron('all');
-  if (!cur) { showNotif('✅ Dia ' + num + ' marcado como concluído!'); confetti(); }
-  else showNotif('↩ Dia ' + num + ' desmarcado.');
-  renderStats();
-}
-
-// Load today's subjects
-function loadTodaySubjects() {
-  const dayNum = getCronDayNum();
-  const today = new Date();
-  const entry = CRON[Math.min(dayNum - 1, CRON.length - 1)];
-  if (!entry) return;
-  document.getElementById('todayDateLabel').textContent = '📅 ' + formatDate(today) + ' — Dia ' + dayNum + ' de 120 no cronograma';
-  document.getElementById('todaySubj1').textContent = '1ª: ' + entry.mat1;
-  document.getElementById('todaySubj2').textContent = '2ª: ' + entry.mat2;
-  document.getElementById('todayMeta').textContent = entry.note || '';
-  document.getElementById('cronDayNum').textContent = 'Dia ' + dayNum;
-
-  // Tomorrow
-  const tomorrowEntry = CRON[Math.min(dayNum, CRON.length - 1)];
-  const tomorrow = addDays(today, 1);
-  document.getElementById('tomorrowLabel').textContent = 'Para ' + formatDate(tomorrow);
-  if (tomorrowEntry) {
-    document.getElementById('tomorrowAuto').innerHTML =
-      '<div style="color:#00c6ff;font-weight:700;font-size:.88em;margin-bottom:6px">📋 Cronograma automático para amanhã:</div>' +
-      '<div style="display:flex;gap:7px;flex-wrap:wrap">' +
-      '<span class="day-mat ' + tomorrowEntry.cls1 + '">' + tomorrowEntry.mat1 + '</span>' +
-      '<span class="day-mat ' + tomorrowEntry.cls2 + '">' + tomorrowEntry.mat2 + '</span>' +
-      '</div>' +
-      (tomorrowEntry.note ? '<div style="font-size:.78em;color:#8fa3c7;margin-top:6px">💡 ' + tomorrowEntry.note + '</div>' : '');
-    // Pre-select the first subject in plan dropdown
-    const sel = document.getElementById('planSubj');
-    const mat = tomorrowEntry.mat1.replace(/^[^w]+ ?/,'').replace(/[— (].*/,'').trim();
-    for (let i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value.toLowerCase().includes(mat.toLowerCase().split(' ')[0])) {
-        sel.selectedIndex = i; break;
-      }
-    }
-  }
-}
-loadTodaySubjects();
-</script>
-<script>
-// ============================================================
-// CHECKLIST
-// ============================================================
-const CHECKS = [
-  {id:'c1',t:'📚 Sessão madrugada (04:00–06:30)'},
-  {id:'c2',t:'📱 Reservatório de Dopamina'},
-  {id:'c3',t:'📖 Marketing (09:00–12:00)'},
-  {id:'c4',t:'🚔 Estudo noite — PDF (18:00–22:00)'},
-  {id:'c5',t:'✏️ 50+ questões resolvidas'},
-  {id:'c6',t:'🔄 Revisão dos erros'},
-  {id:'c7',t:'📅 Planejei amanhã'},
-  {id:'c8',t:'🎁 Escolhi minha recompensa'}
-];
-function renderChecklist() {
-  const done = LS.get('prf_ch_' + new Date().toDateString(), {});
-  document.getElementById('checkList').innerHTML = CHECKS.map(c => {
-    const ok = done[c.id];
-    return '<div class="ci' + (ok ? ' done' : '') + '" onclick="toggleCh('' + c.id + '')">' +
-      '<div class="cc">' + (ok ? '✓' : '') + '</div><span>' + c.t + '</span></div>';
-  }).join('');
-}
-function toggleCh(id) {
-  const key = 'prf_ch_' + new Date().toDateString();
-  const done = LS.get(key, {});
-  done[id] = !done[id];
-  LS.set(key, done);
-  renderChecklist();
-}
-renderChecklist();
 
 // ============================================================
 // COMPLETE DAY
 // ============================================================
 function compDay() {
-  const today = new Date().toDateString();
-  if (LS.get('prf_done_' + today, false)) { showNotif('✅ Dia já registrado!'); return; }
-  LS.set('prf_done_' + today, true);
+  var today = new Date().toDateString();
+  if (stats.lastDate === today) {
+    showNotif('✅ Você já concluiu o estudo hoje!');
+    return;
+  }
+  var yesterday = new Date(Date.now() - 86400000).toDateString();
+  stats.streak = (stats.lastDate === yesterday) ? stats.streak + 1 : 1;
   stats.days++;
-  const cfg = getCfg();
-  stats.hours = Math.round((stats.hours + parseFloat(cfg.horas || 6.5)) * 10) / 10;
-  const last = new Date(stats.lastDate || 0);
-  const now = new Date();
-  const diff = Math.floor((now - last) / (1000 * 60 * 60 * 24));
-  stats.streak = diff <= 1 ? stats.streak + 1 : 1;
-  stats.lastDate = now.toDateString();
+  stats.hours = parseFloat((stats.hours + 6.5).toFixed(1));
+  stats.lastDate = today;
   LS.set('prf_stats3', stats);
   renderStats();
-  checkAch();
-  filterCron('all');
-  showNotif('🎉 DIA ' + getCronDayNum() + ' CONCLUÍDO! Streak: ' + stats.streak + '🔥 Escolha sua recompensa!');
+  // Mark calendar
+  var calData = LS.get('prf_cal2', {});
+  var key = new Date().toISOString().split('T')[0];
+  calData[key] = { type: 'studied', note: '' };
+  LS.set('prf_cal2', calData);
+  // Achievements
+  checkAchievements();
+  // Confetti
   confetti();
+  showNotif('🎉 Parabéns! Dia ' + stats.days + ' concluído! Sequência: ' + stats.streak + ' dias 🔥');
+}
+
+function confetti() {
+  var emojis = ['🎉','🌟','🚔','💙','🔥','✅','🏆'];
+  for (var i = 0; i < 8; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var el = document.createElement('div');
+        el.className = 'cracker';
+        el.textContent = emojis[idx % emojis.length];
+        el.style.left = (10 + Math.random() * 80) + '%';
+        el.style.top = (20 + Math.random() * 60) + '%';
+        document.body.appendChild(el);
+        setTimeout(function() { el.remove(); }, 1500);
+      }, idx * 180);
+    })(i);
+  }
 }
 
 // ============================================================
-// PLAN TOMORROW
+// TODAY BLOCKS
+// ============================================================
+function buildBlocks(dow) {
+  if (dow === 6) { // Sábado
+    return '<div class="tblk tb-ch"><div class="tr">07:30–09:00</div><div class="td">⛪ Servir na Missa</div></div><div class="tblk tb-mk"><div class="tr">09:00–12:00</div><div class="td">📱 Marketing</div></div><div class="tblk tb-st"><div class="tr">13:00–15:00</div><div class="td">📚 Questões</div></div><div class="tblk tb-lz"><div class="tr">18:00+</div><div class="td">🎁 Lazer!</div></div>';
+  }
+  if (dow === 0) { // Domingo
+    return '<div class="tblk tb-ch"><div class="tr">07:00–09:00</div><div class="td">⛪ Missa</div></div><div class="tblk tb-mk"><div class="tr">09:30–10:00</div><div class="td">📱 Reservatório</div></div><div class="tblk tb-st"><div class="tr">10:00–12:00</div><div class="td">📚 Revisão leve</div></div><div class="tblk tb-lz"><div class="tr">12:00+</div><div class="td">🎁 Descanso!</div></div>';
+  }
+  var cfg = LS.get('prf_cfg', {});
+  var manha = (cfg.stM || '04:00') + '–' + (cfg.endM || '06:30');
+  var mkt = (cfg.stMkt || '09:00') + '–' + (cfg.endMkt || '12:00');
+  var work = (cfg.stWk || '13:00') + '–' + (cfg.endWk || '18:00');
+  var noite = (cfg.stN || '18:00') + '–' + (cfg.endN || '22:00');
+  return '<div class="tblk tb-st"><div class="tr">' + manha + '</div><div class="td">📚 Videoaula + PDF</div></div><div class="tblk tb-mk"><div class="tr">' + mkt + '</div><div class="td">📱 Marketing</div></div><div class="tblk tb-wk"><div class="tr">' + work + '</div><div class="td">💼 Trabalho</div></div><div class="tblk tb-st"><div class="tr">' + noite + '</div><div class="td">🚔 PDF + Questões</div></div>';
+}
+
+// Checklist
+var CHECKS = ['🎬 Videoaula (1.5x speed)','📄 PDF / Resumo','✏️ 50+ Questões','🔄 Revisão dos Erros','📊 Registrar progresso'];
+function renderChecklist() {
+  var done = LS.get('prf_checks_' + new Date().toDateString(), []);
+  document.getElementById('checkList').innerHTML = CHECKS.map(function(c, i) {
+    var isDone = done.indexOf(i) !== -1;
+    return '<div class="ci ' + (isDone ? 'done' : '') + '" onclick="toggleCheck(' + i + ')"><div class="cc">' + (isDone ? '✓' : '') + '</div><span>' + c + '</span></div>';
+  }).join('');
+}
+function toggleCheck(i) {
+  var key = 'prf_checks_' + new Date().toDateString();
+  var done = LS.get(key, []);
+  var idx = done.indexOf(i);
+  if (idx === -1) done.push(i); else done.splice(idx, 1);
+  LS.set(key, done);
+  renderChecklist();
+}
+renderChecklist();
+
+// Today info
+function renderTodayInfo() {
+  var n = new Date();
+  var days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  var months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var label = document.getElementById('todayDateLabel');
+  if (label) label.textContent = '📅 ' + days[n.getDay()] + ', ' + n.getDate() + ' de ' + months[n.getMonth()];
+  var dayNum = getCronDayNum();
+  var cron = CRON[dayNum - 1];
+  if (cron) {
+    var s1 = document.getElementById('todaySubj1');
+    var s2 = document.getElementById('todaySubj2');
+    var m = document.getElementById('todayMeta');
+    if (s1) s1.textContent = '📖 ' + cron.mat1;
+    if (s2) s2.textContent = '📖 ' + cron.mat2;
+    if (m) m.textContent = '💡 ' + (cron.note || '');
+  }
+  var tom = new Date(n.getTime() + 86400000);
+  var tLbl = document.getElementById('tomorrowLabel');
+  if (tLbl) tLbl.textContent = days[tom.getDay()] + ', ' + tom.getDate() + '/' + (tom.getMonth()+1);
+  var tomCron = CRON[dayNum];
+  var tAuto = document.getElementById('tomorrowAuto');
+  if (tAuto && tomCron) tAuto.innerHTML = '<span style="color:#ffd700">Matérias:</span> ' + tomCron.mat1 + ' + ' + tomCron.mat2;
+}
+renderTodayInfo();
+// ============================================================
+// CRONOGRAMA DATA
+// ============================================================
+var START_DATE = new Date('2026-05-20');
+function getCronDayNum() {
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  var start = new Date(START_DATE);
+  start.setHours(0,0,0,0);
+  var diff = Math.floor((today - start) / 86400000);
+  return Math.max(1, Math.min(diff + 1, 120));
+}
+
+var CRON = [
+{mat1:'📜 Direito Constitucional',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Art. 1–4 + Interpretação de texto',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Art. 5º + Morfologia',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'HC, MS, HD + Concordância',mes:1},
+{mat1:'📜 Const. Revisão',mat2:'✏️ 80 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Revisão semanal',mes:1},
+{mat1:'🔄 Revisão leve',mat2:'📝 Port. leve',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo livre',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Art.18-30 + Sintaxe',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Competências + Coesão',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'⚖️ Direito Administrativo',cls1:'mat-1',cls2:'mat-2',note:'LIMPE + Princípios Admin',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'⚖️ Direito Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Poderes + Atos Administrativos',mes:1},
+{mat1:'📜 Direito Constitucional',mat2:'⚖️ Direito Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Controle Constitucionalidade + Licitações',mes:1},
+{mat1:'📜 Const.+Adm. Revisão',mat2:'✏️ 80 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Revisão semanal',mes:1},
+{mat1:'🔄 Revisão geral',mat2:'📖 Leitura',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
+{mat1:'⚖️ Direito Administrativo',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'8.112/90 + Ortografia',mes:1},
+{mat1:'⚖️ Direito Administrativo',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'Improbidade + Pontuação',mes:1},
+{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'Proposições + Interpretação',mes:1},
+{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'Tabela-verdade + Redação',mes:1},
+{mat1:'🧮 Raciocínio Lógico',mat2:'⚖️ Adm. Revisão',cls1:'mat-2',cls2:'mat-rev',note:'Lógica matemática',mes:1},
+{mat1:'🧮 Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Sábado simulado',mes:1},
+{mat1:'🔄 Revisão geral Mês 1',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
+{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'Diagramas + interpretação',mes:1},
+{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Língua Portuguesa',cls1:'mat-2',cls2:'mat-2',note:'Sequências + gramática',mes:1},
+{mat1:'🚦 Legislação Trânsito',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'CTB + SNT',mes:2},
+{mat1:'🚦 Legislação Trânsito',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Infrações + pontuação',mes:2},
+{mat1:'🚦 Legislação Trânsito',mat2:'📝 Língua Portuguesa',cls1:'mat-1',cls2:'mat-2',note:'Sinalização + Res. CONTRAN',mes:2},
+{mat1:'🚦 Trânsito Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
+{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
+{mat1:'🔒 Direito Penal',mat2:'🚦 Legislação Trânsito',cls1:'mat-2',cls2:'mat-1',note:'Teoria do crime + crimes CTB',mes:2},
+{mat1:'🔒 Direito Penal',mat2:'🚦 Legislação Trânsito',cls1:'mat-2',cls2:'mat-1',note:'Penas + crimes hediondos',mes:2},
+{mat1:'🔒 Direito Penal',mat2:'⚖️ D. Processual Penal',cls1:'mat-2',cls2:'mat-2',note:'Lei drogas + Inquérito Policial',mes:2},
+{mat1:'⚖️ D. Processual Penal',mat2:'🌍 Direitos Humanos',cls1:'mat-2',cls2:'mat-3',note:'Prisões + DUDH',mes:2},
+{mat1:'⚖️ D. Processual Penal',mat2:'🌍 Direitos Humanos',cls1:'mat-2',cls2:'mat-3',note:'Flagrante + CADH',mes:2},
+{mat1:'🔒 Penal Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
+{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
+{mat1:'📋 Leg. Especial',mat2:'🌍 Direitos Humanos',cls1:'mat-2',cls2:'mat-3',note:'Lei drogas/desarmamento + ECA',mes:2},
+{mat1:'📋 Leg. Especial',mat2:'🌍 Direitos Humanos',cls1:'mat-2',cls2:'mat-3',note:'Org. Criminosas + Idoso',mes:2},
+{mat1:'📜 Revisão Constitucional',mat2:'⚖️ Revisão Administrativo',cls1:'mat-rev',cls2:'mat-rev',note:'Grande revisão Mês 2',mes:2},
+{mat1:'🚦 Revisão Trânsito',mat2:'🔒 Revisão Penal',cls1:'mat-rev',cls2:'mat-rev',note:'Revisão específicas PRF',mes:2},
+{mat1:'✏️ 120 Questões Mistas',mat2:'📊 Análise de erros',cls1:'mat-sim',cls2:'mat-rev',note:'Pré-simulado mensal',mes:2},
+{mat1:'🔄 Simulado Mensal',mat2:'✏️ Revisão erros',cls1:'mat-sim',cls2:'mat-rev',note:'Sábado especial',mes:2},
+{mat1:'🔄 Domingo de Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Descanso',mes:2},
+// Mês 3 - Fase consolidação
+{mat1:'📜 D. Constitucional Adv.',mat2:'🧮 Raciocínio Avançado',cls1:'mat-1',cls2:'mat-2',note:'Questões difíceis',mes:3},
+{mat1:'⚖️ Admin. Avançado',mat2:'📝 Português Avançado',cls1:'mat-2',cls2:'mat-2',note:'Questões difíceis',mes:3},
+{mat1:'🚦 Trânsito Avançado',mat2:'🔒 Penal Avançado',cls1:'mat-1',cls2:'mat-2',note:'Questões difíceis',mes:3},
+{mat1:'📋 Todas as matérias',mat2:'✏️ 120 Questões',cls1:'mat-sim',cls2:'mat-sim',note:'Simulado semanal',mes:3},
+{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:3},
+{mat1:'📜 D. Constitucional',mat2:'⚖️ Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'🧮 Raciocínio',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'🚦 Trânsito',mat2:'🔒 Penal',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'📋 Revisão geral',mat2:'✏️ 150 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Grande simulado',mes:3},
+{mat1:'💻 Informática',mat2:'⚡ Física',cls1:'mat-4',cls2:'mat-4',note:'Novas matérias Mês 3',mes:3},
+{mat1:'💻 Informática',mat2:'⚡ Física',cls1:'mat-4',cls2:'mat-4',note:'Aplicações trânsito',mes:3},
+{mat1:'📋 Simulado semanal',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'Sábado',mes:3},
+{mat1:'🔄 Domingo revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3},
+// Mês 4 - Revisão final
+{mat1:'📜 Constitucional Final',mat2:'⚖️ Administrativo Final',cls1:'mat-1',cls2:'mat-2',note:'Revisão total',mes:4},
+{mat1:'🧮 Raciocínio Final',mat2:'📝 Português Final',cls1:'mat-2',cls2:'mat-2',note:'Revisão total',mes:4},
+{mat1:'🚦 Trânsito Final',mat2:'🔒 Penal Final',cls1:'mat-1',cls2:'mat-2',note:'Revisão total',mes:4},
+{mat1:'💻 Informática Final',mat2:'⚡ Física Final',cls1:'mat-4',cls2:'mat-4',note:'Revisão total',mes:4},
+{mat1:'📋 Simulado Final 1',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'📋 Simulado Final 2',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'📋 Simulado Final 3',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'🏆 Revisão Estratégica',mat2:'✏️ 200 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Última semana!',mes:4},
+{mat1:'🏆 Revisão Estratégica',mat2:'✏️ 200 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4},
+{mat1:'🏆 Leve revisão',mat2:'😴 Descanso final',cls1:'mat-rev',cls2:'mat-rev',note:'Dia antes da prova',mes:4}
+];
+// Fill remaining days
+while (CRON.length < 120) {
+  var last = CRON[CRON.length - 1];
+  CRON.push({mat1:'🔄 Revisão',mat2:'✏️ Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Manutenção',mes:last.mes});
+  }
+// ============================================================
+// CRONOGRAMA GRID
+// ============================================================
+var currentFilter = 'all';
+function filterCron(f) {
+  currentFilter = f;
+  renderCron();
+  if (f === 'today') {
+    setTimeout(function() {
+      var el = document.querySelector('.today-card');
+      if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 100);
+  }
+}
+
+function renderCron() {
+  var container = document.getElementById('cronGrid');
+  if (!container) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var done = LS.get('prf_cronDone', {});
+  var html = '';
+  var curMonth = 0;
+  CRON.forEach(function(day, i) {
+    var dayNum = i + 1;
+    if (currentFilter !== 'all' && currentFilter !== 'today') {
+      var mesMap = {mes1:1, mes2:2, mes3:3, mes4:4};
+      if (day.mes !== mesMap[currentFilter]) return;
+    }
+    var date = new Date(START_DATE.getTime() + i * 86400000);
+    var isToday = date.toDateString() === today.toDateString();
+    if (currentFilter === 'today' && !isToday) return;
+    var isDone = done[dayNum];
+    var isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    if (day.mes !== curMonth) {
+      curMonth = day.mes;
+      var mesNames = ['','Mês 1 — Maio/Junho 2026','Mês 2 — Junho/Julho 2026','Mês 3 — Julho/Agosto 2026','Mês 4 — Agosto/Setembro 2026'];
+      html += '<div class="month-sep">📅 ' + mesNames[day.mes] + '</div>';
+    }
+    var cls = isToday ? 'today-card' : (isDone ? 'done-card' : (isWeekend ? 'weekend-card' : ''));
+    var ds = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    html += '<div class="day-card ' + cls + '" style="border-color:' + (isToday ? '#00c6ff' : (isDone ? '#00e676' : (day.mes===1?'#ff4081':day.mes===2?'#ff9800':day.mes===3?'#ffd700':'#00e676'))) + '">';
+    html += '<div class="day-header"><div><span class="day-date">Dia ' + dayNum + ' — ' + date.getDate() + '/' + (date.getMonth()+1) + '</span> <span class="day-dow">' + ds[date.getDay()] + '</span></div>';
+    html += '<div style="display:flex;gap:5px;align-items:center">';
+    if (isToday) html += '<span class="bx bx-bg">HOJE</span>';
+    if (isDone) html += '<span class="bx bx-g">✓</span>';
+    html += '<button class="btn ' + (isDone?'btn-w':'btn-s') + '" style="font-size:.7em;padding:3px 8px" onclick="toggleCronDone(' + dayNum + ')">' + (isDone?'↩ Desfazer':'✅ Feito') + '</button>';
+    html += '</div></div>';
+    html += '<div class="day-mats"><span class="day-mat ' + day.cls1 + '">' + day.mat1 + '</span><span class="day-mat ' + day.cls2 + '">' + day.mat2 + '</span></div>';
+    if (day.note) html += '<div style="font-size:.75em;color:#8fa3c7;margin-top:6px">💡 ' + day.note + '</div>';
+    html += '</div>';
+  });
+  container.innerHTML = html || '<div style="text-align:center;color:#8fa3c7;padding:40px">Nenhum dia encontrado para este filtro.</div>';
+}
+
+function toggleCronDone(dayNum) {
+  var done = LS.get('prf_cronDone', {});
+  done[dayNum] = !done[dayNum];
+  LS.set('prf_cronDone', done);
+  renderCron();
+}
+renderCron();
+
+// ============================================================
+// POMODORO
+// ============================================================
+var pomoWork = 25, pomoBreak = 5, pomoSecs = 25 * 60, pomoRunning = false, pomoIsWork = true;
+var pomoInterval = null, pomoCountN = 1, pomoTotalN = 0;
+
+function pomoCfg(w, b) {
+  pomoWork = w; pomoBreak = b;
+  resetPomo();
+}
+function pad(v) { return String(v).padStart(2,'0'); }
+function updatePomoDisplay() {
+  var m = Math.floor(pomoSecs/60), s = pomoSecs%60;
+  var el = document.getElementById('pomoTime');
+  if (el) el.textContent = pad(m) + ':' + pad(s);
+  var ring = document.getElementById('pomoRing');
+  if (ring) { ring.classList.toggle('work-mode', pomoIsWork); ring.classList.toggle('rest-mode', !pomoIsWork); }
+  var st = document.getElementById('pomoStatus');
+  if (st) st.textContent = pomoIsWork ? '🔴 Focado — Estudo!' : '🟢 Pausa — Descanse!';
+  var btn = document.getElementById('pomoBtn');
+  if (btn) btn.textContent = pomoRunning ? '⏸ Pausar' : '▶ Iniciar';
+  var cnt = document.getElementById('pomoCount');
+  if (cnt) cnt.textContent = pomoCountN;
+  var tot = document.getElementById('pomoTotal');
+  if (tot) tot.textContent = pomoTotalN;
+}
+function togglePomo() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+  } else {
+    pomoRunning = true;
+    pomoInterval = setInterval(function() {
+      pomoSecs--;
+      if (pomoSecs <= 0) {
+        if (pomoIsWork) {
+          pomoTotalN++; pomoIsWork = false; pomoSecs = pomoBreak * 60;
+          showNotif('⏸ Pausa! ' + pomoBreak + ' minutos de descanso 🍵');
+        } else {
+          pomoIsWork = true; pomoCountN++; pomoSecs = pomoWork * 60;
+          if (pomoCountN > 4) { pomoCountN = 1; pomoTotalN = 0; showNotif('🏆 Ciclo completo! Pausa longa merecida!'); }
+          else showNotif('▶ Hora de focar! Sessão ' + pomoCountN + '/4 🎯');
+        }
+      }
+      updatePomoDisplay();
+    }, 1000);
+  }
+  updatePomoDisplay();
+}
+function resetPomo() {
+  clearInterval(pomoInterval);
+  pomoRunning = false; pomoIsWork = true; pomoSecs = pomoWork * 60;
+  pomoCountN = 1; pomoTotalN = 0;
+  updatePomoDisplay();
+}
+updatePomoDisplay();
+
+// ============================================================
+// QUESTÕES
+// ============================================================
+function addQuest() {
+  var subj = document.getElementById('qSubj'); if (!subj) return;
+  var num = parseInt(document.getElementById('qNum').value) || 0;
+  if (!num) return;
+  var key = 'prf_quest_' + new Date().toDateString();
+  var data = LS.get(key, {});
+  data[subj.value] = (data[subj.value] || 0) + num;
+  LS.set(key, data);
+  renderQuestGrid();
+  showNotif('✅ +' + num + ' questões de ' + subj.value + ' registradas!');
+}
+function renderQuestGrid() {
+  var container = document.getElementById('questGrid');
+  if (!container) return;
+  var key = 'prf_quest_' + new Date().toDateString();
+  var data = LS.get(key, {});
+  var total = Object.values(data).reduce(function(a,b){return a+b;},0);
+  var html = '<div class="mb"><div class="ico">📊</div><div class="lbl">Total hoje</div><div class="tim" style="color:' + (total>=50?'#00e676':'#ff4081') + '">' + total + '</div></div>';
+  Object.entries(data).forEach(function(e) {
+    html += '<div class="mb"><div class="ico">✏️</div><div class="lbl" style="font-size:.65em">' + e[0].split(' ')[0] + '</div><div class="tim" style="color:#4aa8ff">' + e[1] + '</div></div>';
+  });
+  container.innerHTML = html;
+}
+renderQuestGrid();
+
+// ============================================================
+// CALENDAR
+// ============================================================
+var calYear = new Date().getFullYear(), calMonth = new Date().getMonth();
+var selDate = null;
+function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal(); }
+function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); }
+function renderCal() {
+  var title = document.getElementById('calTitle');
+  var grid = document.getElementById('calGrid');
+  if (!title || !grid) return;
+  var months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  title.textContent = months[calMonth] + ' ' + calYear;
+  var calData = LS.get('prf_cal2', {});
+  var today = new Date(); today.setHours(0,0,0,0);
+  var first = new Date(calYear, calMonth, 1).getDay();
+  var daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  var dayHeaders = ['D','S','T','Q','Q','S','S'];
+  var html = dayHeaders.map(function(d){return '<div class="ch">'+d+'</div>';}).join('');
+  for (var i = 0; i < first; i++) html += '<div></div>';
+  for (var d = 1; d <= daysInMonth; d++) {
+    var dateObj = new Date(calYear, calMonth, d);
+    var key = dateObj.toISOString().split('T')[0];
+    var data = calData[key] || {};
+    var isToday = dateObj.toDateString() === today.toDateString();
+    var cls = isToday ? 'today' : (data.type==='studied'?'studied':data.type==='church'?'churchd':data.type==='rest'?'restd':'');
+    html += '<div class="cd ' + cls + '" onclick="selectDay(' + calYear + ',' + calMonth + ',' + d + ')">' + d + '</div>';
+  }
+  grid.innerHTML = html;
+  renderMonthStats();
+}
+function selectDay(y, m, d) {
+  selDate = new Date(y, m, d);
+  var key = selDate.toISOString().split('T')[0];
+  var calData = LS.get('prf_cal2', {});
+  var data = calData[key] || {};
+  var selDayEl = document.getElementById('selDay');
+  var selDayInfo = document.getElementById('selDayInfo');
+  var dayNoteEl = document.getElementById('dayNote');
+  if (selDayEl) selDayEl.textContent = d + '/' + (m+1) + '/' + y;
+  if (selDayInfo) selDayInfo.innerHTML = data.type ? '✅ ' + data.type : 'Sem registro';
+  if (dayNoteEl) dayNoteEl.value = data.note || '';
+}
+function saveNote() {
+  if (!selDate) return;
+  var key = selDate.toISOString().split('T')[0];
+  var calData = LS.get('prf_cal2', {});
+  if (!calData[key]) calData[key] = {};
+  calData[key].note = document.getElementById('dayNote').value;
+  LS.set('prf_cal2', calData);
+  showNotif('💾 Nota salva!');
+}
+function markStudied() {
+  if (!selDate) return;
+  var key = selDate.toISOString().split('T')[0];
+  var calData = LS.get('prf_cal2', {});
+  calData[key] = { type: 'studied', note: (calData[key]||{}).note || '' };
+  LS.set('prf_cal2', calData);
+  renderCal();
+  showNotif('✅ Dia marcado como estudado!');
+}
+function renderMonthStats() {
+  var container = document.getElementById('monthStats');
+  if (!container) return;
+  var calData = LS.get('prf_cal2', {});
+  var studied = 0, total = new Date(calYear, calMonth+1, 0).getDate();
+  for (var d = 1; d <= total; d++) {
+    var key = new Date(calYear, calMonth, d).toISOString().split('T')[0];
+    if ((calData[key]||{}).type === 'studied') studied++;
+  }
+  container.innerHTML = '<div class="mb" style="padding:12px"><div class="ico">📚</div><div class="lbl">Dias estudados</div><div class="tim" style="color:#00e676">' + studied + '</div></div>';
+}
+renderCal();
+// ============================================================
+// ACHIEVEMENTS
+// ============================================================
+var ACHIEVEMENTS = [
+  {id:'first',ico:'🎯',name:'Primeiro Dia!',desc:'Completou o primeiro dia de estudo',check:function(){return stats.days>=1;}},
+  {id:'week',ico:'🔥',name:'Uma Semana!',desc:'7 dias de sequência',check:function(){return stats.streak>=7;}},
+  {id:'month',ico:'🏆',name:'Um Mês!',desc:'30 dias estudando',check:function(){return stats.days>=30;}},
+  {id:'q1000',ico:'✏️',name:'1000 Questões!',desc:'1000+ questões resolvidas',check:function(){return stats.days*50>=1000;}},
+  {id:'streak30',ico:'💎',name:'Diamante!',desc:'30 dias consecutivos',check:function(){return stats.streak>=30;}}
+];
+function checkAchievements() {
+  var unlocked = LS.get('prf_ach', []);
+  ACHIEVEMENTS.forEach(function(ach) {
+    if (!unlocked.includes(ach.id) && ach.check()) {
+      unlocked.push(ach.id);
+      showNotif('🏆 Conquista desbloqueada: ' + ach.name + ' ' + ach.ico);
+    }
+  });
+  LS.set('prf_ach', unlocked);
+  renderAchievements();
+}
+function renderAchievements() {
+  var container = document.getElementById('achList');
+  if (!container) return;
+  var unlocked = LS.get('prf_ach', []);
+  container.innerHTML = ACHIEVEMENTS.map(function(ach) {
+    var isUnlocked = unlocked.includes(ach.id);
+    return '<div class="ach ' + (isUnlocked?'unlocked':'') + '"><div class="ach-ico">' + ach.ico + '</div><div><div style="font-weight:700;font-size:.87em">' + ach.name + '</div><div style="font-size:.75em;color:#8fa3c7">' + ach.desc + '</div></div>' + (isUnlocked?'<span class="bx bx-g">✓</span>':'<span style="font-size:.75em;color:#8fa3c7">🔒</span>') + '</div>';
+  }).join('');
+}
+renderAchievements();
+
+// ============================================================
+// PROGRESS MODAL
+// ============================================================
+var curProgKey = '';
+function openProgModal(key, name) {
+  curProgKey = key;
+  var prog = LS.get('prf_prog', {});
+  var val = prog[key] || 0;
+  document.getElementById('moProgTitle').textContent = '📊 ' + name;
+  document.getElementById('progSlider').value = val;
+  document.getElementById('progVal').textContent = val + '%';
+  document.getElementById('progBarMo').style.width = val + '%';
+  var bar = document.getElementById('prog-' + key);
+  document.getElementById('moProg').classList.add('open');
+}
+function saveProgModal() {
+  var val = document.getElementById('progSlider').value;
+  var prog = LS.get('prf_prog', {});
+  prog[curProgKey] = parseInt(val);
+  LS.set('prf_prog', prog);
+  var bar = document.getElementById('prog-' + curProgKey);
+  if (bar) bar.style.width = val + '%';
+  document.getElementById('moProg').classList.remove('open');
+  showNotif('💾 Progresso de ' + val + '% salvo!');
+}
+// Load all progress bars
+(function() {
+  var prog = LS.get('prf_prog', {});
+  Object.entries(prog).forEach(function(e) {
+    var bar = document.getElementById('prog-' + e[0]);
+    if (bar) bar.style.width = e[1] + '%';
+  });
+})();
+
+// ============================================================
+// PLAN
 // ============================================================
 function savePlan() {
-  const p = {
+  var plan = {
     subj: document.getElementById('planSubj').value,
     topic: document.getElementById('planTopic').value,
     q: document.getElementById('planQ').value,
@@ -1253,338 +1291,120 @@ function savePlan() {
     pdf: document.getElementById('chkPdf').checked,
     qst: document.getElementById('chkQst').checked,
     note: document.getElementById('planNote').value,
-    date: addDays(new Date(), 1).toDateString()
+    date: new Date().toLocaleDateString('pt-BR')
   };
-  LS.set('prf_plan_tomorrow', p);
-  const methods = [p.vid ? '🎬' : '', p.pdf ? '📄' : '', p.qst ? '✏️' : ''].filter(Boolean).join(' ');
-  document.getElementById('planPreview').innerHTML =
-    '<div style="background:rgba(0,198,255,.08);border-radius:8px;padding:10px;color:#f0f4ff;margin-top:6px">' +
-    '<strong style="color:#00c6ff">✅ Salvo para ' + p.date + ':</strong><br>' +
-    '📚 ' + p.subj + (p.topic ? ' — ' + p.topic : '') + '<br>' +
-    '🎯 Métodos: ' + methods + ' | Meta: ' + p.q + ' questões' +
-    (p.note ? '<br>📝 ' + p.note : '') + '</div>';
+  LS.set('prf_plan', plan);
+  document.getElementById('planPreview').textContent = '✅ Plano salvo para ' + plan.subj;
   showNotif('💾 Plano de amanhã salvo!');
 }
 function loadPlan() {
-  const p = LS.get('prf_plan_tomorrow', null);
-  const b = document.getElementById('moPlanBody');
-  if (!p) { b.innerHTML = '<p style="color:#8fa3c7">Nenhum plano salvo. Use o formulário acima.</p>'; }
-  else { b.innerHTML = '<div style="line-height:2;font-size:.9em"><strong style="color:#00c6ff">Para: ' + p.date + '</strong><br>📚 ' + p.subj + (p.topic ? ' — ' + p.topic : '') + '<br>Métodos: ' + (p.vid ? '🎬 ' : '') + (p.pdf ? '📄 ' : '') + (p.qst ? '✏️ ' : '') + '<br>Meta: <strong>' + p.q + ' questões</strong>' + (p.note ? '<br>📝 ' + p.note : '') + '</div>'; }
+  var plan = LS.get('prf_plan', null);
+  if (!plan) { showNotif('📋 Nenhum plano salvo ainda.'); return; }
+  document.getElementById('moPlanBody').innerHTML = '<strong>Data:</strong> ' + plan.date + '<br><strong>Matéria:</strong> ' + plan.subj + '<br><strong>Tópico:</strong> ' + (plan.topic||'—') + '<br><strong>Questões:</strong> ' + plan.q + '<br><strong>Obs:</strong> ' + (plan.note||'—');
   document.getElementById('moPlan').classList.add('open');
 }
 
 // ============================================================
-// TODAY BLOCKS
+// CONFIG
 // ============================================================
-function buildBlocks(dow) {
-  const c = getCfg();
-  const blk = (cls, t, d) => '<div class="tblk ' + cls + '"><div class="tr">' + t + '</div><div class="td">' + d + '</div></div>';
-  let h = '';
-  if (dow === 0) {
-    h += blk('tb-ch', '07:00–09:00', '⛪ Missa dominical');
-    h += blk('tb-mk', '09:30–10:00', '📱 Reservatório de Dopamina');
-    h += blk('tb-st', '10:00–12:00', '📚 Revisão leve PRF');
-    h += blk('tb-lz', '12:00+', '🎁 DESCANSO TOTAL!');
-  } else if (dow === 6) {
-    h += blk('tb-ch', '07:30–09:00', '⛪ Servir na Missa');
-    h += blk('tb-mk', '09:00–12:00', '📱 Marketing + Reservatório');
-    h += blk('tb-st', '13:00–15:00', '📚 Concurso — Questões');
-    h += blk('tb-ch', '15:00–16:00', '⛪ Comunhão');
-    h += blk('tb-ch', '16:00–18:00', '⛪ Catecismo');
-    h += blk('tb-lz', '18:00+', '🎁 LAZER!');
-  } else {
-    h += blk('tb-st', (c.stM || '04:00') + '–' + (c.endM || '06:30'), '📚 Estudo — Videoaula + PDF');
-    h += blk('tb-mk', (c.stMkt || '09:00') + '–' + (c.endMkt || '12:00'), '📱 Marketing + Reservatório');
-    h += blk('tb-wk', (c.stWk || '13:00') + '–' + (c.endWk || '18:00'), '💼 Trabalho');
-    h += blk('tb-st', (c.stN || '18:00') + '–' + (c.endN || '22:00'), '🚔 Estudo — PDF + Questões');
-  }
-  return h;
-}
-
-// ============================================================
-// POMODORO
-// ============================================================
-let pomW = 25, pomR = 5, pomSec = 1500, pomRunning = false, pomTimer = null, pomCount = 1, pomTotal = 0, pomIsWork = true;
-function pomoCfg(w, r) { pomW = w; pomR = r; resetPomo(); }
-function togglePomo() {
-  if (pomRunning) {
-    clearInterval(pomTimer); pomRunning = false;
-    document.getElementById('pomoBtn').textContent = '▶ Continuar';
-  } else {
-    pomRunning = true;
-    document.getElementById('pomoBtn').textContent = '⏸ Pausar';
-    pomTimer = setInterval(() => {
-      pomSec--;
-      if (pomSec < 0) {
-        if (pomIsWork) {
-          pomTotal++;
-          document.getElementById('pomoTotal').textContent = pomTotal;
-          pomIsWork = false; pomSec = pomR * 60;
-          document.getElementById('pomoStatus').textContent = '😌 Pausa — Respire!';
-          document.getElementById('pomoRing').className = 'pomo-ring rest-mode';
-          showNotif('🔔 PAUSA! ' + pomR + ' minutos de descanso!');
-        } else {
-          pomCount++; if (pomCount > 4) pomCount = 1;
-          document.getElementById('pomoCount').textContent = pomCount;
-          pomIsWork = true; pomSec = pomW * 60;
-          document.getElementById('pomoStatus').textContent = '🟢 Sessão de Estudo';
-          document.getElementById('pomoRing').className = 'pomo-ring work-mode';
-          showNotif('📚 HORA DE ESTUDAR! Sessão ' + pomCount);
-        }
-      }
-      const m = Math.floor(pomSec / 60), s = pomSec % 60;
-      document.getElementById('pomoTime').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    }, 1000);
-  }
-}
-function resetPomo() {
-  clearInterval(pomTimer); pomRunning = false; pomIsWork = true; pomSec = pomW * 60; pomCount = 1;
-  document.getElementById('pomoTime').textContent = String(pomW).padStart(2,'0') + ':00';
-  document.getElementById('pomoBtn').textContent = '▶ Iniciar';
-  document.getElementById('pomoStatus').textContent = '🟢 Sessão de Estudo';
-  document.getElementById('pomoRing').className = 'pomo-ring';
-  document.getElementById('pomoCount').textContent = '1';
-}
-
-// ============================================================
-// QUESTÕES
-// ============================================================
-function renderQuestGrid() {
-  const data = LS.get('prf_quest_' + new Date().toDateString(), {});
-  const subjs = ['Direito Constitucional','Língua Portuguesa','Direito Administrativo','Raciocínio Lógico','Direito Penal','Legislação de Trânsito','Outras'];
-  const total = Object.values(data).reduce((a, b) => a + b, 0);
-  const meta = parseInt(getCfg().q || 50);
-  document.getElementById('questGrid').innerHTML = subjs.map(s => {
-    const n = data[s] || 0;
-    return '<div class="mb" style="text-align:left;padding:10px"><div style="font-size:.74em;color:#8fa3c7;margin-bottom:3px">' + s.substring(0, 20) + '</div><div style="font-size:1.3em;font-weight:700;color:#00c6ff">' + n + '</div><div class="pb mt8"><div class="pf" style="width:' + Math.min(n / meta * 100, 100) + '%"></div></div></div>';
-  }).join('') + '<div class="mb" style="text-align:center;padding:10px;background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.3)"><div style="font-size:.78em;color:#ffd700;font-weight:700">TOTAL HOJE</div><div style="font-size:1.8em;font-weight:700;color:#ffd700">' + total + '</div><div style="font-size:.72em;color:#8fa3c7">meta: ' + meta + '</div></div>';
-}
-function addQuest() {
-  const s = document.getElementById('qSubj').value;
-  const n = parseInt(document.getElementById('qNum').value) || 0;
-  if (n <= 0) return;
-  const key = 'prf_quest_' + new Date().toDateString();
-  const data = LS.get(key, {});
-  data[s] = (data[s] || 0) + n;
-  LS.set(key, data);
-  renderQuestGrid();
-  showNotif('✅ +' + n + ' questões de ' + s + '!');
-}
-renderQuestGrid();
-
-// ============================================================
-// PROGRESS MODAL
-// ============================================================
-let curProgKey = '';
-function openProgModal(key, name) {
-  curProgKey = key;
-  document.getElementById('moProgTitle').textContent = '📊 Progresso — ' + name;
-  const v = LS.get('prf_prog_' + key, 0);
-  document.getElementById('progSlider').value = v;
-  document.getElementById('progVal').textContent = v + '%';
-  document.getElementById('progBarMo').style.width = v + '%';
-  document.getElementById('moProg').classList.add('open');
-  document.getElementById('progSlider').oninput = function () {
-    document.getElementById('progVal').textContent = this.value + '%';
-    document.getElementById('progBarMo').style.width = this.value + '%';
+function saveCfg() {
+  var cfg = {
+    stM: document.getElementById('cStM').value,
+    endM: document.getElementById('cEndM').value,
+    stMkt: document.getElementById('cStMkt').value,
+    endMkt: document.getElementById('cEndMkt').value,
+    stWk: document.getElementById('cStWk').value,
+    endWk: document.getElementById('cEndWk').value,
+    stN: document.getElementById('cStN').value,
+    endN: document.getElementById('cEndN').value,
+    q: document.getElementById('cQ').value,
+    h: document.getElementById('cH').value,
+    nome: document.getElementById('cNome').value
   };
+  LS.set('prf_cfg', cfg);
+  showNotif('💾 Configurações salvas!');
 }
-function saveProgModal() {
-  const v = document.getElementById('progSlider').value;
-  LS.set('prf_prog_' + curProgKey, parseInt(v));
-  const el = document.getElementById('prog-' + curProgKey);
-  if (el) el.style.width = v + '%';
-  document.getElementById('moProg').classList.remove('open');
-  showNotif('💾 Progresso ' + curProgKey + ': ' + v + '%');
+function resetAll() {
+  if (!confirm('Resetar todas as estatísticas? Isso não pode ser desfeito.')) return;
+  ['prf_stats3','prf_checks_'+new Date().toDateString(),'prf_cronDone','prf_quest_'+new Date().toDateString(),'prf_cal2','prf_ach','prf_prog'].forEach(function(k){ localStorage.removeItem(k); });
+  stats = {days:0,streak:0,hours:0,lastDate:''};
+  renderStats();
+  showNotif('🔄 Estatísticas resetadas!');
 }
-(function () {
-  ['constitucional','portugues','administrativo','raciocinio','penal','transito','processual','especial','dh','informatica','fisica','dopamina','pedro','claude','carol','fill','vid1','vid2'].forEach(k => {
-    const v = LS.get('prf_prog_' + k, 0);
-    const el = document.getElementById('prog-' + k);
-    if (el) el.style.width = v + '%';
-  });
+// Load config
+(function() {
+  var cfg = LS.get('prf_cfg', {});
+  if (cfg.stM) document.getElementById('cStM').value = cfg.stM;
+  if (cfg.endM) document.getElementById('cEndM').value = cfg.endM;
+  if (cfg.stMkt) document.getElementById('cStMkt').value = cfg.stMkt;
+  if (cfg.endMkt) document.getElementById('cEndMkt').value = cfg.endMkt;
+  if (cfg.stWk) document.getElementById('cStWk').value = cfg.stWk;
+  if (cfg.endWk) document.getElementById('cEndWk').value = cfg.endWk;
+  if (cfg.stN) document.getElementById('cStN').value = cfg.stN;
+  if (cfg.endN) document.getElementById('cEndN').value = cfg.endN;
+  if (cfg.q) document.getElementById('cQ').value = cfg.q;
+  if (cfg.h) document.getElementById('cH').value = cfg.h;
+  if (cfg.nome) document.getElementById('cNome').value = cfg.nome;
 })();
 
 // ============================================================
-// CALENDAR
-// ============================================================
-let calY = new Date().getFullYear(), calM = new Date().getMonth(), selDate = null;
-function renderCal() {
-  const MN = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  document.getElementById('calTitle').textContent = MN[calM] + ' ' + calY;
-  const daysH = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const today = new Date();
-  const first = new Date(calY, calM, 1).getDay();
-  const total = new Date(calY, calM + 1, 0).getDate();
-  let h = daysH.map(d => '<div class="ch">' + d + '</div>').join('');
-  for (let i = 0; i < first; i++) h += '<div></div>';
-  let studied = 0;
-  for (let d = 1; d <= total; d++) {
-    const ds = new Date(calY, calM, d).toDateString();
-    const isToday = (calY === today.getFullYear() && calM === today.getMonth() && d === today.getDate());
-    const ok = LS.get('prf_studied_' + ds, false) || LS.get('prf_done_' + ds, false);
-    const dow = new Date(calY, calM, d).getDay();
-    const ch = dow === 0 || dow === 6;
-    if (ok) studied++;
-    let cls = 'cd' + (isToday ? ' today' : ok ? ' studied' : ch ? ' churchd' : '');
-    h += '<div class="' + cls + '" onclick="selDay('' + ds + '',' + d + ')">' + (ok && !isToday ? '<span style="font-size:.6em;color:#00e676">✓</span><br>' : '') + d + '</div>';
-  }
-  document.getElementById('calGrid').innerHTML = h;
-  const pct = Math.round(studied / total * 100);
-  document.getElementById('monthStats').innerHTML = '<div style="font-size:.85em;color:#8fa3c7;margin-bottom:6px">Dias estudados: <strong style="color:#00e676">' + studied + '/' + total + '</strong> (' + pct + '%)</div><div class="pb"><div class="pf" style="width:' + pct + '%"></div></div><div style="font-size:.75em;color:#8fa3c7;margin-top:4px">' + pct + '% do mês</div>';
-}
-function selDay(ds, d) {
-  selDate = ds;
-  document.getElementById('selDay').textContent = d + ' — ' + ds.split(' ')[1];
-  const note = LS.get('prf_note_' + ds, '');
-  const ok = LS.get('prf_studied_' + ds, false) || LS.get('prf_done_' + ds, false);
-  document.getElementById('selDayInfo').innerHTML = '<strong style="color:#00c6ff">' + ds + '</strong> ' + (ok ? '<span class="bx bx-g">✓ Estudado</span>' : '') + '<br>' + (note || '<em style="color:#8fa3c7">Sem notas</em>');
-  document.getElementById('dayNote').value = note;
-}
-function saveNote() {
-  if (!selDate) { showNotif('Selecione um dia!'); return; }
-  LS.set('prf_note_' + selDate, document.getElementById('dayNote').value);
-  showNotif('💾 Nota salva!');
-}
-function markStudied() {
-  if (!selDate) { showNotif('Selecione um dia!'); return; }
-  LS.set('prf_studied_' + selDate, true);
-  renderCal();
-  showNotif('✅ Marcado como estudado!');
-}
-function prevMonth() { calM--; if (calM < 0) { calM = 11; calY--; } renderCal(); }
-function nextMonth() { calM++; if (calM > 11) { calM = 0; calY++; } renderCal(); }
-renderCal();
-
-// ============================================================
-// ACHIEVEMENTS
-// ============================================================
-const ACHS = [
-  {id:'a1',ico:'🌟',name:'Primeira Semana!',desc:'7 dias de estudo',req:7,type:'days'},
-  {id:'a2',ico:'🔥',name:'Sequência de Fogo',desc:'14 dias consecutivos',req:14,type:'streak'},
-  {id:'a3',ico:'🏆',name:'Um Mês Dedicado',desc:'30 dias de estudo',req:30,type:'days'},
-  {id:'a4',ico:'💙',name:'PRF Warrior',desc:'60 dias de estudo',req:60,type:'days'},
-  {id:'a5',ico:'🚔',name:'Mestre da Disciplina',desc:'90 dias de estudo',req:90,type:'days'},
-  {id:'a6',ico:'⚡',name:'Sequência Imparável',desc:'30 dias consecutivos',req:30,type:'streak'},
-];
-function checkAch() {
-  ACHS.forEach(a => {
-    const val = a.type === 'days' ? stats.days : stats.streak;
-    if (val >= a.req && !LS.get('prf_ach_' + a.id, false)) {
-      LS.set('prf_ach_' + a.id, true);
-      showNotif('🏆 CONQUISTA: ' + a.ico + ' ' + a.name + '!');
-      confetti();
-    }
-  });
-  const achEl = document.getElementById('achList');
-  if (!achEl) return;
-  achEl.innerHTML = ACHS.map(a => {
-    const ok = LS.get('prf_ach_' + a.id, false);
-    return '<div class="ach' + (ok ? ' unlocked' : '') + '"><div class="ach-ico">' + a.ico + '</div><div><div style="font-weight:600;font-size:.87em;color:' + (ok ? '#ffd700' : '#8fa3c7') + '">' + a.name + '</div><div style="font-size:.73em;color:#8fa3c7">' + a.desc + ' — ' + (ok ? '<span style="color:#00e676">✓ Desbloqueado!</span>' : a.req + ' dias') + '</div></div></div>';
-  }).join('');
-}
-checkAch();
-
-// ============================================================
-// DOPAMINA
+// DOPAMINE & REWARD
 // ============================================================
 function markDop() {
-  const today = new Date().toDateString();
-  const done = LS.get('prf_dop', {});
-  done[today] = true;
-  LS.set('prf_dop', done);
-  let streak = 0, d = new Date();
-  while (done[d.toDateString()]) { streak++; d.setDate(d.getDate() - 1); }
-  const el = document.getElementById('dopDays');
-  if (el) el.textContent = streak;
-  const pEl = document.getElementById('prog-dopamina');
-  if (pEl) pEl.style.width = Math.min(streak / 90 * 100, 100) + '%';
-  showNotif('🧠 Reservatório feito! Streak: ' + streak + ' dias! 🔥');
-  confetti();
+  var today = new Date().toDateString();
+  var dop = LS.get('prf_dop', {last:'',streak:0});
+  var yesterday = new Date(Date.now()-86400000).toDateString();
+  dop.streak = (dop.last===yesterday) ? dop.streak+1 : 1;
+  dop.last = today;
+  LS.set('prf_dop', dop);
+  document.getElementById('dopDays').textContent = dop.streak;
+  var bar = document.getElementById('prog-dopamina');
+  if (bar) bar.style.width = Math.min(100, dop.streak * 3.3) + '%';
+  showNotif('✅ Reservatório de Dopamina feito! Streak: ' + dop.streak + ' dias 🔥');
 }
-(function () {
-  const done = LS.get('prf_dop', {});
-  let streak = 0, d = new Date();
-  while (done[d.toDateString()]) { streak++; d.setDate(d.getDate() - 1); }
-  const el = document.getElementById('dopDays');
-  if (el) el.textContent = streak;
+(function() {
+  var dop = LS.get('prf_dop', {streak:0});
+  var el = document.getElementById('dopDays');
+  if (el) el.textContent = dop.streak;
 })();
 
-// ============================================================
-// REWARDS
-// ============================================================
-function selectRew(el) {
-  el.classList.toggle('selected');
-  if (el.classList.contains('selected')) {
-    const name = el.querySelector('.rcat-item-name') ? el.querySelector('.rcat-item-name').textContent.trim() : 'recompensa';
-    const timeEl = el.querySelector('input[type=number]');
-    const mins = timeEl ? timeEl.value : '30';
-    showNotif('🎁 ' + name + ' — ' + mins + ' min! Você merece!');
-    confetti();
-  }
-}
-function quickRew(name) { showNotif('🎁 ' + name + '! Aproveite! 🎉'); confetti(); }
+function quickRew(name) { showNotif('🎁 Recompensa escolhida: ' + name + ' — Aproveite! 😊'); }
 
 // ============================================================
 // SOCIAL TIMER
 // ============================================================
-let socialInt = null, socialSec = 0;
+var socialInterval = null;
 function startSocialTimer() {
-  const mins = parseInt(document.getElementById('socialMinutes').value) || 30;
-  socialSec = mins * 60;
-  document.getElementById('socialBox').style.display = 'block';
-  clearInterval(socialInt);
-  socialInt = setInterval(() => {
-    socialSec--;
-    const m = Math.floor(socialSec / 60), s = socialSec % 60;
-    document.getElementById('socialClock').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    if (socialSec <= 0) { clearInterval(socialInt); document.getElementById('socialBox').style.display = 'none'; showNotif('⏰ Tempo social encerrado! De volta ao foco! 💙'); }
+  var mins = parseInt(document.getElementById('socialMinutes').value) || 30;
+  var secs = mins * 60;
+  var box = document.getElementById('socialBox');
+  box.style.display = 'block';
+  if (socialInterval) clearInterval(socialInterval);
+  socialInterval = setInterval(function() {
+    secs--;
+    var m = Math.floor(secs/60), s = secs%60;
+    document.getElementById('socialClock').textContent = pad(m)+':'+pad(s);
+    if (secs <= 0) { clearInterval(socialInterval); showNotif('⏰ Tempo social encerrado!'); box.style.display='none'; }
   }, 1000);
-  showNotif('💬 Timer: ' + mins + ' min com amigos!');
 }
-function stopSocial() { clearInterval(socialInt); document.getElementById('socialBox').style.display = 'none'; }
+function stopSocial() {
+  if (socialInterval) clearInterval(socialInterval);
+  document.getElementById('socialBox').style.display = 'none';
+}
 
 // ============================================================
-// CONFIG
+// RESTORE LAST TAB
 // ============================================================
-function getCfg() { return LS.get('prf_cfg', { stM: '04:00', endM: '06:30', stMkt: '09:00', endMkt: '12:00', stWk: '13:00', endWk: '18:00', stN: '18:00', endN: '22:00', q: 50, horas: 6.5 }); }
-function saveCfg() {
-  const c = { stM: document.getElementById('cStM').value, endM: document.getElementById('cEndM').value, stMkt: document.getElementById('cStMkt').value, endMkt: document.getElementById('cEndMkt').value, stWk: document.getElementById('cStWk').value, endWk: document.getElementById('cEndWk').value, stN: document.getElementById('cStN').value, endN: document.getElementById('cEndN').value, q: document.getElementById('cQ').value, horas: document.getElementById('cH').value, nome: document.getElementById('cNome').value };
-  LS.set('prf_cfg', c);
-  document.getElementById('todayBlocks').innerHTML = buildBlocks(new Date().getDay());
-  showNotif('✅ Configurações salvas!');
-}
-function resetAll() { if (confirm('Resetar estatísticas?')) { stats = { days: 0, streak: 0, hours: 0, lastDate: '' }; LS.set('prf_stats3', stats); renderStats(); showNotif('🔄 Resetado.'); } }
-(function () {
-  const c = getCfg();
-  [['cStM',c.stM],['cEndM',c.endM],['cStMkt',c.stMkt],['cEndMkt',c.endMkt],['cStWk',c.stWk],['cEndWk',c.endWk],['cStN',c.stN],['cEndN',c.endN]].forEach(([id,v]) => { const el = document.getElementById(id); if (el && v) el.value = v; });
-  if (c.q) document.getElementById('cQ').value = c.q;
-  if (c.horas) document.getElementById('cH').value = c.horas;
-  if (c.nome) document.getElementById('cNome').value = c.nome;
+(function() {
+  try {
+    var last = localStorage.getItem('prf_lastTab');
+    if (last) {
+      var btn = document.getElementById('btn-' + last);
+      if (btn) sw(last, btn);
+    }
+  } catch(e) {}
 })();
 
-// ============================================================
-// UTILITIES
-// ============================================================
-function showNotif(msg) {
-  const el = document.getElementById('notif');
-  el.textContent = msg; el.classList.add('show');
-  clearTimeout(showNotif._t);
-  showNotif._t = setTimeout(() => el.classList.remove('show'), 4200);
-}
-function confetti() {
-  const emojis = ['🎊','⭐','🏆','💙','🚔','🎉','🌟','✨'];
-  for (let i = 0; i < 7; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'cracker';
-      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      el.style.cssText = 'left:' + (Math.random() * 80 + 10) + 'vw;top:' + (Math.random() * 40 + 20) + 'vh';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1500);
-    }, i * 120);
-  }
-}
-// Close modals on overlay click
-document.querySelectorAll('.mo').forEach(mo => mo.addEventListener('click', e => { if (e.target === mo) mo.classList.remove('open'); }));
-</script></body></html>
+</script>
+</body>
+</html>
