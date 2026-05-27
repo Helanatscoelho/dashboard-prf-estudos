@@ -553,7 +553,7 @@ var LS = {
 var stats = LS.get('prf_stats3', { days:0, streak:0, hours:0, lastDate:'' });
 function getCronDayNum() {
   var today = new Date(); today.setHours(0,0,0,0);
-  var start = new Date('2026-05-27'); start.setHours(0,0,0,0);
+  var start = new Date(2026, 4, 27); start.setHours(0,0,0,0);
   var diff = Math.floor((today - start) / 86400000);
   return Math.max(1, Math.min(diff + 1, 120));
 }
@@ -697,7 +697,7 @@ function confetti() {
 </script>
 <script>
 // CRONOGRAMA
-var START_DATE = new Date('2026-05-27');
+var START_DATE = new Date(2026, 4, 27);
 var CRON = [
 {mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 1–4 + Interpretação',mes:1},
 {mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 5º + Morfologia',mes:1},
