@@ -157,8 +157,8 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <div id="todayBlocks"></div>
 </div>
 <div class="card" id="oracaoHojeCard" style="border-left:4px solid #ff9800;background:rgba(255,152,0,.08);cursor:pointer">
-<h3 style="margin-bottom:8px;color:#ffd700;font-size:.95em">🙏 Oração do Dia</h3>
-
+<h3 style="margin-bottom:8px;color:#ffd700;font-size:.95em">&#x1F64F; Ora&#xe7;&#xe3;o do Dia</h3>
+<div id="oracaoHojeBody" style="color:#ff9800;font-size:.84em">&#x23F3; Verificando...</div>
 </div>
 <div class="card">
 <h3>✅ Checklist do Dia</h3>
@@ -543,108 +543,97 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <button class="btn btn-d mt8" onclick="stopSocial()">✅ Encerrar</button>
 <!-- CARD PLATAFORMA DE ESTUDOS -->
 <div class="card mt12">
-<h3 class="gold">&#127279; Plataforma de Estudos</h3>
-<div style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Configure o link da sua plataforma de estudos. Todos os bot&#245;es "Acessar Curso" usar&#227;o este link.</div>
-<div class="srow"><div class="slbl">Link da plataforma</div></div>
+<h3 class="gold">&#x1F3AF; Plataforma de Estudos</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Link do seu curso. Todos os bot&#xf5;es "Acessar Curso" usar&#xe3;o este link ao salvar.</p>
 <div class="fb mt8" style="gap:8px;flex-wrap:wrap">
-<input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:200px" placeholder="https://www.grancursosonline.com.br/..." value="">
-<button class="btn btn-p" onclick="savePlat()">&#128190; Salvar</button>
+<input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:180px" placeholder="https://www.grancursosonline.com.br/aluno/...">
+<button class="btn btn-s" onclick="savePlat()">&#x1F4BE; Salvar Link</button>
 </div>
-<div id="platStatus" class="mt8" style="font-size:.8em"></div>
+<div id="platStatus" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
 <div class="plan-box mt8">
-<h4>&#128161; Como funciona</h4>
-<div style="font-size:.82em;color:#8fa3c7;line-height:1.7">Cole aqui o link direto do seu curso. Se mudar de plataforma (Gran, Estrategia, QConcursos etc.), basta trocar o link aqui e todos os botoes do dashboard ser&#227;o atualizados automaticamente.</div>
+<h4>Como funciona</h4>
+<div style="font-size:.82em;color:#8fa3c7;line-height:1.7">Cole o link direto do seu curso (Gran, Estrat&#xe9;gia, QConcursos etc.). Ap&#xf3;s salvar, todos os links do dashboard ser&#xe3;o atualizados.</div>
 </div>
 </div>
 
 <!-- CARD TEMA -->
 <div class="card mt12">
-<h3 class="gold">&#127775; Tema Visual</h3>
-<div style="font-size:.84em;color:#8fa3c7;margin-bottom:12px">Alterne entre tema escuro e claro.</div>
-<div class="fb" style="gap:12px;flex-wrap:wrap">
-<button class="btn btn-p" id="btnThemeDark" onclick="setTheme('dark')" style="flex:1">&#127761; Escuro</button>
-<button class="btn" id="btnThemeLight" onclick="setTheme('light')" style="flex:1;background:#e8edf5;color:#1b3a6b;border:1px solid #b0c4de">&#9728;&#65039; Claro</button>
+<h3 class="gold">&#x1F31F; Tema Visual</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:12px">Alterne entre tema escuro e claro.</p>
+<div class="fb" style="gap:10px">
+<button class="btn btn-p" id="btnThemeDark" onclick="setTheme('dark')" style="flex:1">&#x1F311; Escuro</button>
+<button class="btn" id="btnThemeLight" onclick="setTheme('light')" style="flex:1;background:#dce8f8;color:#1b3a6b;border:1px solid #b0c4de">&#x2600;&#xfe0f; Claro</button>
 </div>
 <div id="themeStatus" class="mt8" style="font-size:.8em;color:#8fa3c7"></div>
 </div>
 
 <!-- CARD PERIODO DE ESTUDO -->
 <div class="card mt12">
-<h3 class="gold">&#128197; Per&#237;odo de Estudo</h3>
-<div style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Estenda o cronograma se precisar de mais meses para cobrir o conte&#250;do.</div>
-<div class="srow">
-<div class="slbl">Meses de estudo atuais: <strong id="cfgMesesAtual" style="color:#00c6ff"></strong></div>
-</div>
-<div class="fb mt8" style="gap:8px;align-items:center">
-<button class="btn btn-p" onclick="changeMeses(-1)" style="width:40px;padding:7px">&#8722;</button>
-<span id="cfgMesesVal" style="font-size:1.4em;font-weight:700;color:#ffd700;min-width:40px;text-align:center"></span>
+<h3 class="gold">&#x1F4C5; Per&#xed;odo de Estudo</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Ajuste a quantidade de meses do cronograma. Padr&#xe3;o: 10 meses.</p>
+<div class="fb" style="gap:10px;align-items:center;flex-wrap:wrap">
+<button class="btn btn-p" onclick="changeMeses(-1)" style="width:40px;padding:7px 0;text-align:center">&#x2212;</button>
+<span id="cfgMesesVal" style="font-size:1.6em;font-weight:700;color:#ffd700;min-width:36px;text-align:center">10</span>
 <span style="color:#8fa3c7;font-size:.85em">meses</span>
-<button class="btn btn-p" onclick="changeMeses(1)" style="width:40px;padding:7px">&#43;</button>
-<button class="btn btn-s mt8" onclick="saveMeses()" style="margin-left:8px">&#128190; Aplicar</button>
+<button class="btn btn-p" onclick="changeMeses(1)" style="width:40px;padding:7px 0;text-align:center">&#x2B;</button>
+<button class="btn btn-s" onclick="saveMeses()">&#x1F4BE; Aplicar</button>
 </div>
-<div id="mesesStatus" class="mt8" style="font-size:.8em"></div>
+<div id="mesesStatus" class="mt8" style="font-size:.8em;color:#8fa3c7"></div>
 </div>
 </div>
 <!-- ABA ORAÇÃO -->
 <div id="tc-oracao" class="tc">
 <div class="g2">
 
-<!-- CARD TERÇO MARIANO -->
+<!-- CARD TERCO MARIANO -->
 <div class="card">
-<h3 class="gold">📿 Terço Mariano — <span id="tercoDia"></span></h3>
-<div id="tercoMisterios" style="margin-bottom:14px"></div>
-<div id="tercoStatus" class="mb8"></div>
-<button class="btn btn-s w100" id="btnTerco" onclick="concluirTerco()">✅ Concluí o Terço de hoje</button>
+<h3 class="gold">&#x1F4FF; Ter&#xe7;o Mariano &mdash; <span id="tercoDia"></span></h3>
+<div id="tercoMisterios" style="margin-bottom:14px;color:#8fa3c7;font-size:.9em">Abra a aba Ora&#xe7;&#xe3;o para carregar.</div>
+<div id="tercoStatus" style="margin-bottom:8px"></div>
+<button class="btn btn-s w100" id="btnTerco" onclick="concluirTerco()">&#x2705; Conclui o Ter&#xe7;o de hoje</button>
 </div>
 
-<!-- CARD ITINERÁRIO MENSAL -->
+<!-- CARD ITINERARIO MENSAL -->
 <div class="card">
-<h3 class="gold">📋 Itinerário Mensal — <span id="itineTitle"></span></h3>
-<div id="itinePdfArea">
-<div id="itineUploadArea" style="text-align:center;padding:24px 16px;border:2px dashed rgba(0,198,255,.4);border-radius:12px;background:rgba(0,198,255,.05);cursor:pointer" onclick="document.getElementById('itinePdfInput').click()">
-<div style="font-size:2.5em;margin-bottom:8px">📄</div>
-<div style="color:#00c6ff;font-weight:700;margin-bottom:4px">Carregar Itinerário do Mês</div>
-<div style="font-size:.8em;color:#8fa3c7">Clique para selecionar o PDF do mês atual</div>
+<h3 class="gold">&#x1F4CB; Itin. Mensal &mdash; <span id="itineTitle"></span></h3>
+<div id="itineUploadArea" style="text-align:center;padding:20px 12px;border:2px dashed rgba(0,198,255,.4);border-radius:12px;background:rgba(0,198,255,.05);cursor:pointer" onclick="document.getElementById('itinePdfInput').click()">
+<div style="font-size:2em;margin-bottom:6px">&#x1F4C4;</div>
+<div style="color:#00c6ff;font-weight:700;margin-bottom:4px">Carregar PDF do M&#xea;s</div>
+<div style="font-size:.8em;color:#8fa3c7">Clique para selecionar</div>
+</div>
 <input type="file" id="itinePdfInput" accept="application/pdf" style="display:none" onchange="loadItinePdf(this)">
-</div>
 <div id="itineViewer" style="display:none">
-<div id="itineHojeCard" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,215,0,.04));border:1px solid rgba(255,215,0,.35);border-radius:11px;padding:12px 14px;margin-bottom:12px">
-<div style="color:#ffd700;font-weight:700;font-size:.9em;margin-bottom:6px">✨ O que fazer hoje</div>
-<div id="itineHojeText" style="font-size:.84em;color:#f0f4ff;line-height:1.7"></div>
+<div id="itineHojeCard" style="background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,215,0,.04));border:1px solid rgba(255,215,0,.35);border-radius:11px;padding:10px 12px;margin-bottom:10px">
+<div style="color:#ffd700;font-weight:700;font-size:.85em;margin-bottom:4px">&#x2728; Atividades de hoje</div>
+<div id="itineHojeText" style="font-size:.82em;color:#f0f4ff;line-height:1.6"></div>
 </div>
-<div style="position:relative;width:100%;border-radius:10px;overflow:hidden;background:#0d1b2a;border:1px solid rgba(255,255,255,.1)">
-<canvas id="pdfCanvas" style="width:100%;display:block"></canvas>
-</div>
-<div class="fb mt8" style="gap:6px;flex-wrap:wrap">
-<button class="btn btn-p" onclick="pdfPrevPage()">&#9664; Anterior</button>
-<span id="pdfPageInfo" style="font-size:.82em;color:#8fa3c7;align-self:center"></span>
-<button class="btn btn-p" onclick="pdfNextPage()">Pr&#243;xima &#9654;</button>
-<button class="btn btn-w" onclick="document.getElementById('itinePdfInput').click()" style="margin-left:auto">&#128260; Trocar PDF</button>
+<canvas id="pdfCanvas" style="width:100%;border-radius:8px;background:#0d1b2a;display:block"></canvas>
+<div class="fb mt8" style="gap:6px;flex-wrap:wrap;align-items:center">
+<button class="btn btn-p" onclick="pdfPrevPage()" style="padding:5px 12px">&#9664;</button>
+<span id="pdfPageInfo" style="font-size:.8em;color:#8fa3c7;flex:1;text-align:center"></span>
+<button class="btn btn-p" onclick="pdfNextPage()" style="padding:5px 12px">&#9654;</button>
+<button class="btn btn-w" onclick="document.getElementById('itinePdfInput').click()" style="font-size:.78em">&#x1F504; Trocar</button>
 </div>
 </div>
-</div>
-<div id="itineStatus" class="mt8"></div>
-<button class="btn btn-s w100 mt8" id="btnItine" onclick="concluirItine()">&#10003; Conclui o Itin. de hoje</button>
+<div id="itineStatus" style="margin-top:8px;font-size:.82em"></div>
+<button class="btn btn-s w100 mt8" id="btnItine" onclick="concluirItine()">&#x2705; Conclui o Itin. de hoje</button>
 </div>
 
 </div>
 
-<!-- CARD SANTO DO MÊS -->
-<div class="card mt12" id="santoCard">
-<h3 class="gold">&#10013; Santo do M&#234;s &#8212; <span id="santoMesLabel"></span></h3>
-<div id="santoBody">
-<div style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Cole ou digite a vida do santo deste m&#234;s. Este card aparece todo m&#234;s at&#233; ser marcado como lido.</div>
-<textarea class="inp w100" id="santoTexto" rows="8" placeholder="Cole aqui a vida do santo do m&#234;s..."></textarea>
-<div class="fb mt8" style="gap:8px;flex-wrap:wrap">
-<label style="display:flex;align-items:center;gap:6px;font-size:.82em;color:#8fa3c7;cursor:pointer">
-&#128206; Upload imagem:
-<input type="file" id="santoImgInput" accept="image/*" style="font-size:.78em" onchange="loadSantoImg(this)">
+<!-- CARD SANTO DO MES -->
+<div class="card mt12">
+<h3 class="gold">&#x271D;&#xfe0f; Santo do M&#xea;s &mdash; <span id="santoMesLabel"></span></h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:8px">Cole a vida do santo. Fica dispon&#xed;vel o m&#xea;s todo at&#xe9; ser marcado como lido.</p>
+<textarea class="inp w100" id="santoTexto" rows="6" placeholder="Cole aqui a vida do santo do m&#xea;s..."></textarea>
+<div class="fb mt8" style="gap:8px;align-items:center;flex-wrap:wrap">
+<label style="font-size:.82em;color:#8fa3c7;cursor:pointer">
+&#x1F4CE; Imagem: <input type="file" id="santoImgInput" accept="image/*" style="font-size:.78em" onchange="loadSantoImg(this)">
 </label>
 </div>
 <div id="santoImgPreview" style="margin-top:8px"></div>
-</div>
-<div id="santoStatus" class="mt8"></div>
-<button class="btn btn-s w100 mt8" id="btnSanto" onclick="concluirSanto()">&#128214; Lido &#8212; Marcar Santo do M&#234;s</button>
+<div id="santoStatus" style="margin-top:8px;font-size:.82em"></div>
+<button class="btn btn-s w100 mt8" id="btnSanto" onclick="concluirSanto()">&#x1F4D6; Lido &mdash; Marcar Santo do M&#xea;s</button>
 </div>
 
 </div>
@@ -1119,334 +1108,315 @@ updateNotesCount();
 (function(){try{var last=localStorage.getItem('prf_lastTab');if(last){var btn=document.getElementById('btn-'+last);if(btn)sw(last,btn);}}catch(e){}})();
 
 // ==================== ORACAO ====================
-function _dkOracao(){var n=new Date();n.setHours(n.getHours()-3);return n.toISOString().split('T')[0];}
-function _mkOracao(){var n=new Date();n.setHours(n.getHours()-3);return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0');}
-var _pdfDoc=null,_pdfPage=1;
-function _ensurePdf(cb){
-  if(window.pdfjsLib){cb();return;}
-  var s=document.createElement('script');
-  s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-  s.onload=function(){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';cb();};
-  document.head.appendChild(s);
+function _odk(){
+  var n=new Date();
+  var y=n.getFullYear(), mo=n.getMonth()+1, d=n.getDate();
+  return y+'-'+(mo<10?'0'+mo:mo)+'-'+(d<10?'0'+d:d);
 }
+function _omk(){
+  var n=new Date();
+  var y=n.getFullYear(), mo=n.getMonth()+1;
+  return y+'-'+(mo<10?'0'+mo:mo);
+}
+
 function renderOracaoTab(){
-  var n=new Date();n.setHours(n.getHours()-3);
-  var dow=n.getDay();
-  var dows=['Domingo','Segunda','Tera','Quarta','Quinta','Sexta','Sabado'];
-  var mists={
-    0:{n:'Gloriosos',i:['Ressurreicao de Jesus','Ascensao ao Ceu','Pentecostes','Assuncao de Maria','Coroacao de Maria']},
-    1:{n:'Gozosos',i:['Anunciacao','Visitacao','Nascimento de Jesus','Apresentacao no Templo','Perda e Encontro de Jesus']},
-    2:{n:'Dolorosos',i:['Oracao no Horto','Flagelacao','Coroacao de Espinhos','Caminho da Cruz','Crucificacao']},
-    3:{n:'Gloriosos',i:['Ressurreicao de Jesus','Ascensao ao Ceu','Pentecostes','Assuncao de Maria','Coroacao de Maria']},
-    4:{n:'Luminosos',i:['Batismo no Jordao','Bodas de Cana','Proclamacao do Reino','Transfiguracao','Instituicao da Eucaristia']},
-    5:{n:'Dolorosos',i:['Oracao no Horto','Flagelacao','Coroacao de Espinhos','Caminho da Cruz','Crucificacao']},
-    6:{n:'Gozosos',i:['Anunciacao','Visitacao','Nascimento de Jesus','Apresentacao no Templo','Perda e Encontro de Jesus']}
-  };
-  var m=mists[dow];
-  var el=document.getElementById('tercoDia');
-  if(el)el.textContent=dows[dow]+' — Mistérios '+m.n;
-  var mDiv=document.getElementById('tercoMisterios');
-  if(mDiv)mDiv.innerHTML='<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:12px 14px;border-left:4px solid #7c4dff"><div style="font-weight:700;color:#b39ddb;margin-bottom:10px;font-size:.9em">Mistérios '+m.n+'</div>'+m.i.map(function(it,idx){return '<div style="padding:5px 0;font-size:.85em;border-bottom:1px solid rgba(255,255,255,.06);color:#f0f4ff">'+(idx+1)+'. 🌹 '+it+'</div>';}).join('')+'</div>';
-  var dk=_dkOracao();
-  _updateTercoUI(localStorage.getItem('terco-'+dk)==='1');
-  _renderItine();
-  _renderSanto();
+  var dow=new Date().getDay();
+  var dayNames=['Domingo','Segunda','Ter\u00e7a','Quarta','Quinta','Sexta','S\u00e1bado'];
+  var M=[
+    {n:'Gloriosos',i:['Ressurrei\u00e7\u00e3o','Ascens\u00e3o','Pentecostes','Assun\u00e7\u00e3o de Maria','Coroa\u00e7\u00e3o de Maria']},
+    {n:'Gozosos',  i:['Anuncia\u00e7\u00e3o','Visita\u00e7\u00e3o','Nascimento','Apresenta\u00e7\u00e3o no Templo','Perda e Encontro']},
+    {n:'Dolorosos',i:['Ora\u00e7\u00e3o no Horto','Flagela\u00e7\u00e3o','Coroa\u00e7\u00e3o de Espinhos','Caminho da Cruz','Crucifica\u00e7\u00e3o']},
+    {n:'Gloriosos',i:['Ressurrei\u00e7\u00e3o','Ascens\u00e3o','Pentecostes','Assun\u00e7\u00e3o de Maria','Coroa\u00e7\u00e3o de Maria']},
+    {n:'Luminosos', i:['Batismo no Jord\u00e3o','Bodas de Can\u00e1','Proclama\u00e7\u00e3o do Reino','Transfigura\u00e7\u00e3o','Eucaristia']},
+    {n:'Dolorosos',i:['Ora\u00e7\u00e3o no Horto','Flagela\u00e7\u00e3o','Coroa\u00e7\u00e3o de Espinhos','Caminho da Cruz','Crucifica\u00e7\u00e3o']},
+    {n:'Gozosos',  i:['Anuncia\u00e7\u00e3o','Visita\u00e7\u00e3o','Nascimento','Apresenta\u00e7\u00e3o no Templo','Perda e Encontro']}
+  ];
+  var m=M[dow];
+  var elDia=document.getElementById('tercoDia');
+  if(elDia) elDia.textContent=dayNames[dow]+' \u2014 Mist\u00e9rios '+m.n;
+  var elM=document.getElementById('tercoMisterios');
+  if(elM){
+    var html='<div style="background:rgba(124,77,255,.15);border-radius:10px;padding:12px 14px;border-left:4px solid #7c4dff">';
+    html+='<div style="font-weight:700;color:#b39ddb;margin-bottom:8px;font-size:.88em">Mist\u00e9rios '+m.n+'</div>';
+    for(var i=0;i<m.i.length;i++){
+      html+='<div style="padding:5px 0;font-size:.84em;border-bottom:1px solid rgba(255,255,255,.06);color:#f0f4ff">\uD83C\uDF39 '+(i+1)+'. '+m.i[i]+'</div>';
+    }
+    html+='</div>';
+    elM.innerHTML=html;
+  }
+  var dk=_odk();
+  _tercoUI(localStorage.getItem('terco-'+dk)==='1');
+
+  var n2=new Date(), mk=_omk();
+  var meses=['Janeiro','Fevereiro','Mar\u00e7o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  var elIt=document.getElementById('itineTitle');
+  if(elIt) elIt.textContent=meses[n2.getMonth()]+' '+n2.getFullYear();
+
+  var stored=null;
+  try{ stored=localStorage.getItem('itinerario-'+mk); } catch(e){}
+  var ua=document.getElementById('itineUploadArea');
+  var iv=document.getElementById('itineViewer');
+  if(stored && ua && iv){
+    ua.style.display='none'; iv.style.display='block';
+    _loadPdfLib(function(){ _loadPdfB64(stored); });
+  } else {
+    if(ua) ua.style.display='block';
+    if(iv) iv.style.display='none';
+  }
+  _itineUI(localStorage.getItem('itine-'+dk)==='1');
+
+  var elSL=document.getElementById('santoMesLabel');
+  if(elSL) elSL.textContent=meses[n2.getMonth()]+' '+n2.getFullYear();
+  var ta=document.getElementById('santoTexto');
+  if(ta && !ta._loaded){ ta.value=localStorage.getItem('santo-texto-'+mk)||''; ta._loaded=1; }
+  if(ta){ ta.onchange=function(){ localStorage.setItem('santo-texto-'+mk, ta.value); }; ta.oninput=ta.onchange; }
+  var simg=localStorage.getItem('santo-img-'+mk);
+  if(simg){ var pp=document.getElementById('santoImgPreview'); if(pp&&!pp.innerHTML) pp.innerHTML='<img src="'+simg+'" style="max-width:100%;border-radius:8px">'; }
+  _santoUI(localStorage.getItem('santo-lido-'+mk)==='1');
   updateOracaoHojeCard();
 }
-function _updateTercoUI(done){
-  var btn=document.getElementById('btnTerco');
-  var st=document.getElementById('tercoStatus');
+
+function _tercoUI(done){
+  var b=document.getElementById('btnTerco'), s=document.getElementById('tercoStatus');
   if(done){
-    if(btn){btn.textContent='✅ Terço concluído!';btn.style.background='#00c853';btn.disabled=true;}
-    if(st)st.innerHTML='<div style="color:#00e676;font-size:.82em">✔ Concluído hoje</div>';
-  }else{
-    if(btn){btn.textContent='✅ Conclui o Terço de hoje';btn.style.background='';btn.disabled=false;}
-    if(st)st.innerHTML='';
+    if(b){b.textContent='\u2705 Ter\u00e7o conclu\u00eddo!';b.style.background='#00c853';b.disabled=true;}
+    if(s) s.innerHTML='<span style="color:#00e676;font-size:.82em">\u2714 Feito hoje</span>';
+  } else {
+    if(b){b.textContent='\u2705 Conclui o Ter\u00e7o de hoje';b.style.background='';b.disabled=false;}
+    if(s) s.innerHTML='';
   }
 }
 function concluirTerco(){
-  localStorage.setItem('terco-'+_dkOracao(),'1');
-  _updateTercoUI(true);
+  var dk=_odk();
+  localStorage.setItem('terco-'+dk,'1');
+  _tercoUI(true);
   updateOracaoHojeCard();
-  showNotif('📿 Terço concluído! Bênção para o seu dia!');
+  showNotif('\uD83D\uDCFF Ter\u00e7o conclu\u00eddo!');
 }
-function _renderItine(){
-  var n=new Date();n.setHours(n.getHours()-3);
-  var meses=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  var el=document.getElementById('itineTitle');
-  if(el)el.textContent=meses[n.getMonth()]+' '+n.getFullYear();
-  var mk=_mkOracao();
-  var stored=null;
-  try{stored=localStorage.getItem('itinerario-'+mk);}catch(e){}
-  var ua=document.getElementById('itineUploadArea');
-  var iv=document.getElementById('itineViewer');
-  if(stored){
-    if(ua)ua.style.display='none';
-    if(iv)iv.style.display='block';
-    _ensurePdf(function(){_loadPdfB64(stored);});
-  }else{
-    if(ua)ua.style.display='block';
-    if(iv)iv.style.display='none';
-  }
-  var dk=_dkOracao();
-  _updateItineUI(localStorage.getItem('itine-'+dk)==='1');
+
+var _pdfDocObj=null, _pdfPg=1;
+function _loadPdfLib(cb){
+  if(window.pdfjsLib){ cb(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  s.onload=function(){ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; cb(); };
+  document.head.appendChild(s);
 }
-function loadItinePdf(input){
-  if(!input.files||!input.files[0])return;
-  var reader=new FileReader();
-  reader.onload=function(e){
+function loadItinePdf(inp){
+  if(!inp.files||!inp.files[0]) return;
+  var rd=new FileReader();
+  rd.onload=function(e){
     var b64=e.target.result.split(',')[1];
-    var mk=_mkOracao();
-    try{localStorage.setItem('itinerario-'+mk,b64);}catch(ex){showNotif('⚠️ PDF muito grande para armazenar');return;}
+    var mk=_omk();
+    try{ localStorage.setItem('itinerario-'+mk, b64); } catch(ex){ showNotif('PDF muito grande para salvar'); return; }
     var ua=document.getElementById('itineUploadArea');
     var iv=document.getElementById('itineViewer');
-    if(ua)ua.style.display='none';
-    if(iv)iv.style.display='block';
-    _ensurePdf(function(){_loadPdfB64(b64);});
-    showNotif('📋 Itin. carregado com sucesso!');
+    if(ua) ua.style.display='none';
+    if(iv) iv.style.display='block';
+    _loadPdfLib(function(){ _loadPdfB64(b64); });
+    showNotif('\uD83D\uDCCB Itin. carregado!');
   };
-  reader.readAsDataURL(input.files[0]);
+  rd.readAsDataURL(inp.files[0]);
 }
 function _loadPdfB64(b64){
-  var bin=atob(b64);
-  var bytes=new Uint8Array(bin.length);
-  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-  pdfjsLib.getDocument({data:bytes}).promise.then(function(pdf){
-    _pdfDoc=pdf;
-    var n=new Date();n.setHours(n.getHours()-3);
-    var day=n.getDate();
-    _pdfPage=Math.min(day,pdf.numPages);
-    _renderPdfPage(_pdfPage);
-    var card=document.getElementById('itineHojeCard');
-    var txt=document.getElementById('itineHojeText');
-    if(card)card.style.display='block';
-    if(txt)txt.textContent='Veja a pág. '+day+' do itin. para as atividades de hoje.';
-  });
+  try{
+    var bin=atob(b64);
+    var bytes=new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+    pdfjsLib.getDocument({data:bytes}).promise.then(function(pdf){
+      _pdfDocObj=pdf;
+      var day=new Date().getDate();
+      _pdfPg=Math.min(day, pdf.numPages);
+      _renderPg(_pdfPg);
+      var hc=document.getElementById('itineHojeCard');
+      var ht=document.getElementById('itineHojeText');
+      if(hc) hc.style.display='block';
+      if(ht) ht.textContent='P\u00e1g. '+day+' corresponde ao dia de hoje. '+pdf.numPages+' p\u00e1g. no total.';
+    }).catch(function(err){ showNotif('Erro ao ler PDF'); });
+  } catch(e){ showNotif('Erro ao processar PDF'); }
 }
-function _renderPdfPage(num){
-  if(!_pdfDoc)return;
-  _pdfDoc.getPage(num).then(function(page){
+function _renderPg(num){
+  if(!_pdfDocObj) return;
+  _pdfDocObj.getPage(num).then(function(page){
     var canvas=document.getElementById('pdfCanvas');
-    if(!canvas)return;
+    if(!canvas) return;
     var ctx=canvas.getContext('2d');
-    var vp=page.getViewport({scale:1.5});
-    canvas.height=vp.height;canvas.width=vp.width;
+    var vp=page.getViewport({scale:1.4});
+    canvas.height=vp.height; canvas.width=vp.width;
     page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
       var info=document.getElementById('pdfPageInfo');
-      if(info)info.textContent='Pág. '+num+' de '+_pdfDoc.numPages;
+      if(info) info.textContent='P\u00e1g. '+num+' de '+_pdfDocObj.numPages;
     });
   });
 }
-function pdfPrevPage(){if(!_pdfDoc||_pdfPage<=1)return;_pdfPage--;_renderPdfPage(_pdfPage);}
-function pdfNextPage(){if(!_pdfDoc||_pdfPage>=_pdfDoc.numPages)return;_pdfPage++;_renderPdfPage(_pdfPage);}
-function _updateItineUI(done){
-  var btn=document.getElementById('btnItine');
-  var st=document.getElementById('itineStatus');
+function pdfPrevPage(){ if(_pdfDocObj&&_pdfPg>1){ _pdfPg--; _renderPg(_pdfPg); } }
+function pdfNextPage(){ if(_pdfDocObj&&_pdfPg<_pdfDocObj.numPages){ _pdfPg++; _renderPg(_pdfPg); } }
+
+function _itineUI(done){
+  var b=document.getElementById('btnItine'), s=document.getElementById('itineStatus');
   if(done){
-    if(btn){btn.textContent='✅ Itin. concluído!';btn.style.background='#00c853';btn.disabled=true;}
-    if(st)st.innerHTML='<div style="color:#00e676;font-size:.82em">✔ Concluído hoje</div>';
-  }else{
-    if(btn){btn.textContent='✅ Conclui o Itin. de hoje';btn.style.background='';btn.disabled=false;}
-    if(st)st.innerHTML='';
+    if(b){b.textContent='\u2705 Itin. conclu\u00eddo!';b.style.background='#00c853';b.disabled=true;}
+    if(s) s.innerHTML='<span style="color:#00e676;font-size:.82em">\u2714 Feito hoje</span>';
+  } else {
+    if(b){b.textContent='\u2705 Conclui o Itin. de hoje';b.style.background='';b.disabled=false;}
+    if(s) s.innerHTML='';
   }
 }
 function concluirItine(){
-  localStorage.setItem('itine-'+_dkOracao(),'1');
-  _updateItineUI(true);
+  localStorage.setItem('itine-'+_odk(),'1');
+  _itineUI(true);
   updateOracaoHojeCard();
-  showNotif('📋 Itin. concluído!');
+  showNotif('\uD83D\uDCCB Itin. conclu\u00eddo!');
 }
-function _renderSanto(){
-  var n=new Date();n.setHours(n.getHours()-3);
-  var mk=_mkOracao();
-  var meses=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  var lbl=document.getElementById('santoMesLabel');
-  if(lbl)lbl.textContent=meses[n.getMonth()]+' '+n.getFullYear();
-  var saved=localStorage.getItem('santo-texto-'+mk)||'';
-  var ta=document.getElementById('santoTexto');
-  if(ta&&!ta.dataset.loaded){ta.value=saved;ta.dataset.loaded='1';}
-  if(ta)ta.oninput=function(){localStorage.setItem('santo-texto-'+mk,ta.value);};
-  var savedImg=localStorage.getItem('santo-img-'+mk);
-  if(savedImg){var prev=document.getElementById('santoImgPreview');if(prev&&!prev.innerHTML)prev.innerHTML='<img src="'+savedImg+'" style="max-width:100%;border-radius:8px;margin-top:6px">';}
-  _updateSantoUI(localStorage.getItem('santo-lido-'+mk)==='1');
-}
-function loadSantoImg(input){
-  if(!input.files||!input.files[0])return;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    var mk=_mkOracao();
-    try{localStorage.setItem('santo-img-'+mk,e.target.result);}catch(ex){showNotif('⚠️ Imagem muito grande');return;}
-    var prev=document.getElementById('santoImgPreview');
-    if(prev)prev.innerHTML='<img src="'+e.target.result+'" style="max-width:100%;border-radius:8px;margin-top:6px">';
+
+function loadSantoImg(inp){
+  if(!inp.files||!inp.files[0]) return;
+  var rd=new FileReader();
+  rd.onload=function(e){
+    var mk=_omk();
+    try{ localStorage.setItem('santo-img-'+mk, e.target.result); } catch(ex){ showNotif('Imagem muito grande'); return; }
+    var pp=document.getElementById('santoImgPreview');
+    if(pp) pp.innerHTML='<img src="'+e.target.result+'" style="max-width:100%;border-radius:8px">';
   };
-  reader.readAsDataURL(input.files[0]);
+  rd.readAsDataURL(inp.files[0]);
 }
-function _updateSantoUI(done){
-  var btn=document.getElementById('btnSanto');
-  var st=document.getElementById('santoStatus');
+function _santoUI(done){
+  var b=document.getElementById('btnSanto'), s=document.getElementById('santoStatus');
   if(done){
-    if(btn){btn.textContent='📖 Santo já lido!';btn.style.background='#00c853';btn.disabled=true;}
-    if(st)st.innerHTML='<div style="color:#00e676;font-size:.82em">✔ Lido este mês</div>';
-  }else{
-    if(btn){btn.textContent='📖 Lido — Marcar Santo do Mês';btn.style.background='';btn.disabled=false;}
-    if(st)st.innerHTML='';
+    if(b){b.textContent='\uD83D\uDCD6 Santo j\u00e1 lido!';b.style.background='#00c853';b.disabled=true;}
+    if(s) s.innerHTML='<span style="color:#00e676;font-size:.82em">\u2714 Lido este m\u00eas</span>';
+  } else {
+    if(b){b.textContent='\uD83D\uDCD6 Lido \u2014 Marcar Santo do M\u00eas';b.style.background='';b.disabled=false;}
+    if(s) s.innerHTML='';
   }
 }
 function concluirSanto(){
   var ta=document.getElementById('santoTexto');
-  var mk=_mkOracao();
-  if(ta)localStorage.setItem('santo-texto-'+mk,ta.value);
+  var mk=_omk();
+  if(ta) localStorage.setItem('santo-texto-'+mk, ta.value);
   localStorage.setItem('santo-lido-'+mk,'1');
-  _updateSantoUI(true);
+  _santoUI(true);
   updateOracaoHojeCard();
-  showNotif('✝️ Santo do mês marcado como lido!');
+  showNotif('\u271D\uFE0F Santo marcado como lido!');
 }
+
 function updateOracaoHojeCard(){
-  var dk=_dkOracao();
-  var mk=_mkOracao();
+  var dk=_odk(), mk=_omk();
   var terco=localStorage.getItem('terco-'+dk)==='1';
   var itine=localStorage.getItem('itine-'+dk)==='1';
   var santo=localStorage.getItem('santo-lido-'+mk)==='1';
-  var cardEl=document.getElementById('oracaoHojeCard');
-  if(!cardEl)return;
-  var allDone=terco&&itine&&santo;
-  var html='';
-  if(allDone){
-    html='<div style="color:#00e676;font-weight:700">✅ Oração do dia concluída</div>';
-    cardEl.style.borderColor='#00e676';cardEl.style.background='rgba(0,230,118,.08)';
-  }else{
-    html='<div style="font-weight:700;color:#ffd700;margin-bottom:8px">🙏 Oração do dia pendente</div>';
-    html+='<div style="font-size:.82em;display:flex;flex-direction:column;gap:5px">';
-    html+='<div style="color:'+(terco?'#00e676':'#ff9800')+'">'+(terco?'✅':'⏳')+' Terço Mariano</div>';
-    html+='<div style="color:'+(itine?'#00e676':'#ff9800')+'">'+(itine?'✅':'⏳')+' Itin. Mensal</div>';
-    html+='<div style="color:'+(santo?'#00e676':'#ff9800')+'">'+(santo?'✅':'⏳')+' Santo do Mês</div>';
+  var el=document.getElementById('oracaoHojeBody');
+  var card=document.getElementById('oracaoHojeCard');
+  if(!el||!card) return;
+  var all=terco&&itine&&santo;
+  if(all){
+    el.innerHTML='<span style="color:#00e676;font-weight:700">\u2705 Ora\u00e7\u00e3o do dia conclu\u00edda!</span>';
+    card.style.borderColor='#00e676'; card.style.background='rgba(0,230,118,.08)';
+  } else {
+    var html='<div style="display:flex;flex-direction:column;gap:5px">';
+    html+='<div style="color:'+(terco?'#00e676':'#ff9800')+'">\u25CF Ter\u00e7o Mariano: '+(terco?'\u2705 Feito':'\u23F3 Pendente')+'</div>';
+    html+='<div style="color:'+(itine?'#00e676':'#ff9800')+'">\u25CF Itin. Mensal: '+(itine?'\u2705 Feito':'\u23F3 Pendente')+'</div>';
+    html+='<div style="color:'+(santo?'#00e676':'#ff9800')+'">\u25CF Santo do M\u00eas: '+(santo?'\u2705 Feito':'\u23F3 Pendente')+'</div>';
     html+='</div>';
-    html+='<button class="btn btn-p mt8" onclick="sw('oracao',document.getElementById('btn-oracao'))">Ir para Oração ➜</button>';
-    cardEl.style.borderColor='#ff9800';cardEl.style.background='rgba(255,152,0,.08)';
+    html+='<button class="btn btn-p mt8" style="font-size:.78em" onclick="sw('oracao',document.getElementById('btn-oracao'))">Ir para Ora\u00e7\u00e3o \u2192</button>';
+    el.innerHTML=html;
+    card.style.borderColor='#ff9800'; card.style.background='rgba(255,152,0,.08)';
   }
-  cardEl.innerHTML='<h3 style="margin-bottom:8px;color:#ffd700;font-size:.95em">🙏 Oração do Dia</h3>'+html;
 }
 // ==================== FIM ORACAO ====================
 
 // ==================== CONFIG EXTRAS ====================
-
-// --- PLATAFORMA ---
-var DEFAULT_PLAT_URL = 'https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol';
-
-function _getPlatUrl(){
-  return localStorage.getItem('prf_plat_url') || DEFAULT_PLAT_URL;
-}
+var _cfgMesesN=10;
 
 function savePlat(){
-  var inp = document.getElementById('cfgPlatUrl');
+  var inp=document.getElementById('cfgPlatUrl');
   if(!inp) return;
-  var url = inp.value.trim();
-  if(!url){ showNotif('⚠️ Cole um link válido'); return; }
-  localStorage.setItem('prf_plat_url', url);
+  var url=inp.value.trim();
+  if(!url){ showNotif('Cole um link v\u00e1lido!'); return; }
+  localStorage.setItem('prf_plat_url',url);
   _applyPlatUrl(url);
-  var st = document.getElementById('platStatus');
-  if(st) st.innerHTML = '<span style="color:#00e676">✅ Link salvo e aplicado!</span>';
-  showNotif('🌏 Plataforma atualizada!');
+  var st=document.getElementById('platStatus');
+  if(st) st.innerHTML='<span style="color:#00e676">\u2705 Salvo! Todos os links atualizados.</span>';
+  showNotif('\uD83C\uDF0F Plataforma atualizada!');
 }
 
 function _applyPlatUrl(url){
-  // Update all anchor tags and buttons that had gran cursos URLs
-  // Update all anchor tags that originally pointed to grancursosonline
-  Array.from(document.querySelectorAll('a')).forEach(function(el){
-    if(el.href && (el.href.includes('grancursosonline') || el.dataset.plat || el.getAttribute('href') && el.getAttribute('href').includes('grancursosonline'))){
-      el.href = url;
-    }
+  document.querySelectorAll('a').forEach(function(a){
+    var h=a.getAttribute('href')||'';
+    if(h.indexOf('grancursosonline')!==-1) a.href=url;
   });
-  // Also update iframes
-  Array.from(document.querySelectorAll('iframe')).forEach(function(el){
-    if(el.src && el.src.includes('grancursosonline')){
-      el.src = url;
-    }
+  document.querySelectorAll('iframe').forEach(function(f){
+    if((f.src||'').indexOf('grancursosonline')!==-1) f.src=url;
   });
 }
 
-function _initPlatConfig(){
-  var url = _getPlatUrl();
-  var inp = document.getElementById('cfgPlatUrl');
-  if(inp) inp.value = url;
-  _applyPlatUrl(url);
+function _initPlat(){
+  var url=localStorage.getItem('prf_plat_url')||'';
+  var inp=document.getElementById('cfgPlatUrl');
+  if(inp) inp.value=url;
+  var st=document.getElementById('platStatus');
+  if(url){
+    if(st) st.innerHTML='<span style="color:#4aa8ff">Link salvo: '+url.substring(0,50)+'...</span>';
+    _applyPlatUrl(url);
+  }
 }
 
-// --- TEMA ---
 function setTheme(mode){
-  localStorage.setItem('prf_theme', mode);
+  localStorage.setItem('prf_theme',mode);
   _applyTheme(mode);
-  var st = document.getElementById('themeStatus');
-  if(st) st.textContent = mode === 'dark' ? 'Tema Escuro ativo' : 'Tema Claro ativo';
-  showNotif(mode === 'dark' ? '🌑 Tema Escuro ativado' : '☀️ Tema Claro ativado');
+  showNotif(mode==='dark'?'\uD83C\uDF11 Tema Escuro':'\u2600\uFE0F Tema Claro');
 }
 
 function _applyTheme(mode){
-  var root = document.documentElement;
-  if(mode === 'light'){
-    root.style.setProperty('--bd','#f0f4ff');
-    root.style.setProperty('--bm','#dce8f8');
-    root.style.setProperty('--cb','rgba(200,220,245,0.7)');
-    root.style.setProperty('--wh','#1b3a6b');
-    root.style.setProperty('--gr','#4a6080');
-    document.body.style.background = 'linear-gradient(135deg,#e8f0fc,#d0e4f7 50%,#e0ecf8)';
-    var btn1 = document.getElementById('btnThemeDark');
-    var btn2 = document.getElementById('btnThemeLight');
-    if(btn1){btn1.style.background='rgba(30,111,217,.15)';btn1.style.color='#1e6fd9';}
-    if(btn2){btn2.style.background='#1e6fd9';btn2.style.color='#fff';}
+  var r=document.documentElement;
+  var b1=document.getElementById('btnThemeDark');
+  var b2=document.getElementById('btnThemeLight');
+  var st=document.getElementById('themeStatus');
+  if(mode==='light'){
+    r.style.setProperty('--bd','#f0f4ff');
+    r.style.setProperty('--bm','#dce8f8');
+    r.style.setProperty('--cb','rgba(180,210,245,0.7)');
+    r.style.setProperty('--wh','#1b3a6b');
+    r.style.setProperty('--gr','#4a6080');
+    document.body.style.background='linear-gradient(135deg,#e8f0fc,#d0e4f7 50%,#e0ecf8)';
+    if(b1){b1.style.background='rgba(30,111,217,.15)';b1.style.color='#1e6fd9';}
+    if(b2){b2.style.background='#1e6fd9';b2.style.color='#fff';}
+    if(st) st.textContent='Tema Claro ativo';
   } else {
-    root.style.setProperty('--bd','#0d1b2a');
-    root.style.setProperty('--bm','#1b3a6b');
-    root.style.setProperty('--cb','rgba(27,58,107,0.6)');
-    root.style.setProperty('--wh','#f0f4ff');
-    root.style.setProperty('--gr','#8fa3c7');
-    document.body.style.background = 'linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a)';
-    var btn1 = document.getElementById('btnThemeDark');
-    var btn2 = document.getElementById('btnThemeLight');
-    if(btn1){btn1.style.background='#1e6fd9';btn1.style.color='#fff';}
-    if(btn2){btn2.style.background='rgba(232,237,245,0.15)';btn2.style.color='#8fa3c7';}
+    r.style.setProperty('--bd','#0d1b2a');
+    r.style.setProperty('--bm','#1b3a6b');
+    r.style.setProperty('--cb','rgba(27,58,107,0.6)');
+    r.style.setProperty('--wh','#f0f4ff');
+    r.style.setProperty('--gr','#8fa3c7');
+    document.body.style.background='linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a)';
+    if(b1){b1.style.background='#1e6fd9';b1.style.color='#fff';}
+    if(b2){b2.style.background='rgba(232,237,245,.12)';b2.style.color='#8fa3c7';}
+    if(st) st.textContent='Tema Escuro ativo';
   }
 }
 
-// --- MESES ---
-var _cfgMeses = 10;
-
-function _initMeses(){
-  var cfg = localStorage.getItem('prf_meses');
-  _cfgMeses = cfg ? parseInt(cfg) : 10;
-  _renderMesesUI();
-}
-
-function _renderMesesUI(){
-  var el = document.getElementById('cfgMesesVal');
-  if(el) el.textContent = _cfgMeses;
-  var el2 = document.getElementById('cfgMesesAtual');
-  if(el2) el2.textContent = _cfgMeses;
-}
-
-function changeMeses(delta){
-  _cfgMeses = Math.max(1, Math.min(24, _cfgMeses + delta));
-  _renderMesesUI();
+function changeMeses(d){
+  _cfgMesesN=Math.max(1,Math.min(24,_cfgMesesN+d));
+  var el=document.getElementById('cfgMesesVal');
+  if(el) el.textContent=_cfgMesesN;
 }
 
 function saveMeses(){
-  localStorage.setItem('prf_meses', _cfgMeses);
-  // Rebuild CRON with new month count
-  if(typeof buildCron === 'function') buildCron(_cfgMeses);
-  else if(typeof CRON !== 'undefined') {
-    // Fallback: rebuild by re-triggering cron init
-    showNotif('📅 Período atualizado para ' + _cfgMeses + ' meses! Recarregue para aplicar ao cronograma.');
-  }
-  var st = document.getElementById('mesesStatus');
-  if(st) st.innerHTML = '<span style="color:#00e676">✅ ' + _cfgMeses + ' meses salvos! Recarregue a página para atualizar o cronograma.</span>';
+  localStorage.setItem('prf_meses',_cfgMesesN);
+  var st=document.getElementById('mesesStatus');
+  if(st) st.innerHTML='<span style="color:#00e676">\u2705 '+_cfgMesesN+' meses salvos! Recarregue para atualizar o cronograma.</span>';
+  showNotif('\uD83D\uDCC5 Per\u00edodo: '+_cfgMesesN+' meses');
 }
 
-// --- INIT CONFIG ---
-(function(){
-  _initPlatConfig();
-  var theme = localStorage.getItem('prf_theme') || 'dark';
+(function _initCfgExtras(){
+  var saved=parseInt(localStorage.getItem('prf_meses')||'10');
+  _cfgMesesN=isNaN(saved)?10:saved;
+  var elM=document.getElementById('cfgMesesVal');
+  if(elM) elM.textContent=_cfgMesesN;
+  var theme=localStorage.getItem('prf_theme')||'dark';
   _applyTheme(theme);
-  _initMeses();
+  _initPlat();
+  updateOracaoHojeCard();
 })();
 // ==================== FIM CONFIG EXTRAS ====================
 </script>
