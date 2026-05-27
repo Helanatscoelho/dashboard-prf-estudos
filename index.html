@@ -7,7 +7,7 @@
 <style>
 :root{--bd:#0d1b2a;--bm:#1b3a6b;--bb:#1e6fd9;--bl:#4aa8ff;--bg:#00c6ff;--gold:#ffd700;--gn:#00e676;--or:#ff9800;--pk:#ff4081;--pu:#7c4dff;--wh:#f0f4ff;--gr:#8fa3c7;--cb:rgba(27,58,107,0.6)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a);font-family:'Segoe UI',sans-serif;color:var(--wh);min-height:100vh}
+body{background:linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a);font-famihly:'Segoe UI',sans-serif;color:var(--wh);min-height:100vh}
 .header{background:linear-gradient(90deg,#0d1b2a,#1e6fd9,#0d1b2a);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--bg);box-shadow:0 4px 20px rgba(0,198,255,.3)}
 .header h1{font-size:1.4em;color:var(--gold);text-shadow:0 0 15px rgba(255,215,0,.5)}
 .header p{color:var(--bl);font-size:.8em;margin-top:2px}
@@ -107,7 +107,7 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 </head>
 <body>
 <div class="header">
-<div><h1>🚔 Dashboard PRF &amp; Marketing — Helena</h1><p>Foco. Disciplina. Aprovação! 💙 | Início: 20/05/2026</p></div>
+<div><h1>🚔 Dashboard PRF &amp; Marketing — Helena</h1><p>Foco. Disciplina. Aprovação! 💙 | Início: 27/05/2026</p></div>
 <div class="tac"><div class="clock" id="clock">00:00:00</div><div style="font-size:.7em;color:#8fa3c7" id="dateD"></div></div>
 </div>
 <div class="motiv" id="motiv"></div>
@@ -199,9 +199,20 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 </div>
 </div>
 </div>
+<div class="card mt12">
+<h3 style="color:#00c6ff">📝 Anotações do Dia</h3>
+<textarea class="inp w100" id="dairyNotes" rows="12" maxlength="5500" placeholder="Escreva suas anotações aqui... (máximo 5.500 caracteres)" style="min-height:160px;font-size:.87em;line-height:1.7;resize:vertical" oninput="updateNotesCount()"></textarea>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:.78em;color:#8fa3c7">
+<span id="notesCharCount">0 / 5.500 caracteres</span>
+<div style="display:flex;gap:7px">
+<button class="btn btn-p" onclick="saveDairyNotes()">💾 Salvar Anotações</button>
+<button class="btn btn-w" onclick="clearDairyNotes()">🗑️ Limpar</button>
+</div>
+</div>
+</div>
 <!-- ABA CRONOGRAMA -->
 <div id="tc-prf" class="tc">
-<div class="stit">🚔 Cronograma PRF — 4 Meses | Início: 20/05/2026</div>
+<div class="stit">🚔 Cronograma PRF — 4 Meses | Início: 27/05/2026</div>
 <div style="background:rgba(30,111,217,.15);border:1px solid rgba(0,198,255,.3);border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
 📌 <strong style="color:#00c6ff">2 matérias por dia útil</strong> | Sábado: questões | Domingo: revisão livre
 </div>
@@ -542,7 +553,7 @@ var LS = {
 var stats = LS.get('prf_stats3', { days:0, streak:0, hours:0, lastDate:'' });
 function getCronDayNum() {
   var today = new Date(); today.setHours(0,0,0,0);
-  var start = new Date('2026-05-20'); start.setHours(0,0,0,0);
+  var start = new Date('2026-05-27'); start.setHours(0,0,0,0);
   var diff = Math.floor((today - start) / 86400000);
   return Math.max(1, Math.min(diff + 1, 120));
 }
@@ -686,7 +697,7 @@ function confetti() {
 </script>
 <script>
 // CRONOGRAMA
-var START_DATE = new Date('2026-05-20');
+var START_DATE = new Date('2026-05-27');
 var CRON = [
 {mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 1–4 + Interpretação',mes:1},
 {mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 5º + Morfologia',mes:1},
@@ -962,6 +973,33 @@ function startSocialTimer(){
 }
 function stopSocial(){if(socialInterval)clearInterval(socialInterval);var box=document.getElementById('socialBox');if(box)box.style.display='none';}
 
+
+// ANOTAÇÕES DO DIA
+function updateNotesCount(){
+var ta=document.getElementById('dairyNotes');var cnt=document.getElementById('notesCharCount');
+if(ta&&cnt){cnt.textContent=ta.value.length+' / 5.500 caracteres';cnt.style.color=ta.value.length>5000?'#ff4081':'#8fa3c7';}
+}
+function saveDairyNotes(){
+var ta=document.getElementById('dairyNotes');if(!ta)return;
+LS.set('prf_diary_'+new Date().toDateString(),ta.value);
+showNotif('💾 Anotações salvas!');
+}
+function clearDairyNotes(){
+var ta=document.getElementById('dairyNotes');if(!ta)return;
+if(confirm('Limpar anotações de hoje?')){
+ta.value='';
+updateNotesCount();
+LS.set('prf_diary_'+new Date().toDateString(),'');
+showNotif('🗑️ Anotações limpas!');
+}
+}
+(function(){
+var ta=document.getElementById('dairyNotes');
+if(ta){
+ta.value=LS.get('prf_diary_'+new Date().toDateString(),'');
+updateNotesCount();
+}
+})();
 // RESTORE LAST TAB
 (function(){try{var last=localStorage.getItem('prf_lastTab');if(last){var btn=document.getElementById('btn-'+last);if(btn)sw(last,btn);}}catch(e){}})();
 </script>
