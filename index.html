@@ -1318,8 +1318,9 @@ function updateOracaoHojeCard(){
     html+='<div style="color:'+(itine?'#00e676':'#ff9800')+'">\u25CF Itin. Mensal: '+(itine?'\u2705 Feito':'\u23F3 Pendente')+'</div>';
     html+='<div style="color:'+(santo?'#00e676':'#ff9800')+'">\u25CF Santo do M\u00eas: '+(santo?'\u2705 Feito':'\u23F3 Pendente')+'</div>';
     html+='</div>';
-    html+='<button class="btn btn-p mt8" style="font-size:.78em" onclick="sw('oracao',document.getElementById('btn-oracao'))">Ir para Ora\u00e7\u00e3o \u2192</button>';
+    html+='<button class="btn btn-p mt8" id="btnGoOracao">Ir para Ora\u00e7\u00e3o \u2192</button>';
     el.innerHTML=html;
+    var gb=document.getElementById('btnGoOracao'); if(gb) gb.onclick=function(){ sw('oracao',document.getElementById('btn-oracao')); };
     card.style.borderColor='#ff9800'; card.style.background='rgba(255,152,0,.08)';
   }
 }
