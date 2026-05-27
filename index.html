@@ -790,7 +790,7 @@ function renderCron() {
     if(currentFilter!=='all'&&currentFilter!=='today'){var mm={mes1:1,mes2:2,mes3:3,mes4:4};if(day.mes!==mm[currentFilter])return;}
     if(currentFilter==='today'&&!isToday) return;
     var isDone=done[dayNum], isWknd=date.getDay()===0||date.getDay()===6;
-    if(day.mes!==curMes){curMes=day.mes;var mn=['','Mês 1 — Mai/Jun 2026','Mês 2 — Jun/Jul 2026','Mês 3 — Jul/Ago 2026','Mês 4 — Ago/Set 2026'];html+='<div class="month-sep">📅 '+mn[day.mes]+'</div>';}
+    if(day.mes!==curMes){curMes=day.mes;var mnames=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];var getM=function(d){return mnames[new Date(START_DATE.getTime()+d*86400000).getMonth()];};var getY=function(d){return new Date(START_DATE.getTime()+d*86400000).getFullYear();};var mn=['','Mês 1 — '+getM(0)+'/'+getM(20)+' '+getY(0),'Mês 2 — '+getM(21)+'/'+getM(39)+' '+getY(21),'Mês 3 — '+getM(40)+'/'+getM(53)+' '+getY(40),'Mês 4 — '+getM(54)+'/'+getM(119)+' '+getY(54)];html+='<div class="month-sep">📅 '+mn[day.mes]+'</div>';}
     var cls=isToday?'today-card':(isDone?'done-card':(isWknd?'weekend-card':''));
     var ds=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
     var clr=isToday?'#00c6ff':isDone?'#00e676':day.mes===1?'#ff4081':day.mes===2?'#ff9800':day.mes===3?'#ffd700':'#00e676';
