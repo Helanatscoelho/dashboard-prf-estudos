@@ -158,7 +158,7 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 </div>
 <div class="card" id="oracaoHojeCard" style="border-left:4px solid #ff9800;background:rgba(255,152,0,.08);cursor:pointer">
 <h3 style="margin-bottom:8px;color:#ffd700;font-size:.95em">🙏 Oração do Dia</h3>
-<div style="color:#ff9800;font-size:.84em">Carregando...</div>
+
 </div>
 <div class="card">
 <h3>✅ Checklist do Dia</h3>
@@ -541,6 +541,49 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <div style="color:#ffd700;font-weight:700;margin-bottom:6px">💬 Timer Social</div>
 <div style="font-size:2.2em;font-weight:700;color:#00c6ff;font-variant-numeric:tabular-nums" id="socialClock">00:00</div>
 <button class="btn btn-d mt8" onclick="stopSocial()">✅ Encerrar</button>
+<!-- CARD PLATAFORMA DE ESTUDOS -->
+<div class="card mt12">
+<h3 class="gold">&#127279; Plataforma de Estudos</h3>
+<div style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Configure o link da sua plataforma de estudos. Todos os bot&#245;es "Acessar Curso" usar&#227;o este link.</div>
+<div class="srow"><div class="slbl">Link da plataforma</div></div>
+<div class="fb mt8" style="gap:8px;flex-wrap:wrap">
+<input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:200px" placeholder="https://www.grancursosonline.com.br/..." value="">
+<button class="btn btn-p" onclick="savePlat()">&#128190; Salvar</button>
+</div>
+<div id="platStatus" class="mt8" style="font-size:.8em"></div>
+<div class="plan-box mt8">
+<h4>&#128161; Como funciona</h4>
+<div style="font-size:.82em;color:#8fa3c7;line-height:1.7">Cole aqui o link direto do seu curso. Se mudar de plataforma (Gran, Estrategia, QConcursos etc.), basta trocar o link aqui e todos os botoes do dashboard ser&#227;o atualizados automaticamente.</div>
+</div>
+</div>
+
+<!-- CARD TEMA -->
+<div class="card mt12">
+<h3 class="gold">&#127775; Tema Visual</h3>
+<div style="font-size:.84em;color:#8fa3c7;margin-bottom:12px">Alterne entre tema escuro e claro.</div>
+<div class="fb" style="gap:12px;flex-wrap:wrap">
+<button class="btn btn-p" id="btnThemeDark" onclick="setTheme('dark')" style="flex:1">&#127761; Escuro</button>
+<button class="btn" id="btnThemeLight" onclick="setTheme('light')" style="flex:1;background:#e8edf5;color:#1b3a6b;border:1px solid #b0c4de">&#9728;&#65039; Claro</button>
+</div>
+<div id="themeStatus" class="mt8" style="font-size:.8em;color:#8fa3c7"></div>
+</div>
+
+<!-- CARD PERIODO DE ESTUDO -->
+<div class="card mt12">
+<h3 class="gold">&#128197; Per&#237;odo de Estudo</h3>
+<div style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Estenda o cronograma se precisar de mais meses para cobrir o conte&#250;do.</div>
+<div class="srow">
+<div class="slbl">Meses de estudo atuais: <strong id="cfgMesesAtual" style="color:#00c6ff"></strong></div>
+</div>
+<div class="fb mt8" style="gap:8px;align-items:center">
+<button class="btn btn-p" onclick="changeMeses(-1)" style="width:40px;padding:7px">&#8722;</button>
+<span id="cfgMesesVal" style="font-size:1.4em;font-weight:700;color:#ffd700;min-width:40px;text-align:center"></span>
+<span style="color:#8fa3c7;font-size:.85em">meses</span>
+<button class="btn btn-p" onclick="changeMeses(1)" style="width:40px;padding:7px">&#43;</button>
+<button class="btn btn-s mt8" onclick="saveMeses()" style="margin-left:8px">&#128190; Aplicar</button>
+</div>
+<div id="mesesStatus" class="mt8" style="font-size:.8em"></div>
+</div>
 </div>
 <!-- ABA ORAÇÃO -->
 <div id="tc-oracao" class="tc">
@@ -659,6 +702,7 @@ function sw(id, btn) {
   if (id === 'prf') setTimeout(renderCron, 50);
   if (id === 'cal') setTimeout(renderCal, 50);
   if (id === 'oracao') setTimeout(renderOracaoTab, 50);
+  if (id === 'hoje') setTimeout(updateOracaoHojeCard, 50);
 }
 
 // BUILD SCHEDULE BLOCKS
@@ -840,7 +884,7 @@ var mes4 = [
 {mat1:'🏆 Leve revisão',mat2:'😴 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Dia antes da prova',mes:4}
 ];
 CRON = CRON.concat(mes3).concat(mes4);
-while(CRON.length < 120) CRON.push({mat1:'🔄 Revisão',mat2:'✏️ Questões',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4});
+while(CRON.length < (parseInt(localStorage.getItem('prf_meses')||10)*30)) CRON.push({mat1:'🔄 Revisão',mat2:'✏️ Questões',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4});
 
 // Render today info now that CRON is defined
 renderStats();
@@ -1283,6 +1327,128 @@ function updateOracaoHojeCard(){
   cardEl.innerHTML='<h3 style="margin-bottom:8px;color:#ffd700;font-size:.95em">🙏 Oração do Dia</h3>'+html;
 }
 // ==================== FIM ORACAO ====================
+
+// ==================== CONFIG EXTRAS ====================
+
+// --- PLATAFORMA ---
+var DEFAULT_PLAT_URL = 'https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol';
+
+function _getPlatUrl(){
+  return localStorage.getItem('prf_plat_url') || DEFAULT_PLAT_URL;
+}
+
+function savePlat(){
+  var inp = document.getElementById('cfgPlatUrl');
+  if(!inp) return;
+  var url = inp.value.trim();
+  if(!url){ showNotif('⚠️ Cole um link válido'); return; }
+  localStorage.setItem('prf_plat_url', url);
+  _applyPlatUrl(url);
+  var st = document.getElementById('platStatus');
+  if(st) st.innerHTML = '<span style="color:#00e676">✅ Link salvo e aplicado!</span>';
+  showNotif('🌏 Plataforma atualizada!');
+}
+
+function _applyPlatUrl(url){
+  // Update all anchor tags and buttons that had gran cursos URLs
+  // Update all anchor tags that originally pointed to grancursosonline
+  Array.from(document.querySelectorAll('a')).forEach(function(el){
+    if(el.href && (el.href.includes('grancursosonline') || el.dataset.plat || el.getAttribute('href') && el.getAttribute('href').includes('grancursosonline'))){
+      el.href = url;
+    }
+  });
+  // Also update iframes
+  Array.from(document.querySelectorAll('iframe')).forEach(function(el){
+    if(el.src && el.src.includes('grancursosonline')){
+      el.src = url;
+    }
+  });
+}
+
+function _initPlatConfig(){
+  var url = _getPlatUrl();
+  var inp = document.getElementById('cfgPlatUrl');
+  if(inp) inp.value = url;
+  _applyPlatUrl(url);
+}
+
+// --- TEMA ---
+function setTheme(mode){
+  localStorage.setItem('prf_theme', mode);
+  _applyTheme(mode);
+  var st = document.getElementById('themeStatus');
+  if(st) st.textContent = mode === 'dark' ? 'Tema Escuro ativo' : 'Tema Claro ativo';
+  showNotif(mode === 'dark' ? '🌑 Tema Escuro ativado' : '☀️ Tema Claro ativado');
+}
+
+function _applyTheme(mode){
+  var root = document.documentElement;
+  if(mode === 'light'){
+    root.style.setProperty('--bd','#f0f4ff');
+    root.style.setProperty('--bm','#dce8f8');
+    root.style.setProperty('--cb','rgba(200,220,245,0.7)');
+    root.style.setProperty('--wh','#1b3a6b');
+    root.style.setProperty('--gr','#4a6080');
+    document.body.style.background = 'linear-gradient(135deg,#e8f0fc,#d0e4f7 50%,#e0ecf8)';
+    var btn1 = document.getElementById('btnThemeDark');
+    var btn2 = document.getElementById('btnThemeLight');
+    if(btn1){btn1.style.background='rgba(30,111,217,.15)';btn1.style.color='#1e6fd9';}
+    if(btn2){btn2.style.background='#1e6fd9';btn2.style.color='#fff';}
+  } else {
+    root.style.setProperty('--bd','#0d1b2a');
+    root.style.setProperty('--bm','#1b3a6b');
+    root.style.setProperty('--cb','rgba(27,58,107,0.6)');
+    root.style.setProperty('--wh','#f0f4ff');
+    root.style.setProperty('--gr','#8fa3c7');
+    document.body.style.background = 'linear-gradient(135deg,#0d1b2a,#1b3a6b 50%,#0d2a4a)';
+    var btn1 = document.getElementById('btnThemeDark');
+    var btn2 = document.getElementById('btnThemeLight');
+    if(btn1){btn1.style.background='#1e6fd9';btn1.style.color='#fff';}
+    if(btn2){btn2.style.background='rgba(232,237,245,0.15)';btn2.style.color='#8fa3c7';}
+  }
+}
+
+// --- MESES ---
+var _cfgMeses = 10;
+
+function _initMeses(){
+  var cfg = localStorage.getItem('prf_meses');
+  _cfgMeses = cfg ? parseInt(cfg) : 10;
+  _renderMesesUI();
+}
+
+function _renderMesesUI(){
+  var el = document.getElementById('cfgMesesVal');
+  if(el) el.textContent = _cfgMeses;
+  var el2 = document.getElementById('cfgMesesAtual');
+  if(el2) el2.textContent = _cfgMeses;
+}
+
+function changeMeses(delta){
+  _cfgMeses = Math.max(1, Math.min(24, _cfgMeses + delta));
+  _renderMesesUI();
+}
+
+function saveMeses(){
+  localStorage.setItem('prf_meses', _cfgMeses);
+  // Rebuild CRON with new month count
+  if(typeof buildCron === 'function') buildCron(_cfgMeses);
+  else if(typeof CRON !== 'undefined') {
+    // Fallback: rebuild by re-triggering cron init
+    showNotif('📅 Período atualizado para ' + _cfgMeses + ' meses! Recarregue para aplicar ao cronograma.');
+  }
+  var st = document.getElementById('mesesStatus');
+  if(st) st.innerHTML = '<span style="color:#00e676">✅ ' + _cfgMeses + ' meses salvos! Recarregue a página para atualizar o cronograma.</span>';
+}
+
+// --- INIT CONFIG ---
+(function(){
+  _initPlatConfig();
+  var theme = localStorage.getItem('prf_theme') || 'dark';
+  _applyTheme(theme);
+  _initMeses();
+})();
+// ==================== FIM CONFIG EXTRAS ====================
 </script>
 </body>
 </html>
