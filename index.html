@@ -558,11 +558,11 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 
 <!-- DIAS CONFIG CARD -->
 <div class="card mt12">
-<h3 class="gold">&#x1F4C5; Dura&#xFFFD;&#xFFFD;o do Cronograma</h3>
-<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Defina quantos dias ter&#xFFFD; seu cronograma de estudos. Ao salvar, o cronograma ser&#xFFFD; reorganizado automaticamente.</p>
+<h3 class="gold">&#x1F4C5; Dura&#xE7;&#xE3;o do Cronograma</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Defina quantos dias ter&#xE1; seu cronograma de estudos. Ao salvar, o cronograma ser&#xE1; reorganizado automaticamente.</p>
 <div class="srow" style="margin-bottom:10px">
-  <div class="slbl">N&#xFFFD;mero de dias</div>
-  <input type="number" class="inp" id="cfgTotalDias" value="120" min="30" max="365" style="width:90px" onchange="">
+  <div class="slbl">N&#xFA;mero de dias</div>
+  <input type="number" class="inp" id="cfgTotalDias" value="120" min="30" max="500" style="width:90px">
 </div>
 <div class="fb mt8" style="gap:8px;align-items:center;flex-wrap:wrap">
   <button class="btn btn-p" onclick="saveTotalDias()">&#x1F504; Atualizar Cronograma</button>
@@ -573,9 +573,9 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <!-- PLATAFORMA CONFIG CARD -->
 <div class="card mt12">
 <h3 class="gold">&#x1F517; Plataforma de Estudos</h3>
-<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">&#x1F517; Cole abaixo o link de qualquer plataforma de concursos (Gran, Estrat&#xFFFD;gia, CERS, etc). Todos os bot&#xFFFD;es "Acessar Curso" usar&#xFFFD;o este link ao salvar.</p>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Cole abaixo o link de qualquer plataforma de concursos (Gran, Estrat&#xE9;gia, CERS, etc). Todos os bot&#xF5;es "Acessar Curso" usar&#xE3;o este link ao salvar.</p>
 <div class="fb mt8" style="gap:8px;flex-wrap:wrap">
-  <input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (gran, estrat&#xFFFD;gia, CERS...)">
+  <input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (gran, estrategia, CERS...)">
   <button class="btn btn-s" onclick="savePlat()">&#x1F4BE; Salvar Link</button>
 </div>
 <div id="platStatus" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
@@ -596,7 +596,7 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <h3 class="gold">&#x1F3AF; Plataforma de Estudos</h3>
 <p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Link do seu curso. Todos os bot&#xf5;es "Acessar Curso" usar&#xe3;o este link ao salvar.</p>
 <div class="fb mt8" style="gap:8px;flex-wrap:wrap">
-<input type="url" class="inp" id="cfgPlatUrlLegacy" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (ex: gran, estrat&#xFFFD;gia, CERS...)">
+<input type="url" class="inp" id="cfgPlatUrlLegacy" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (gran, estrategia, CERS...)">
 <button class="btn btn-s" onclick="savePlat()">&#x1F4BE; Salvar Link</button>
 </div>
 <div id="platStatusLegacy" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
@@ -1511,12 +1511,8 @@ function saveMeses(){
   _applyTheme(theme);
   _initPlat();
   loadCfgDias();
-  // Update sDiaNums display with stored or default days
-  (function(){
-    var td=parseInt(localStorage.getItem('prf_totalDias'))||CRON.length;
-    var el=document.getElementById('sDiaNums');
-    if(el){ var done=LS.get('prf_cronDone',{}); el.textContent=Object.keys(done).length+'/'+td; }
-  })();
+  // Update sDiaNums display
+  (function(){var td=parseInt(localStorage.getItem('prf_totalDias'))||CRON.length;var el=document.getElementById('sDiaNums');if(el){var done=LS.get('prf_cronDone',{});el.textContent=Object.keys(done).length+'/'+td;}})();
   updateOracaoHojeCard();
 })();
 // ==================== FIM CONFIG EXTRAS ====================
