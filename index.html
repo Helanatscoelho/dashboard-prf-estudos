@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dashboard PRF & Marketing — Helena 🚔</title>
+<title>Dashboard PRF & Marketing â Helena ð</title>
 <style>
 :root{--bd:#0d1b2a;--bm:#1b3a6b;--bb:#1e6fd9;--bl:#4aa8ff;--bg:#00c6ff;--gold:#ffd700;--gn:#00e676;--or:#ff9800;--pk:#ff4081;--pu:#7c4dff;--wh:#f0f4ff;--gr:#8fa3c7;--cb:rgba(27,58,107,0.6)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -102,58 +102,83 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 @keyframes float-up{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-130px) scale(0.4)}}
 .cracker{position:fixed;pointer-events:none;z-index:200;font-size:1.8em;animation:float-up 1.5s ease forwards}
 .iframe-warn{background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.4);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:.83em;color:#ff9800}
-@media(max-width:768px){.g2,.g3,.g4,.mg,.sg{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .g2,.g3,.g4,.mg,.sg{grid-template-columns:1fr}
+  .header{padding:10px 14px;flex-wrap:wrap;gap:6px}
+  .header h1{font-size:1.1em}
+  .clock{font-size:1.3em}
+  .tabs-nav{padding:8px 10px;gap:4px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .tb{padding:7px 12px;font-size:.75em;white-space:nowrap;flex-shrink:0}
+  .tc{padding:12px 10px}
+  .card{padding:12px}
+  .sb{padding:10px 6px}
+  .snum{font-size:1.4em}
+  .day-card{padding:10px 12px}
+  .si{flex-direction:column;gap:4px}
+  .tblk{padding:8px 10px}
+  .modal{padding:10px}
+  .mbox{padding:16px;margin:10px}
+  .lbtn{font-size:.75em;padding:6px 10px}
+  .row{flex-wrap:wrap;gap:6px}
+  .fb{flex-wrap:wrap}
+}
+@media(max-width:480px){
+  .header h1{font-size:.95em}
+  .tb{padding:6px 10px;font-size:.72em}
+  .snum{font-size:1.2em}
+  .card h3{font-size:.88em}
+}
 </style>
 </head>
 <body>
 <div class="header">
-<div><h1>🚔 Dashboard PRF &amp; Marketing — Helena</h1><p>Foco. Disciplina. Aprovação! 💙 | Início: 27/05/2026</p></div>
+<div><h1>ð Dashboard PRF &amp; Marketing â Helena</h1><p>Foco. Disciplina. AprovaÃ§Ã£o! ð | InÃ­cio: 27/05/2026</p></div>
 <div class="tac"><div class="clock" id="clock">00:00:00</div><div style="font-size:.7em;color:#8fa3c7" id="dateD"></div></div>
 </div>
 <div class="motiv" id="motiv"></div>
 <div class="tabs-nav">
-<button class="tb active" id="btn-hoje" onclick="sw('hoje',this)">🏠 Hoje</button>
-<button class="tb urg" id="btn-prf" onclick="sw('prf',this)">🚔 Cronograma PRF</button>
-<button class="tb urg" id="btn-mat" onclick="sw('mat',this)">📚 Matérias</button>
-<button class="tb" id="btn-metodo" onclick="sw('metodo',this)">🎯 Método</button>
-<button class="tb" id="btn-pomodoro" onclick="sw('pomodoro',this)">⏱ Pomodoro</button>
-<button class="tb" id="btn-questoes" onclick="sw('questoes',this)">✏️ Questões</button>
-<button class="tb" id="btn-chatgpt" onclick="sw('chatgpt',this)">🤖 ChatGPT</button>
-<button class="tb urg" id="btn-mkt" onclick="sw('mkt',this)">📱 Marketing</button>
-<button class="tb" id="btn-agenda" onclick="sw('agenda',this)">📅 Agenda</button>
-<button class="tb" id="btn-cal" onclick="sw('cal',this)">🗓️ Calendário</button>
-<button class="tb" id="btn-rec" onclick="sw('rec',this)">🎁 Recompensas</button>
-<button class="tb" id="btn-cfg" onclick="sw('cfg',this)">⚙️ Config</button>
-<button class="tb" id="btn-oracao" onclick="sw('oracao',this)">🙏 Oração</button>
+<button class="tb active" id="btn-hoje" onclick="sw('hoje',this)">ð  Hoje</button>
+<button class="tb urg" id="btn-prf" onclick="sw('prf',this)">ð Cronograma PRF</button>
+<button class="tb urg" id="btn-mat" onclick="sw('mat',this)">ð MatÃ©rias</button>
+<button class="tb" id="btn-metodo" onclick="sw('metodo',this)">ð¯ MÃ©todo</button>
+<button class="tb" id="btn-pomodoro" onclick="sw('pomodoro',this)">â± Pomodoro</button>
+<button class="tb" id="btn-questoes" onclick="sw('questoes',this)">âï¸ QuestÃµes</button>
+<button class="tb" id="btn-chatgpt" onclick="sw('chatgpt',this)">ð¤ ChatGPT</button>
+<button class="tb urg" id="btn-mkt" onclick="sw('mkt',this)">ð± Marketing</button>
+<button class="tb" id="btn-agenda" onclick="sw('agenda',this)">ð Agenda</button>
+<button class="tb" id="btn-cal" onclick="sw('cal',this)">ðï¸ CalendÃ¡rio</button>
+<button class="tb" id="btn-rec" onclick="sw('rec',this)">ð Recompensas</button>
+<button class="tb" id="btn-cfg" onclick="sw('cfg',this)">âï¸ Config</button>
+<button class="tb" id="btn-oracao" onclick="sw('oracao',this)">ð OraÃ§Ã£o</button>
 </div>
 
 <!-- ABA HOJE -->
 <div id="tc-hoje" class="tc active">
 <div class="sg">
 <div class="sb"><div class="snum" id="sDias">0</div><div class="slbl">Dias Estudados</div></div>
-<div class="sb"><div class="snum" id="sStrk">0🔥</div><div class="slbl">Sequência</div></div>
+<div class="sb"><div class="snum" id="sStrk">0ð¥</div><div class="slbl">SequÃªncia</div></div>
 <div class="sb"><div class="snum" id="sHrs">0h</div><div class="slbl">Horas Totais</div></div>
 <div class="sb"><div class="snum" id="sDiaNum">0/120</div><div class="slbl">Dia no Cronograma</div></div>
 </div>
 <div class="ts">
 <div class="fbw" style="flex-wrap:wrap;gap:10px;margin-bottom:12px">
 <div>
-<div style="font-size:.78em;color:#8fa3c7;margin-bottom:4px" id="todayDateLabel">📅 —</div>
-<div style="font-size:1.2em;font-weight:700;color:#fff" id="todaySubj1">📖 Carregando...</div>
-<div style="font-size:1em;font-weight:700;color:#4aa8ff;margin-top:5px" id="todaySubj2">📖 —</div>
-<div style="color:#8fa3c7;font-size:.82em;margin-top:5px" id="todayMeta">—</div>
+<div style="font-size:.78em;color:#8fa3c7;margin-bottom:4px" id="todayDateLabel">ð â</div>
+<div style="font-size:1.2em;font-weight:700;color:#fff" id="todaySubj1">ð Carregando...</div>
+<div style="font-size:1em;font-weight:700;color:#4aa8ff;margin-top:5px" id="todaySubj2">ð â</div>
+<div style="color:#8fa3c7;font-size:.82em;margin-top:5px" id="todayMeta">â</div>
 </div>
-<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn">🎓 Abrir Gran Cursos</a>
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn">ð Abrir Gran Cursos</a>
 </div>
 <div class="mg">
-<div class="mb"><div class="ico">🎬</div><div class="lbl">Madrugada (04–06:30)</div><div class="tim" style="color:#00c6ff">Videoaula + PDF</div></div>
-<div class="mb"><div class="ico">✏️</div><div class="lbl">Noite (18–22h)</div><div class="tim" style="color:#ff4081">PDF + 50 Questões</div></div>
-<div class="mb"><div class="ico">📊</div><div class="lbl">Dia no cronograma</div><div class="tim" style="color:#ffd700" id="cronDayNum">Dia 1</div></div>
+<div class="mb"><div class="ico">ð¬</div><div class="lbl">Madrugada (04â06:30)</div><div class="tim" style="color:#00c6ff">Videoaula + PDF</div></div>
+<div class="mb"><div class="ico">âï¸</div><div class="lbl">Noite (18â22h)</div><div class="tim" style="color:#ff4081">PDF + 50 QuestÃµes</div></div>
+<div class="mb"><div class="ico">ð</div><div class="lbl">Dia no cronograma</div><div class="tim" style="color:#ffd700" id="cronDayNum">Dia 1</div></div>
 </div>
 </div>
 <div class="g2">
 <div class="card">
-<h3>⏰ Agenda de Hoje — <span id="todayDow" style="color:#ffd700">—</span></h3>
+<h3>â° Agenda de Hoje â <span id="todayDow" style="color:#ffd700">â</span></h3>
 <div id="todayBlocks"></div>
 </div>
 <div class="card" id="oracaoHojeCard" style="border-left:4px solid #ff9800;background:rgba(255,152,0,.08);cursor:pointer">
@@ -161,148 +186,148 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <div id="oracaoHojeBody" style="color:#ff9800;font-size:.84em">&#x23F3; Verificando...</div>
 </div>
 <div class="card">
-<h3>✅ Checklist do Dia</h3>
+<h3>â Checklist do Dia</h3>
 <div id="checkList"></div>
-<button class="btn btn-s w100 mt8" onclick="compDay()">✅ Concluí o estudo de hoje!</button>
+<button class="btn btn-s w100 mt8" onclick="compDay()">â ConcluÃ­ o estudo de hoje!</button>
 </div>
 </div>
 <div class="plan-box mt12">
-<h4>🗓️ Planejar Amanhã — <span id="tomorrowLabel" style="color:#ffd700"></span></h4>
+<h4>ðï¸ Planejar AmanhÃ£ â <span id="tomorrowLabel" style="color:#ffd700"></span></h4>
 <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-bottom:10px" id="tomorrowAuto"></div>
 <div class="g2">
 <div>
-<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">Matéria principal:</div>
-<select class="sel w100 mb8" id="planSubj"><option>Direito Constitucional</option><option>Língua Portuguesa</option><option>Direito Administrativo</option><option>Raciocínio Lógico-Matemático</option><option>Direito Penal</option><option>Legislação de Trânsito</option><option>Direito Processual Penal</option><option>Direitos Humanos</option><option>Informática</option><option>Física</option></select>
-<input class="inp w100 mb8" id="planTopic" placeholder="Tópico específico...">
+<div style="font-size:.8em;color:#8fa3c7;margin-bottom:5px">MatÃ©ria principal:</div>
+<select class="sel w100 mb8" id="planSubj"><option>Direito Constitucional</option><option>LÃ­ngua Portuguesa</option><option>Direito Administrativo</option><option>RaciocÃ­nio LÃ³gico-MatemÃ¡tico</option><option>Direito Penal</option><option>LegislaÃ§Ã£o de TrÃ¢nsito</option><option>Direito Processual Penal</option><option>Direitos Humanos</option><option>InformÃ¡tica</option><option>FÃ­sica</option></select>
+<input class="inp w100 mb8" id="planTopic" placeholder="TÃ³pico especÃ­fico...">
 <input type="number" class="inp" id="planQ" value="50" min="10" max="200" style="width:100px">
 </div>
 <div>
 <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
-<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkVid" checked> 🎬 Videoaula</label>
-<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkPdf" checked> 📄 PDF/Resumo</label>
-<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkQst" checked> ✏️ Questões</label>
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkVid" checked> ð¬ Videoaula</label>
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkPdf" checked> ð PDF/Resumo</label>
+<label style="display:flex;align-items:center;gap:7px;font-size:.85em;cursor:pointer"><input type="checkbox" id="chkQst" checked> âï¸ QuestÃµes</label>
 </div>
-<textarea class="inp w100" id="planNote" rows="3" placeholder="Observações..."></textarea>
+<textarea class="inp w100" id="planNote" rows="3" placeholder="ObservaÃ§Ãµes..."></textarea>
 </div>
 </div>
 <div style="display:flex;gap:7px;margin-top:10px">
-<button class="btn btn-p" onclick="savePlan()">💾 Salvar plano</button>
-<button class="btn btn-w" onclick="loadPlan()">📋 Ver plano</button>
+<button class="btn btn-p" onclick="savePlan()">ð¾ Salvar plano</button>
+<button class="btn btn-w" onclick="loadPlan()">ð Ver plano</button>
 </div>
 <div id="planPreview" style="margin-top:8px;font-size:.82em;color:#8fa3c7"></div>
 </div>
 <div class="rc mt12">
-<div class="rt">🎁 Recompensa de Hoje!</div>
+<div class="rt">ð Recompensa de Hoje!</div>
 <div class="rl">
-<div class="ri" onclick="quickRew('🎸 Violão 30min')">🎸 Violão</div>
-<div class="ri" onclick="quickRew('📖 Leitura')">📖 Leitura</div>
-<div class="ri" onclick="quickRew('💬 Amigos')">💬 Amigos</div>
-<div class="ri" onclick="quickRew('🎮 Jogo 30min')">🎮 Jogo</div>
-<div class="ri" onclick="quickRew('🚶 Caminhada')">🚶 Caminhar</div>
-<div class="ri" onclick="quickRew('🎬 Série')">🎬 Série</div>
-<div class="ri" onclick="sw('rec',document.getElementById('btn-rec'))">🎁 Ver todas →</div>
+<div class="ri" onclick="quickRew('ð¸ ViolÃ£o 30min')">ð¸ ViolÃ£o</div>
+<div class="ri" onclick="quickRew('ð Leitura')">ð Leitura</div>
+<div class="ri" onclick="quickRew('ð¬ Amigos')">ð¬ Amigos</div>
+<div class="ri" onclick="quickRew('ð® Jogo 30min')">ð® Jogo</div>
+<div class="ri" onclick="quickRew('ð¶ Caminhada')">ð¶ Caminhar</div>
+<div class="ri" onclick="quickRew('ð¬ SÃ©rie')">ð¬ SÃ©rie</div>
+<div class="ri" onclick="sw('rec',document.getElementById('btn-rec'))">ð Ver todas â</div>
 </div>
 </div>
 </div>
 <div class="card mt12">
-<h3 style="color:#00c6ff">📝 Anotações do Dia</h3>
-<textarea class="inp w100" id="dairyNotes" rows="12" maxlength="5500" placeholder="Escreva suas anotações aqui... (máximo 5.500 caracteres)" style="min-height:160px;font-size:.87em;line-height:1.7;resize:vertical" oninput="updateNotesCount()"></textarea>
+<h3 style="color:#00c6ff">ð AnotaÃ§Ãµes do Dia</h3>
+<textarea class="inp w100" id="dairyNotes" rows="12" maxlength="5500" placeholder="Escreva suas anotaÃ§Ãµes aqui... (mÃ¡ximo 5.500 caracteres)" style="min-height:160px;font-size:.87em;line-height:1.7;resize:vertical" oninput="updateNotesCount()"></textarea>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:.78em;color:#8fa3c7">
 <span id="notesCharCount">0 / 5.500 caracteres</span>
 <div style="display:flex;gap:7px">
-<button class="btn btn-p" onclick="saveDairyNotes()">💾 Salvar Anotações</button>
-<button class="btn btn-w" onclick="clearDairyNotes()">🗑️ Limpar</button>
+<button class="btn btn-p" onclick="saveDairyNotes()">ð¾ Salvar AnotaÃ§Ãµes</button>
+<button class="btn btn-w" onclick="clearDairyNotes()">ðï¸ Limpar</button>
 </div>
 </div>
 </div>
 <!-- ABA CRONOGRAMA -->
 <div id="tc-prf" class="tc">
-<div class="stit">🚔 Cronograma PRF — 4 Meses | Início: 27/05/2026</div>
+<div class="stit">ð Cronograma PRF â 4 Meses | InÃ­cio: 27/05/2026</div>
 <div style="background:rgba(30,111,217,.15);border:1px solid rgba(0,198,255,.3);border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
-📌 <strong style="color:#00c6ff">2 matérias por dia útil</strong> | Sábado: questões | Domingo: revisão livre
+ð <strong style="color:#00c6ff">2 matÃ©rias por dia Ãºtil</strong> | SÃ¡bado: questÃµes | Domingo: revisÃ£o livre
 </div>
 <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-<button class="btn btn-p" onclick="filterCron('all')">📅 Todos</button>
-<button class="btn btn-p" onclick="filterCron('mes1')">🔴 Mês 1</button>
-<button class="btn btn-p" onclick="filterCron('mes2')">🟠 Mês 2</button>
-<button class="btn btn-p" onclick="filterCron('mes3')">🟡 Mês 3</button>
-<button class="btn btn-p" onclick="filterCron('mes4')">🟢 Mês 4</button>
-<button class="btn btn-w" onclick="filterCron('today')">📍 Ir para Hoje</button>
+<button class="btn btn-p" onclick="filterCron('all')">ð Todos</button>
+<button class="btn btn-p" onclick="filterCron('mes1')">ð´ MÃªs 1</button>
+<button class="btn btn-p" onclick="filterCron('mes2')">ð  MÃªs 2</button>
+<button class="btn btn-p" onclick="filterCron('mes3')">ð¡ MÃªs 3</button>
+<button class="btn btn-p" onclick="filterCron('mes4')">ð¢ MÃªs 4</button>
+<button class="btn btn-w" onclick="filterCron('today')">ð Ir para Hoje</button>
 </div>
 <div id="cronGrid"></div>
 </div>
 
-<!-- ABA MATÉRIAS -->
+<!-- ABA MATÃRIAS -->
 <div id="tc-mat" class="tc">
-<div class="stit">📚 Matérias PRF</div>
+<div class="stit">ð MatÃ©rias PRF</div>
 <div class="g2">
 <div>
 <div class="card mb8">
-<h3>📜 Direito Constitucional <span class="bx bx-r" style="margin-left:auto">~30 questões</span></h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Princípios Fundamentais (Art. 1–4) <span>▼</span></div><div class="topic-sub">Fundamentos: soberania, cidadania, dignidade. Objetivos: Art. 3º. <strong style="color:#ff9800">⚡ Muito cobrado!</strong></div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Direitos Fundamentais — Art. 5º <span>▼</span></div><div class="topic-sub">O mais cobrado! Remédios: HC, MS, HD, MI, AP. <strong style="color:#ff4081">🔥 Leia 3 vezes!</strong></div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Administração Pública — LIMPE <span>▼</span></div><div class="topic-sub"><strong style="color:#ff4081">LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência</strong></div></div>
+<h3>ð Direito Constitucional <span class="bx bx-r" style="margin-left:auto">~30 questÃµes</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð PrincÃ­pios Fundamentais (Art. 1â4) <span>â¼</span></div><div class="topic-sub">Fundamentos: soberania, cidadania, dignidade. Objetivos: Art. 3Âº. <strong style="color:#ff9800">â¡ Muito cobrado!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð Direitos Fundamentais â Art. 5Âº <span>â¼</span></div><div class="topic-sub">O mais cobrado! RemÃ©dios: HC, MS, HD, MI, AP. <strong style="color:#ff4081">ð¥ Leia 3 vezes!</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð AdministraÃ§Ã£o PÃºblica â LIMPE <span>â¼</span></div><div class="topic-sub"><strong style="color:#ff4081">LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade, EficiÃªncia</strong></div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">🎓 Gran Cursos</a>
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('constitucional','Direito Constitucional')">📊 Progresso</button>
+<a href="https://www.grancursosonline.com.br/aluno/curso/s/operacao-prf-policial-rodoviario-federal-preparacao-total-com-opcao-de-espanhol" target="_blank" class="lbtn" style="font-size:.78em">ð Gran Cursos</a>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('constitucional','Direito Constitucional')">ð Progresso</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-constitucional" style="width:0%"></div></div>
 </div>
 <div class="card mb8">
-<h3>📝 Língua Portuguesa <span class="bx bx-o" style="margin-left:auto">~25 questões</span></h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Interpretação de Texto <span>▼</span></div><div class="topic-sub"><strong style="color:#ff4081">50% das questões!</strong> Leia 1 artigo/dia.</div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Gramática <span>▼</span></div><div class="topic-sub">Concordância verbal/nominal, regência, ortografia.</div></div>
+<h3>ð LÃ­ngua Portuguesa <span class="bx bx-o" style="margin-left:auto">~25 questÃµes</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð InterpretaÃ§Ã£o de Texto <span>â¼</span></div><div class="topic-sub"><strong style="color:#ff4081">50% das questÃµes!</strong> Leia 1 artigo/dia.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð GramÃ¡tica <span>â¼</span></div><div class="topic-sub">ConcordÃ¢ncia verbal/nominal, regÃªncia, ortografia.</div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('portugues','Língua Portuguesa')">📊 Progresso</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('portugues','LÃ­ngua Portuguesa')">ð Progresso</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-portugues" style="width:0%"></div></div>
 </div>
 <div class="card mb8">
-<h3>⚖️ Direito Administrativo <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Princípios + Atos + Licitações <span>▼</span></div><div class="topic-sub">LIMPE, atos adm., Lei 14.133/21 (nova lei de licitações), 8.112/90.</div></div>
+<h3>âï¸ Direito Administrativo <span class="bx bx-o" style="margin-left:auto">~20 questÃµes</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð PrincÃ­pios + Atos + LicitaÃ§Ãµes <span>â¼</span></div><div class="topic-sub">LIMPE, atos adm., Lei 14.133/21 (nova lei de licitaÃ§Ãµes), 8.112/90.</div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('administrativo','D. Administrativo')">📊 Progresso</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('administrativo','D. Administrativo')">ð Progresso</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-administrativo" style="width:0%"></div></div>
 </div>
 <div class="card mb8">
-<h3>🧮 Raciocínio Lógico <span class="bx bx-o" style="margin-left:auto">~20 questões</span></h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Lógica Proposicional + Matemática <span>▼</span></div><div class="topic-sub">Proposições, tabela-verdade. Porcentagem (80%!), sequências. <strong style="color:#ff4081">🔥 15 questões/dia!</strong></div></div>
+<h3>ð§® RaciocÃ­nio LÃ³gico <span class="bx bx-o" style="margin-left:auto">~20 questÃµes</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð LÃ³gica Proposicional + MatemÃ¡tica <span>â¼</span></div><div class="topic-sub">ProposiÃ§Ãµes, tabela-verdade. Porcentagem (80%!), sequÃªncias. <strong style="color:#ff4081">ð¥ 15 questÃµes/dia!</strong></div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('raciocinio','Raciocínio Lógico')">📊 Progresso</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('raciocinio','RaciocÃ­nio LÃ³gico')">ð Progresso</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-raciocinio" style="width:0%"></div></div>
 </div>
 </div>
 <div>
 <div class="card mb8" style="border-color:rgba(255,64,81,.25)">
-<h3 style="color:#ff4081">🚦 Legislação de Trânsito (CTB) <span class="bx bx-r" style="margin-left:auto">EXCLUSIVO PRF</span></h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 SNT + Habilitação + Sinalização <span>▼</span></div><div class="topic-sub">CONTRAN, DENATRAN, PRF. Infrações: leves(3pts), médias(4pts), graves(5pts), gravíssimas(7pts). Sinalização vertical/horizontal. <strong style="color:#ff4081">🔥 Muito cobrado!</strong></div></div>
+<h3 style="color:#ff4081">ð¦ LegislaÃ§Ã£o de TrÃ¢nsito (CTB) <span class="bx bx-r" style="margin-left:auto">EXCLUSIVO PRF</span></h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð SNT + HabilitaÃ§Ã£o + SinalizaÃ§Ã£o <span>â¼</span></div><div class="topic-sub">CONTRAN, DENATRAN, PRF. InfraÃ§Ãµes: leves(3pts), mÃ©dias(4pts), graves(5pts), gravÃ­ssimas(7pts). SinalizaÃ§Ã£o vertical/horizontal. <strong style="color:#ff4081">ð¥ Muito cobrado!</strong></div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('transito','Leg. Trânsito')">📊 Progresso</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('transito','Leg. TrÃ¢nsito')">ð Progresso</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-transito" style="width:0%"></div></div>
 </div>
 <div class="card mb8">
-<h3>🔒 Direito Penal + ⚖️ Processual</h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Teoria do Crime + Penas <span>▼</span></div><div class="topic-sub">Fato típico, ilicitude, culpabilidade. Dolo e culpa. <strong style="color:#ff4081">🔥</strong></div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Inquérito + Prisões <span>▼</span></div><div class="topic-sub">IP: inquisitório, sigiloso. Flagrante próprio/impróprio/presumido. Preventiva, Temporária.</div></div>
+<h3>ð Direito Penal + âï¸ Processual</h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð Teoria do Crime + Penas <span>â¼</span></div><div class="topic-sub">Fato tÃ­pico, ilicitude, culpabilidade. Dolo e culpa. <strong style="color:#ff4081">ð¥</strong></div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð InquÃ©rito + PrisÃµes <span>â¼</span></div><div class="topic-sub">IP: inquisitÃ³rio, sigiloso. Flagrante prÃ³prio/imprÃ³prio/presumido. Preventiva, TemporÃ¡ria.</div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('penal','D. Penal')">📊</button>
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('processual','D. Processual')">📊</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('penal','D. Penal')">ð</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('processual','D. Processual')">ð</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-penal" style="width:0%"></div></div>
 <div class="pb mt8"><div class="pf" id="prog-processual" style="width:0%"></div></div>
 </div>
 <div class="card">
-<h3>💻 Info + ⚡ Física + 🌍 D. Humanos</h3>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Informática (Mês 4) <span>▼</span></div><div class="topic-sub">Windows, Office, Internet, Redes.</div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Física (PRF) <span>▼</span></div><div class="topic-sub">Cinemática, dinâmica. Foco em trânsito.</div></div>
-<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">📌 Direitos Humanos <span>▼</span></div><div class="topic-sub">DUDH (1948), CADH, ECA, Estatuto do Idoso.</div></div>
+<h3>ð» Info + â¡ FÃ­sica + ð D. Humanos</h3>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð InformÃ¡tica (MÃªs 4) <span>â¼</span></div><div class="topic-sub">Windows, Office, Internet, Redes.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð FÃ­sica (PRF) <span>â¼</span></div><div class="topic-sub">CinemÃ¡tica, dinÃ¢mica. Foco em trÃ¢nsito.</div></div>
+<div class="topic" onclick="this.classList.toggle('open')"><div class="topic-title">ð Direitos Humanos <span>â¼</span></div><div class="topic-sub">DUDH (1948), CADH, ECA, Estatuto do Idoso.</div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('informatica','Informática')">📊</button>
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('fisica','Física')">📊</button>
-<button class="lbtn" style="font-size:.78em" onclick="openProgModal('dh','D. Humanos')">📊</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('informatica','InformÃ¡tica')">ð</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('fisica','FÃ­sica')">ð</button>
+<button class="lbtn" style="font-size:.78em" onclick="openProgModal('dh','D. Humanos')">ð</button>
 </div>
 <div class="pb mt8"><div class="pf" id="prog-informatica" style="width:0%"></div></div>
 <div class="pb mt8"><div class="pf" id="prog-fisica" style="width:0%"></div></div>
@@ -312,51 +337,51 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 </div>
 </div>
 
-<!-- ABA MÉTODO -->
+<!-- ABA MÃTODO -->
 <div id="tc-metodo" class="tc">
-<div class="stit">🎯 Método de Estudo</div>
+<div class="stit">ð¯ MÃ©todo de Estudo</div>
 <div class="g2">
 <div class="card">
-<h3>📊 Sessões Diárias</h3>
-<div style="font-weight:700;color:#00c6ff;font-size:.85em;margin-bottom:8px">🌙 04:00–06:30 (2h30)</div>
+<h3>ð SessÃµes DiÃ¡rias</h3>
+<div style="font-weight:700;color:#00c6ff;font-size:.85em;margin-bottom:8px">ð 04:00â06:30 (2h30)</div>
 <div class="mg mb8">
-<div class="mb"><div class="ico">🎬</div><div class="lbl">Videoaula 1.5x</div><div class="tim" style="color:#00c6ff">1h 15min</div></div>
-<div class="mb"><div class="ico">📄</div><div class="lbl">PDF</div><div class="tim" style="color:#00e676">45min</div></div>
-<div class="mb"><div class="ico">📝</div><div class="lbl">Mapa Mental</div><div class="tim" style="color:#ffd700">30min</div></div>
+<div class="mb"><div class="ico">ð¬</div><div class="lbl">Videoaula 1.5x</div><div class="tim" style="color:#00c6ff">1h 15min</div></div>
+<div class="mb"><div class="ico">ð</div><div class="lbl">PDF</div><div class="tim" style="color:#00e676">45min</div></div>
+<div class="mb"><div class="ico">ð</div><div class="lbl">Mapa Mental</div><div class="tim" style="color:#ffd700">30min</div></div>
 </div>
-<div style="font-weight:700;color:#ff9800;font-size:.85em;margin-bottom:8px">🌆 18:00–22:00 (4h)</div>
+<div style="font-weight:700;color:#ff9800;font-size:.85em;margin-bottom:8px">ð 18:00â22:00 (4h)</div>
 <div class="mg mb8">
-<div class="mb"><div class="ico">📖</div><div class="lbl">Revisão</div><div class="tim" style="color:#00c6ff">1h</div></div>
-<div class="mb"><div class="ico">✏️</div><div class="lbl">50+ Questões</div><div class="tim" style="color:#ff4081">2h</div></div>
-<div class="mb"><div class="ico">🔄</div><div class="lbl">Rev. Erros</div><div class="tim" style="color:#ffd700">1h</div></div>
+<div class="mb"><div class="ico">ð</div><div class="lbl">RevisÃ£o</div><div class="tim" style="color:#00c6ff">1h</div></div>
+<div class="mb"><div class="ico">âï¸</div><div class="lbl">50+ QuestÃµes</div><div class="tim" style="color:#ff4081">2h</div></div>
+<div class="mb"><div class="ico">ð</div><div class="lbl">Rev. Erros</div><div class="tim" style="color:#ffd700">1h</div></div>
 </div>
 <div style="background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:9px;padding:10px;font-size:.82em;line-height:1.8">
-✅ Videoaulas em 1.5x<br>✅ Mínimo 50 questões por noite<br>✅ Anote TODOS os erros<br>✅ Meta: 1.200+ questões/mês
+â Videoaulas em 1.5x<br>â MÃ­nimo 50 questÃµes por noite<br>â Anote TODOS os erros<br>â Meta: 1.200+ questÃµes/mÃªs
 </div>
 </div>
 <div class="card">
-<h3>📈 Questões de Hoje</h3>
+<h3>ð QuestÃµes de Hoje</h3>
 <div class="g3" id="questGrid"></div>
 <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
-<select class="sel" id="qSubj"><option>Direito Constitucional</option><option>Língua Portuguesa</option><option>Direito Administrativo</option><option>Raciocínio Lógico</option><option>Direito Penal</option><option>Legislação de Trânsito</option><option>Outras</option></select>
+<select class="sel" id="qSubj"><option>Direito Constitucional</option><option>LÃ­ngua Portuguesa</option><option>Direito Administrativo</option><option>RaciocÃ­nio LÃ³gico</option><option>Direito Penal</option><option>LegislaÃ§Ã£o de TrÃ¢nsito</option><option>Outras</option></select>
 <input type="number" class="inp" id="qNum" value="50" min="1" max="300" style="width:80px">
 <button class="btn btn-s" onclick="addQuest()">+ Registrar</button>
 </div>
 <div style="margin-top:14px">
-<h3 class="gold">⏱ Pomodoro Rápido</h3>
+<h3 class="gold">â± Pomodoro RÃ¡pido</h3>
 <div style="text-align:center;padding:14px">
 <div class="pomo-ring" id="pomoRing"><span id="pomoTime">25:00</span></div>
-<div style="font-size:.88em;color:#8fa3c7;margin-bottom:10px" id="pomoStatus">🟢 Estudo</div>
+<div style="font-size:.88em;color:#8fa3c7;margin-bottom:10px" id="pomoStatus">ð¢ Estudo</div>
 <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
 <button class="btn btn-p" onclick="pomoCfg(25,5)">25/5</button>
 <button class="btn btn-p" onclick="pomoCfg(50,10)">50/10</button>
 <button class="btn btn-p" onclick="pomoCfg(90,15)">90/15</button>
 </div>
 <div style="display:flex;gap:7px;justify-content:center">
-<button class="btn btn-s" id="pomoBtn" onclick="togglePomo()">▶ Iniciar</button>
-<button class="btn btn-w" onclick="resetPomo()">⏹ Reset</button>
+<button class="btn btn-s" id="pomoBtn" onclick="togglePomo()">â¶ Iniciar</button>
+<button class="btn btn-w" onclick="resetPomo()">â¹ Reset</button>
 </div>
-<div style="margin-top:8px;font-size:.8em;color:#8fa3c7">Sessão <span id="pomoCount">1</span>/4 | <span id="pomoTotal">0</span> 🍅 hoje</div>
+<div style="margin-top:8px;font-size:.8em;color:#8fa3c7">SessÃ£o <span id="pomoCount">1</span>/4 | <span id="pomoTotal">0</span> ð hoje</div>
 </div>
 </div>
 </div>
@@ -366,15 +391,15 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <!-- ABA POMODORO (IFRAME) -->
 <div id="tc-pomodoro" class="tc-iframe">
 <div style="padding:8px 18px 0">
-<div class="iframe-warn">⚠️ Gerenciador Gran Cursos — <a href="https://gerenciador.grancursosonline.com.br/" target="_blank" style="color:#ffd700">Abrir em nova aba</a> se não carregar</div>
+<div class="iframe-warn">â ï¸ Gerenciador Gran Cursos â <a href="https://gerenciador.grancursosonline.com.br/" target="_blank" style="color:#ffd700">Abrir em nova aba</a> se nÃ£o carregar</div>
 </div>
 <iframe src="https://gerenciador.grancursosonline.com.br/" style="width:100%;height:calc(100vh - 200px);border:none" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
 </div>
 
-<!-- ABA QUESTÕES (IFRAME) -->
+<!-- ABA QUESTÃES (IFRAME) -->
 <div id="tc-questoes" class="tc-iframe">
 <div style="padding:8px 18px 0">
-<div class="iframe-warn">⚠️ Gran Cursos Questões — <a href="https://questoes.grancursosonline.com.br/aluno/novo-programa-de-estudo/prf-policial-rodoviario-federal" target="_blank" style="color:#ffd700">Abrir em nova aba</a></div>
+<div class="iframe-warn">â ï¸ Gran Cursos QuestÃµes â <a href="https://questoes.grancursosonline.com.br/aluno/novo-programa-de-estudo/prf-policial-rodoviario-federal" target="_blank" style="color:#ffd700">Abrir em nova aba</a></div>
 </div>
 <iframe src="https://questoes.grancursosonline.com.br/aluno/novo-programa-de-estudo/prf-policial-rodoviario-federal" style="width:100%;height:calc(100vh - 200px);border:none" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
 </div>
@@ -382,42 +407,42 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <!-- ABA CHATGPT (IFRAME) -->
 <div id="tc-chatgpt" class="tc-iframe">
 <div style="padding:8px 18px 0">
-<div class="iframe-warn">⚠️ ChatGPT — <a href="https://chatgpt.com/c/6a0e590f-176c-83e9-8ff3-19790882e4f1" target="_blank" style="color:#ffd700">Abrir em nova aba</a> (ChatGPT bloqueia iframes por segurança)</div>
+<div class="iframe-warn">â ï¸ ChatGPT â <a href="https://chatgpt.com/c/6a0e590f-176c-83e9-8ff3-19790882e4f1" target="_blank" style="color:#ffd700">Abrir em nova aba</a> (ChatGPT bloqueia iframes por seguranÃ§a)</div>
 </div>
 <iframe src="https://chatgpt.com/c/6a0e590f-176c-83e9-8ff3-19790882e4f1" style="width:100%;height:calc(100vh - 200px);border:none" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
 </div>
 <!-- ABA MARKETING -->
 <div id="tc-mkt" class="tc">
-<div class="stit">📱 Marketing — 3 Meses</div>
+<div class="stit">ð± Marketing â 3 Meses</div>
 <div style="background:rgba(255,64,81,.1);border:1px solid #ff4081;border-radius:11px;padding:12px;margin-bottom:14px;font-size:.87em">
-⚡ <strong style="color:#ff4081">3 meses — 09:00–12:00.</strong> <strong style="color:#ffd700">Reservatório de Dopamina = TODOS os dias!</strong>
+â¡ <strong style="color:#ff4081">3 meses â 09:00â12:00.</strong> <strong style="color:#ffd700">ReservatÃ³rio de Dopamina = TODOS os dias!</strong>
 </div>
 <div class="rcat" style="border-color:rgba(255,215,0,.4)">
-<h4 style="color:#ffd700">⭐ Reservatório de Dopamina <span class="bx bx-r" style="margin-left:8px">DIÁRIO</span></h4>
+<h4 style="color:#ffd700">â­ ReservatÃ³rio de Dopamina <span class="bx bx-r" style="margin-left:8px">DIÃRIO</span></h4>
 <div class="rcat-item">
-<div class="rcat-item-ico">📊</div>
+<div class="rcat-item-ico">ð</div>
 <div class="rcat-item-info">
-<div class="rcat-item-name">Reservatório de Dopamina — 15–20 min/dia</div>
-<div class="rcat-item-desc">Streak atual: <span id="dopDays">0</span> dias 🔥</div>
+<div class="rcat-item-name">ReservatÃ³rio de Dopamina â 15â20 min/dia</div>
+<div class="rcat-item-desc">Streak atual: <span id="dopDays">0</span> dias ð¥</div>
 <div class="pb mt8"><div class="pf" id="prog-dopamina" style="width:0%"></div></div>
 </div>
-<button class="btn btn-s" style="font-size:.75em;flex-shrink:0" onclick="markDop()">✅ Feito!</button>
+<button class="btn btn-s" style="font-size:.75em;flex-shrink:0" onclick="markDop()">â Feito!</button>
 </div>
 </div>
 <div class="g2">
 <div>
 <div class="rcat" style="border-color:rgba(255,64,81,.3)">
-<h4 style="color:#ff4081">🔴 MÊS 1</h4>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🎯</div><div class="rcat-item-info"><div class="rcat-item-name">Pedro Sobral — Tráfego Pago <span class="bx bx-r">URGENTE</span></div><div class="rcat-item-desc">Seg+Ter | Meta Ads, Google Ads</div><div class="pb mt8"><div class="pf" id="prog-pedro" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('pedro','Pedro Sobral')">📊</button></div>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🤖</div><div class="rcat-item-info"><div class="rcat-item-name">Curso de Claude (IA) <span class="bx bx-r">URGENTE</span></div><div class="rcat-item-desc">Qua+Qui | Automações com IA</div><div class="pb mt8"><div class="pf" id="prog-claude" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('claude','Curso Claude')">📊</button></div>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">👑</div><div class="rcat-item-info"><div class="rcat-item-name">Carol Cantelli <span class="bx bx-o">MÊS 1–2</span></div><div class="rcat-item-desc">2x/semana | Marketing digital</div><div class="pb mt8"><div class="pf" id="prog-carol" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('carol','Carol Cantelli')">📊</button></div>
+<h4 style="color:#ff4081">ð´ MÃS 1</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¯</div><div class="rcat-item-info"><div class="rcat-item-name">Pedro Sobral â TrÃ¡fego Pago <span class="bx bx-r">URGENTE</span></div><div class="rcat-item-desc">Seg+Ter | Meta Ads, Google Ads</div><div class="pb mt8"><div class="pf" id="prog-pedro" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('pedro','Pedro Sobral')">ð</button></div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¤</div><div class="rcat-item-info"><div class="rcat-item-name">Curso de Claude (IA) <span class="bx bx-r">URGENTE</span></div><div class="rcat-item-desc">Qua+Qui | AutomaÃ§Ãµes com IA</div><div class="pb mt8"><div class="pf" id="prog-claude" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('claude','Curso Claude')">ð</button></div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð</div><div class="rcat-item-info"><div class="rcat-item-name">Carol Cantelli <span class="bx bx-o">MÃS 1â2</span></div><div class="rcat-item-desc">2x/semana | Marketing digital</div><div class="pb mt8"><div class="pf" id="prog-carol" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('carol','Carol Cantelli')">ð</button></div>
 </div>
 </div>
 <div>
 <div class="rcat" style="border-color:rgba(30,111,217,.3)">
-<h4 style="color:#4aa8ff">🔵 MÊS 2–3 — Produção de Vídeo</h4>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🎬</div><div class="rcat-item-info"><div class="rcat-item-name">Fill Rocha — Vídeo <span class="bx bx-b">MÊS 2</span></div><div class="rcat-item-desc">1h/dia Seg–Qua</div><div class="pb mt8"><div class="pf" id="prog-fill" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('fill','Fill Rocha')">📊</button></div>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">📹</div><div class="rcat-item-info"><div class="rcat-item-name">Vídeo Extra <span class="bx bx-g">MÊS 3</span></div><div class="rcat-item-desc">YouTube, Reels, TikTok</div><div class="pb mt8"><div class="pf" id="prog-vid2" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid2','Vídeo Extra')">📊</button></div>
+<h4 style="color:#4aa8ff">ðµ MÃS 2â3 â ProduÃ§Ã£o de VÃ­deo</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¬</div><div class="rcat-item-info"><div class="rcat-item-name">Fill Rocha â VÃ­deo <span class="bx bx-b">MÃS 2</span></div><div class="rcat-item-desc">1h/dia SegâQua</div><div class="pb mt8"><div class="pf" id="prog-fill" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('fill','Fill Rocha')">ð</button></div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¹</div><div class="rcat-item-info"><div class="rcat-item-name">VÃ­deo Extra <span class="bx bx-g">MÃS 3</span></div><div class="rcat-item-desc">YouTube, Reels, TikTok</div><div class="pb mt8"><div class="pf" id="prog-vid2" style="width:0%"></div></div></div><button class="btn btn-p" style="font-size:.72em;flex-shrink:0" onclick="event.stopPropagation();openProgModal('vid2','VÃ­deo Extra')">ð</button></div>
 </div>
 </div>
 </div>
@@ -426,36 +451,36 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <!-- ABA AGENDA (IFRAME Google Calendar) -->
 <div id="tc-agenda" class="tc-iframe">
 <div style="padding:8px 18px 0">
-<div class="iframe-warn">📅 Google Calendar — <a href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank" style="color:#ffd700">Abrir em nova aba</a></div>
+<div class="iframe-warn">ð Google Calendar â <a href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank" style="color:#ffd700">Abrir em nova aba</a></div>
 </div>
 <iframe src="https://calendar.google.com/calendar/u/0/r?pli=1" style="width:100%;height:calc(100vh - 200px);border:none" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>
 </div>
 
-<!-- ABA CALENDÁRIO -->
+<!-- ABA CALENDÃRIO -->
 <div id="tc-cal" class="tc">
-<div class="stit">🗓️ Calendário Interativo</div>
+<div class="stit">ðï¸ CalendÃ¡rio Interativo</div>
 <div class="g2">
 <div class="card">
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-<button class="btn btn-p" onclick="prevMonth()">◀</button>
+<button class="btn btn-p" onclick="prevMonth()">â</button>
 <span style="flex:1;text-align:center;font-weight:700;color:#ffd700" id="calTitle"></span>
-<button class="btn btn-p" onclick="nextMonth()">▶</button>
+<button class="btn btn-p" onclick="nextMonth()">â¶</button>
 </div>
 <div class="cg" id="calGrid"></div>
 <div style="display:flex;gap:10px;margin-top:10px;font-size:.75em;flex-wrap:wrap">
-<span>🟢 Estudou</span><span>🔵 Hoje</span>
+<span>ð¢ Estudou</span><span>ðµ Hoje</span>
 </div>
 </div>
 <div class="card">
-<h3>📊 Estatísticas</h3>
+<h3>ð EstatÃ­sticas</h3>
 <div id="monthStats"></div>
 <div style="margin-top:12px">
-<h3 style="color:#4aa8ff;font-size:.9em;margin-bottom:8px">📝 Dia: <span id="selDay" style="color:#ffd700">—</span></h3>
+<h3 style="color:#4aa8ff;font-size:.9em;margin-bottom:8px">ð Dia: <span id="selDay" style="color:#ffd700">â</span></h3>
 <div id="selDayInfo" style="background:rgba(255,255,255,.05);border-radius:9px;padding:12px;min-height:60px;font-size:.83em;color:#8fa3c7">Clique num dia</div>
 <textarea class="inp w100 mt8" id="dayNote" rows="3" placeholder="Nota do dia..."></textarea>
 <div style="display:flex;gap:7px;margin-top:7px">
-<button class="btn btn-p" onclick="saveNote()">💾 Salvar</button>
-<button class="btn btn-s" onclick="markStudied()">✅ Estudado</button>
+<button class="btn btn-p" onclick="saveNote()">ð¾ Salvar</button>
+<button class="btn btn-s" onclick="markStudied()">â Estudado</button>
 </div>
 </div>
 </div>
@@ -464,92 +489,117 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 
 <!-- ABA RECOMPENSAS -->
 <div id="tc-rec" class="tc">
-<div class="stit">🎁 Recompensas</div>
+<div class="stit">ð Recompensas</div>
 <div class="g2">
 <div>
 <div class="rcat" style="border-color:rgba(74,168,255,.3)">
-<h4 style="color:#4aa8ff">📖 Leitura Prazerosa</h4>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">💕</div><div class="rcat-item-info"><div class="rcat-item-name">Romance</div><div class="rcat-item-desc">"A Culpa é das Estrelas", "It Ends With Us"</div><div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">⏱</span><input type="number" class="inp" value="30" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div></div></div>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">💡</div><div class="rcat-item-info"><div class="rcat-item-name">Desenvolvimento Pessoal</div><div class="rcat-item-desc">"Atomic Habits", "Mindset", "O Poder do Hábito"</div></div></div>
+<h4 style="color:#4aa8ff">ð Leitura Prazerosa</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð</div><div class="rcat-item-info"><div class="rcat-item-name">Romance</div><div class="rcat-item-desc">"A Culpa Ã© das Estrelas", "It Ends With Us"</div><div class="time-sel"><span style="font-size:.78em;color:#8fa3c7">â±</span><input type="number" class="inp" value="30" style="width:70px" onclick="event.stopPropagation()"><span style="font-size:.78em;color:#8fa3c7">min</span></div></div></div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¡</div><div class="rcat-item-info"><div class="rcat-item-name">Desenvolvimento Pessoal</div><div class="rcat-item-desc">"Atomic Habits", "Mindset", "O Poder do HÃ¡bito"</div></div></div>
 </div>
 <div class="rcat" style="border-color:rgba(0,230,118,.3)">
-<h4 style="color:#00e676">🎸 Música</h4>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🎸</div><div class="rcat-item-info"><div class="rcat-item-name">Tocar Violão</div><div class="rcat-item-desc">Gospel, MPB, Sertanejo. 1 música nova/semana!</div></div></div>
+<h4 style="color:#00e676">ð¸ MÃºsica</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¸</div><div class="rcat-item-info"><div class="rcat-item-name">Tocar ViolÃ£o</div><div class="rcat-item-desc">Gospel, MPB, Sertanejo. 1 mÃºsica nova/semana!</div></div></div>
 </div>
 </div>
 <div>
 <div class="rcat" style="border-color:rgba(255,215,0,.35)">
-<h4 style="color:#ffd700">💬 Tempo Social</h4>
+<h4 style="color:#ffd700">ð¬ Tempo Social</h4>
 <div class="rcat-item" onclick="this.classList.toggle('selected')">
-<div class="rcat-item-ico">💬</div>
+<div class="rcat-item-ico">ð¬</div>
 <div class="rcat-item-info">
 <div class="rcat-item-name">Conversar com Amigos</div>
-<div class="rcat-item-desc">Ligue, café virtual ou presencial 💙</div>
+<div class="rcat-item-desc">Ligue, cafÃ© virtual ou presencial ð</div>
 <div class="time-sel">
-<span style="font-size:.78em;color:#8fa3c7">⏱</span>
+<span style="font-size:.78em;color:#8fa3c7">â±</span>
 <input type="number" class="inp" id="socialMinutes" value="30" style="width:70px" onclick="event.stopPropagation()">
 <span style="font-size:.78em;color:#8fa3c7">min</span>
-<button class="btn btn-p" style="font-size:.72em;padding:4px 8px" onclick="event.stopPropagation();startSocialTimer()">⏱</button>
+<button class="btn btn-p" style="font-size:.72em;padding:4px 8px" onclick="event.stopPropagation();startSocialTimer()">â±</button>
 </div>
 </div>
 </div>
 </div>
 <div class="rcat" style="border-color:rgba(124,77,255,.3)">
-<h4 style="color:#b39ddb">🎬 Entretenimento</h4>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🎬</div><div class="rcat-item-info"><div class="rcat-item-name">1 Episódio de Série</div><div class="rcat-item-desc">Boston Legal, Suits, Stranger Things</div></div></div>
-<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">🎮</div><div class="rcat-item-info"><div class="rcat-item-name">Jogar</div><div class="rcat-item-desc">Xadrez, Wordle, Duolingo (espanhol!)</div></div></div>
+<h4 style="color:#b39ddb">ð¬ Entretenimento</h4>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð¬</div><div class="rcat-item-info"><div class="rcat-item-name">1 EpisÃ³dio de SÃ©rie</div><div class="rcat-item-desc">Boston Legal, Suits, Stranger Things</div></div></div>
+<div class="rcat-item" onclick="this.classList.toggle('selected')"><div class="rcat-item-ico">ð®</div><div class="rcat-item-info"><div class="rcat-item-name">Jogar</div><div class="rcat-item-desc">Xadrez, Wordle, Duolingo (espanhol!)</div></div></div>
 </div>
 </div>
 </div>
-<div class="card mt12"><h3 class="gold">🏆 Conquistas</h3><div id="achList"></div></div>
+<div class="card mt12"><h3 class="gold">ð Conquistas</h3><div id="achList"></div></div>
 </div>
 
 <!-- ABA CONFIG -->
 <div id="tc-cfg" class="tc">
-<div class="stit">⚙️ Configurações</div>
+<div class="stit">âï¸ ConfiguraÃ§Ãµes</div>
 <div class="g2">
 <div class="card">
-<h3>⏰ Horários</h3>
-<div class="srow"><div class="slbl">📚 Manhã início</div><input type="time" class="inp" id="cStM" value="04:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">📚 Manhã fim</div><input type="time" class="inp" id="cEndM" value="06:30" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">📱 Marketing início</div><input type="time" class="inp" id="cStMkt" value="09:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">📱 Marketing fim</div><input type="time" class="inp" id="cEndMkt" value="12:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">💼 Trabalho início</div><input type="time" class="inp" id="cStWk" value="13:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">💼 Trabalho fim</div><input type="time" class="inp" id="cEndWk" value="18:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">🚔 Noite início</div><input type="time" class="inp" id="cStN" value="18:00" onchange="saveCfg()"></div>
-<div class="srow"><div class="slbl">🚔 Noite fim</div><input type="time" class="inp" id="cEndN" value="22:00" onchange="saveCfg()"></div>
+<h3>â° HorÃ¡rios</h3>
+<div class="srow"><div class="slbl">ð ManhÃ£ inÃ­cio</div><input type="time" class="inp" id="cStM" value="04:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð ManhÃ£ fim</div><input type="time" class="inp" id="cEndM" value="06:30" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð± Marketing inÃ­cio</div><input type="time" class="inp" id="cStMkt" value="09:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð± Marketing fim</div><input type="time" class="inp" id="cEndMkt" value="12:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð¼ Trabalho inÃ­cio</div><input type="time" class="inp" id="cStWk" value="13:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð¼ Trabalho fim</div><input type="time" class="inp" id="cEndWk" value="18:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð Noite inÃ­cio</div><input type="time" class="inp" id="cStN" value="18:00" onchange="saveCfg()"></div>
+<div class="srow"><div class="slbl">ð Noite fim</div><input type="time" class="inp" id="cEndN" value="22:00" onchange="saveCfg()"></div>
 </div>
 <div class="card">
-<h3>🎯 Metas</h3>
-<div class="srow"><div class="slbl">Meta questões/dia</div><input type="number" class="inp" id="cQ" value="50" style="width:100px" onchange="saveCfg()"></div>
+<h3>ð¯ Metas</h3>
+<div class="srow"><div class="slbl">Meta questÃµes/dia</div><input type="number" class="inp" id="cQ" value="50" style="width:100px" onchange="saveCfg()"></div>
 <div class="srow"><div class="slbl">Horas estudo/dia</div><input type="number" class="inp" id="cH" value="6.5" step=".5" style="width:100px" onchange="saveCfg()"></div>
 <div class="srow"><div class="slbl">Seu nome</div><input type="text" class="inp" id="cNome" value="Helena" style="width:140px" onchange="saveCfg()"></div>
 <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
-<button class="btn btn-s w100" onclick="saveCfg()">💾 Salvar</button>
-<button class="btn btn-d w100" onclick="resetAll()">🔄 Resetar</button>
+<button class="btn btn-s w100" onclick="saveCfg()">ð¾ Salvar</button>
+<button class="btn btn-d w100" onclick="resetAll()">ð Resetar</button>
 </div>
 </div>
+</div>
+
+<!-- DIAS CONFIG CARD -->
+<div class="card mt12">
+<h3 class="gold">&#x1F4C5; Duração do Cronograma</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Defina quantos dias terá seu cronograma de estudos. Ao salvar, o cronograma será reorganizado automaticamente.</p>
+<div class="srow" style="margin-bottom:10px">
+  <div class="slbl">Número de dias</div>
+  <input type="number" class="inp" id="cfgTotalDias" value="120" min="30" max="365" style="width:90px" onchange="">
+</div>
+<div class="fb mt8" style="gap:8px;align-items:center;flex-wrap:wrap">
+  <button class="btn btn-p" onclick="saveTotalDias()">&#x1F504; Atualizar Cronograma</button>
+  <span id="diasStatus" style="font-size:.8em;color:#8fa3c7">Cronograma atual: 120 dias</span>
+</div>
+</div>
+
+<!-- PLATAFORMA CONFIG CARD -->
+<div class="card mt12">
+<h3 class="gold">&#x1F517; Plataforma de Estudos</h3>
+<p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">&#x1F517; Cole abaixo o link de qualquer plataforma de concursos (Gran, Estratégia, CERS, etc). Todos os botões "Acessar Curso" usarão este link ao salvar.</p>
+<div class="fb mt8" style="gap:8px;flex-wrap:wrap">
+  <input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (gran, estratégia, CERS...)">
+  <button class="btn btn-s" onclick="savePlat()">&#x1F4BE; Salvar Link</button>
+</div>
+<div id="platStatus" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
 </div>
 </div>
 
 <!-- MODAIS -->
-<div class="mo" id="moProg"><div class="mbox"><h3 id="moProgTitle">📊 Progresso</h3><input type="range" id="progSlider" min="0" max="100" value="0" style="width:100%;accent-color:#1e6fd9" oninput="document.getElementById('progVal').textContent=this.value+'%';document.getElementById('progBarMo').style.width=this.value+'%'"><div style="text-align:center;font-size:1.3em;font-weight:700;color:#00c6ff;margin:8px 0" id="progVal">0%</div><div class="pb"><div class="pf" id="progBarMo" style="width:0%"></div></div><div class="mfoot"><button class="btn btn-p" onclick="saveProgModal()">💾 Salvar</button><button class="btn btn-w" onclick="document.getElementById('moProg').classList.remove('open')">Fechar</button></div></div></div>
-<div class="mo" id="moPlan"><div class="mbox"><h3>📋 Plano Salvo</h3><div id="moPlanBody" style="font-size:.87em"></div><div class="mfoot"><button class="btn btn-p" onclick="document.getElementById('moPlan').classList.remove('open')">Fechar</button></div></div></div>
+<div class="mo" id="moProg"><div class="mbox"><h3 id="moProgTitle">ð Progresso</h3><input type="range" id="progSlider" min="0" max="100" value="0" style="width:100%;accent-color:#1e6fd9" oninput="document.getElementById('progVal').textContent=this.value+'%';document.getElementById('progBarMo').style.width=this.value+'%'"><div style="text-align:center;font-size:1.3em;font-weight:700;color:#00c6ff;margin:8px 0" id="progVal">0%</div><div class="pb"><div class="pf" id="progBarMo" style="width:0%"></div></div><div class="mfoot"><button class="btn btn-p" onclick="saveProgModal()">ð¾ Salvar</button><button class="btn btn-w" onclick="document.getElementById('moProg').classList.remove('open')">Fechar</button></div></div></div>
+<div class="mo" id="moPlan"><div class="mbox"><h3>ð Plano Salvo</h3><div id="moPlanBody" style="font-size:.87em"></div><div class="mfoot"><button class="btn btn-p" onclick="document.getElementById('moPlan').classList.remove('open')">Fechar</button></div></div></div>
 
 <div class="notif" id="notif"></div>
 <div id="socialBox" style="position:fixed;bottom:80px;right:20px;background:#1b3a6b;border:2px solid #ffd700;border-radius:14px;padding:16px 20px;z-index:998;display:none;text-align:center">
-<div style="color:#ffd700;font-weight:700;margin-bottom:6px">💬 Timer Social</div>
+<div style="color:#ffd700;font-weight:700;margin-bottom:6px">ð¬ Timer Social</div>
 <div style="font-size:2.2em;font-weight:700;color:#00c6ff;font-variant-numeric:tabular-nums" id="socialClock">00:00</div>
-<button class="btn btn-d mt8" onclick="stopSocial()">✅ Encerrar</button>
+<button class="btn btn-d mt8" onclick="stopSocial()">â Encerrar</button>
 <!-- CARD PLATAFORMA DE ESTUDOS -->
 <div class="card mt12">
 <h3 class="gold">&#x1F3AF; Plataforma de Estudos</h3>
 <p style="font-size:.84em;color:#8fa3c7;margin-bottom:10px">Link do seu curso. Todos os bot&#xf5;es "Acessar Curso" usar&#xe3;o este link ao salvar.</p>
 <div class="fb mt8" style="gap:8px;flex-wrap:wrap">
-<input type="url" class="inp" id="cfgPlatUrl" style="flex:1;min-width:180px" placeholder="https://www.grancursosonline.com.br/aluno/...">
+<input type="url" class="inp" id="cfgPlatUrlLegacy" style="flex:1;min-width:180px" placeholder="Cole aqui o link da sua plataforma (ex: gran, estratégia, CERS...)">
 <button class="btn btn-s" onclick="savePlat()">&#x1F4BE; Salvar Link</button>
 </div>
-<div id="platStatus" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
+<div id="platStatusLegacy" class="mt8" style="font-size:.8em;color:#8fa3c7">Nenhum link personalizado salvo.</div>
 <div class="plan-box mt8">
 <h4>Como funciona</h4>
 <div style="font-size:.82em;color:#8fa3c7;line-height:1.7">Cole o link direto do seu curso (Gran, Estrat&#xe9;gia, QConcursos etc.). Ap&#xf3;s salvar, todos os links do dashboard ser&#xe3;o atualizados.</div>
@@ -581,7 +631,7 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <div id="mesesStatus" class="mt8" style="font-size:.8em;color:#8fa3c7"></div>
 </div>
 </div>
-<!-- ABA ORAÇÃO -->
+<!-- ABA ORAÃÃO -->
 <div id="tc-oracao" class="tc">
 <div class="g2">
 
@@ -664,7 +714,7 @@ function renderStats() {
     var el = document.getElementById(id);
     if (!el) return;
     if (id==='sDias') el.textContent = stats.days;
-    else if (id==='sStrk') el.textContent = stats.streak + '🔥';
+    else if (id==='sStrk') el.textContent = stats.streak + 'ð¥';
     else if (id==='sHrs') el.textContent = stats.hours + 'h';
     else if (id==='sDiaNum') el.textContent = dayNum + '/120';
     else if (id==='cronDayNum') el.textContent = 'Dia ' + dayNum;
@@ -697,18 +747,18 @@ function sw(id, btn) {
 // BUILD SCHEDULE BLOCKS
 function buildBlocks(dow) {
   var cfg = LS.get('prf_cfg', {});
-  if (dow === 6) return '<div class="tblk tb-ch"><div class="tr">07:30–09:00</div><div class="td">⛪ Missa</div></div><div class="tblk tb-mk"><div class="tr">09:00–12:00</div><div class="td">📱 Marketing</div></div><div class="tblk tb-st"><div class="tr">13:00–15:00</div><div class="td">📚 Questões</div></div><div class="tblk tb-lz"><div class="tr">18:00+</div><div class="td">🎁 Lazer!</div></div>';
-  if (dow === 0) return '<div class="tblk tb-ch"><div class="tr">07:00–09:00</div><div class="td">⛪ Missa</div></div><div class="tblk tb-st"><div class="tr">10:00–12:00</div><div class="td">📚 Revisão leve</div></div><div class="tblk tb-lz"><div class="tr">12:00+</div><div class="td">🎁 Descanso!</div></div>';
-  var manha = (cfg.stM||'04:00')+'–'+(cfg.endM||'06:30');
-  var mkt = (cfg.stMkt||'09:00')+'–'+(cfg.endMkt||'12:00');
-  var work = (cfg.stWk||'13:00')+'–'+(cfg.endWk||'18:00');
-  var noite = (cfg.stN||'18:00')+'–'+(cfg.endN||'22:00');
-  return '<div class="tblk tb-st"><div class="tr">'+manha+'</div><div class="td">📚 Videoaula + PDF</div></div><div class="tblk tb-mk"><div class="tr">'+mkt+'</div><div class="td">📱 Marketing</div></div><div class="tblk tb-wk"><div class="tr">'+work+'</div><div class="td">💼 Trabalho</div></div><div class="tblk tb-st"><div class="tr">'+noite+'</div><div class="td">🚔 PDF + Questões</div></div>';
+  if (dow === 6) return '<div class="tblk tb-ch"><div class="tr">07:30â09:00</div><div class="td">âª Missa</div></div><div class="tblk tb-mk"><div class="tr">09:00â12:00</div><div class="td">ð± Marketing</div></div><div class="tblk tb-st"><div class="tr">13:00â15:00</div><div class="td">ð QuestÃµes</div></div><div class="tblk tb-lz"><div class="tr">18:00+</div><div class="td">ð Lazer!</div></div>';
+  if (dow === 0) return '<div class="tblk tb-ch"><div class="tr">07:00â09:00</div><div class="td">âª Missa</div></div><div class="tblk tb-st"><div class="tr">10:00â12:00</div><div class="td">ð RevisÃ£o leve</div></div><div class="tblk tb-lz"><div class="tr">12:00+</div><div class="td">ð Descanso!</div></div>';
+  var manha = (cfg.stM||'04:00')+'â'+(cfg.endM||'06:30');
+  var mkt = (cfg.stMkt||'09:00')+'â'+(cfg.endMkt||'12:00');
+  var work = (cfg.stWk||'13:00')+'â'+(cfg.endWk||'18:00');
+  var noite = (cfg.stN||'18:00')+'â'+(cfg.endN||'22:00');
+  return '<div class="tblk tb-st"><div class="tr">'+manha+'</div><div class="td">ð Videoaula + PDF</div></div><div class="tblk tb-mk"><div class="tr">'+mkt+'</div><div class="td">ð± Marketing</div></div><div class="tblk tb-wk"><div class="tr">'+work+'</div><div class="td">ð¼ Trabalho</div></div><div class="tblk tb-st"><div class="tr">'+noite+'</div><div class="td">ð PDF + QuestÃµes</div></div>';
 }
 
 // CLOCK
 function pad(v) { return String(v).padStart(2,'0'); }
-var QUOTES = ['"A disciplina de hoje é a vitória de amanhã!"','"Cada questão = 1 passo para a aprovação! 🚔"','"PRF — você nasceu para isso, Helena!"','"Foque. Estude. Passe. Repita. 💙"','"Aprovação não é sorte, é disciplina!"','"Mais perto hoje do que ontem! 🔥"'];
+var QUOTES = ['"A disciplina de hoje Ã© a vitÃ³ria de amanhÃ£!"','"Cada questÃ£o = 1 passo para a aprovaÃ§Ã£o! ð"','"PRF â vocÃª nasceu para isso, Helena!"','"Foque. Estude. Passe. Repita. ð"','"AprovaÃ§Ã£o nÃ£o Ã© sorte, Ã© disciplina!"','"Mais perto hoje do que ontem! ð¥"'];
 var qIdx = 0;
 var motivEl = document.getElementById('motiv');
 if (motivEl) {
@@ -723,10 +773,10 @@ function tick() {
   var n = new Date();
   var clock = document.getElementById('clock');
   if (clock) clock.textContent = pad(n.getHours())+':'+pad(n.getMinutes())+':'+pad(n.getSeconds());
-  var days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'], months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var days=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'], months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   var dateD = document.getElementById('dateD');
   if (dateD) dateD.textContent = days[n.getDay()]+', '+n.getDate()+' '+months[n.getMonth()]+' '+n.getFullYear();
-  var dowNames=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  var dowNames=['Domingo','Segunda','TerÃ§a','Quarta','Quinta','Sexta','SÃ¡bado'];
   var tdow = document.getElementById('todayDow');
   if (tdow) tdow.textContent = dowNames[n.getDay()];
   var tblks = document.getElementById('todayBlocks');
@@ -736,13 +786,13 @@ setInterval(tick, 1000);
 tick();
 
 // CHECKLIST
-var CHECKS = ['🎬 Videoaula (1.5x)','📄 PDF/Resumo','✏️ 50+ Questões','🔄 Revisão Erros','📊 Registrar progresso'];
+var CHECKS = ['ð¬ Videoaula (1.5x)','ð PDF/Resumo','âï¸ 50+ QuestÃµes','ð RevisÃ£o Erros','ð Registrar progresso'];
 function renderChecklist() {
   var el = document.getElementById('checkList'); if(!el) return;
   var done = LS.get('prf_checks_'+new Date().toDateString(), []);
   el.innerHTML = CHECKS.map(function(c,i) {
     var d = done.indexOf(i)!==-1;
-    return '<div class="ci '+(d?'done':'')+'" onclick="toggleCheck('+i+')"><div class="cc">'+(d?'✓':'')+'</div><span>'+c+'</span></div>';
+    return '<div class="ci '+(d?'done':'')+'" onclick="toggleCheck('+i+')"><div class="cc">'+(d?'â':'')+'</div><span>'+c+'</span></div>';
   }).join('');
 }
 function toggleCheck(i) {
@@ -757,40 +807,40 @@ renderChecklist();
 
 // TODAY INFO
 function renderTodayInfo() {
-  var n = new Date(), days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  var months=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var n = new Date(), days=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
+  var months=['janeiro','fevereiro','marÃ§o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
   var label = document.getElementById('todayDateLabel');
-  if(label) label.textContent = '📅 '+days[n.getDay()]+', '+n.getDate()+' de '+months[n.getMonth()];
+  if(label) label.textContent = 'ð '+days[n.getDay()]+', '+n.getDate()+' de '+months[n.getMonth()];
   var dayNum = getCronDayNum();
   if(CRON && CRON[dayNum-1]) {
     var c = CRON[dayNum-1];
     var s1=document.getElementById('todaySubj1'),s2=document.getElementById('todaySubj2'),m=document.getElementById('todayMeta');
-    if(s1) s1.textContent='📖 '+c.mat1;
-    if(s2) s2.textContent='📖 '+c.mat2;
-    if(m) m.textContent='💡 '+(c.note||'');
+    if(s1) s1.textContent='ð '+c.mat1;
+    if(s2) s2.textContent='ð '+c.mat2;
+    if(m) m.textContent='ð¡ '+(c.note||'');
   }
   var tom = new Date(n.getTime()+86400000);
   var tLbl = document.getElementById('tomorrowLabel');
   if(tLbl) tLbl.textContent = days[tom.getDay()]+', '+tom.getDate()+'/'+(tom.getMonth()+1);
   var tomCron = CRON && CRON[dayNum];
   var tAuto = document.getElementById('tomorrowAuto');
-  if(tAuto && tomCron) tAuto.innerHTML = '<span style="color:#ffd700">Matérias:</span> '+tomCron.mat1+' + '+tomCron.mat2;
+  if(tAuto && tomCron) tAuto.innerHTML = '<span style="color:#ffd700">MatÃ©rias:</span> '+tomCron.mat1+' + '+tomCron.mat2;
 }
 
 // COMPLETE DAY
 function compDay() {
   var today = new Date().toDateString();
-  if(stats.lastDate===today){showNotif('✅ Já concluído hoje!');return;}
+  if(stats.lastDate===today){showNotif('â JÃ¡ concluÃ­do hoje!');return;}
   var yesterday = new Date(Date.now()-86400000).toDateString();
   stats.streak = (stats.lastDate===yesterday) ? stats.streak+1 : 1;
   stats.days++; stats.hours = parseFloat((stats.hours+6.5).toFixed(1)); stats.lastDate = today;
   LS.set('prf_stats3', stats); renderStats();
   var calData = LS.get('prf_cal2',{}); calData[new Date().toISOString().split('T')[0]]={type:'studied',note:''};
   LS.set('prf_cal2', calData); checkAchievements(); confetti();
-  showNotif('🎉 Dia '+stats.days+' concluído! Streak: '+stats.streak+' dias 🔥');
+  showNotif('ð Dia '+stats.days+' concluÃ­do! Streak: '+stats.streak+' dias ð¥');
 }
 function confetti() {
-  var e=['🎉','🌟','🚔','💙','🔥','✅'];
+  var e=['ð','ð','ð','ð','ð¥','â'];
   for(var i=0;i<8;i++) (function(idx){setTimeout(function(){
     var el=document.createElement('div'); el.className='cracker'; el.textContent=e[idx%e.length];
     el.style.left=(10+Math.random()*80)+'%'; el.style.top=(20+Math.random()*60)+'%';
@@ -802,78 +852,88 @@ function confetti() {
 // CRONOGRAMA
 var START_DATE = new Date(2026, 4, 27);
 var CRON = [
-{mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 1–4 + Interpretação',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art. 5º + Morfologia',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'HC/MS + Concordância',mes:1},
-{mat1:'📜 Const. Revisão',mat2:'✏️ 80 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Revisão semanal',mes:1},
-{mat1:'🔄 Revisão leve',mat2:'📝 Port. leve',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Art.18-30 + Sintaxe',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Competências + Coesão',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'⚖️ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'LIMPE + Princípios Admin',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'⚖️ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Poderes + Atos Adm',mes:1},
-{mat1:'📜 D. Constitucional',mat2:'⚖️ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Controle Const. + Licitações',mes:1},
-{mat1:'📜+⚖️ Revisão',mat2:'✏️ 80 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Revisão',mes:1},
-{mat1:'🔄 Revisão geral',mat2:'📖 Leitura',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
-{mat1:'⚖️ D. Administrativo',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'8.112/90 + Ortografia',mes:1},
-{mat1:'⚖️ D. Administrativo',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Improbidade + Pontuação',mes:1},
-{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Proposições + Interpretação',mes:1},
-{mat1:'🧮 Raciocínio Lógico',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Tabela-verdade + Redação',mes:1},
-{mat1:'🧮 Raciocínio Lógico',mat2:'⚖️ Adm. Revisão',cls1:'mat-2',cls2:'mat-rev',note:'Lógica matemática %',mes:1},
-{mat1:'🧮 Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado semanal',mes:1},
-{mat1:'🔄 Revisão Mês 1',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
-{mat1:'🧮 Raciocínio',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Diagramas + Interpretação',mes:1},
-{mat1:'🧮 Raciocínio',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Sequências + Gramática',mes:1},
-{mat1:'🚦 Leg. Trânsito',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'CTB + SNT',mes:2},
-{mat1:'🚦 Leg. Trânsito',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Infrações + Pontuação',mes:2},
-{mat1:'🚦 Leg. Trânsito',mat2:'📝 Português',cls1:'mat-1',cls2:'mat-2',note:'Sinalização + Res. CONTRAN',mes:2},
-{mat1:'🚦 Trânsito Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
-{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
-{mat1:'🔒 D. Penal',mat2:'🚦 Leg. Trânsito',cls1:'mat-2',cls2:'mat-1',note:'Teoria crime + CTB',mes:2},
-{mat1:'🔒 D. Penal',mat2:'🚦 Leg. Trânsito',cls1:'mat-2',cls2:'mat-1',note:'Penas + Crimes hediondos',mes:2},
-{mat1:'🔒 D. Penal',mat2:'⚖️ D. Processual',cls1:'mat-2',cls2:'mat-2',note:'Lei drogas + IP',mes:2},
-{mat1:'⚖️ D. Processual',mat2:'🌍 D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Prisões + DUDH',mes:2},
-{mat1:'⚖️ D. Processual',mat2:'🌍 D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Flagrante + CADH',mes:2},
-{mat1:'🔒 Penal Revisão',mat2:'✏️ 100 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
-{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
-{mat1:'📋 Leg. Especial',mat2:'🌍 D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Lei drogas/desarmamento',mes:2},
-{mat1:'📋 Leg. Especial',mat2:'🌍 D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Org. Criminosas + ECA',mes:2},
-{mat1:'📜 Rev. Constitucional',mat2:'⚖️ Rev. Administrativo',cls1:'mat-rev',cls2:'mat-rev',note:'Revisão Mês 2',mes:2},
-{mat1:'🚦 Rev. Trânsito',mat2:'🔒 Rev. Penal',cls1:'mat-rev',cls2:'mat-rev',note:'Revisão PRF',mes:2},
-{mat1:'✏️ 120 Questões',mat2:'📊 Análise erros',cls1:'mat-sim',cls2:'mat-rev',note:'Pré-simulado',mes:2},
-{mat1:'🔄 Simulado Mensal',mat2:'✏️ Rev. erros',cls1:'mat-sim',cls2:'mat-rev',note:'Sábado especial',mes:2},
-{mat1:'🔄 Domingo',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:2}
+{mat1:'ð D. Constitucional',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'Art. 1â4 + InterpretaÃ§Ã£o',mes:1},
+{mat1:'ð D. Constitucional',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'Art. 5Âº + Morfologia',mes:1},
+{mat1:'ð D. Constitucional',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'HC/MS + ConcordÃ¢ncia',mes:1},
+{mat1:'ð Const. RevisÃ£o',mat2:'âï¸ 80 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'RevisÃ£o semanal',mes:1},
+{mat1:'ð RevisÃ£o leve',mat2:'ð Port. leve',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
+{mat1:'ð D. Constitucional',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'Art.18-30 + Sintaxe',mes:1},
+{mat1:'ð D. Constitucional',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'CompetÃªncias + CoesÃ£o',mes:1},
+{mat1:'ð D. Constitucional',mat2:'âï¸ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'LIMPE + PrincÃ­pios Admin',mes:1},
+{mat1:'ð D. Constitucional',mat2:'âï¸ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Poderes + Atos Adm',mes:1},
+{mat1:'ð D. Constitucional',mat2:'âï¸ D. Administrativo',cls1:'mat-1',cls2:'mat-2',note:'Controle Const. + LicitaÃ§Ãµes',mes:1},
+{mat1:'ð+âï¸ RevisÃ£o',mat2:'âï¸ 80 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'RevisÃ£o',mes:1},
+{mat1:'ð RevisÃ£o geral',mat2:'ð Leitura',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
+{mat1:'âï¸ D. Administrativo',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'8.112/90 + Ortografia',mes:1},
+{mat1:'âï¸ D. Administrativo',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'Improbidade + PontuaÃ§Ã£o',mes:1},
+{mat1:'ð§® RaciocÃ­nio LÃ³gico',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'ProposiÃ§Ãµes + InterpretaÃ§Ã£o',mes:1},
+{mat1:'ð§® RaciocÃ­nio LÃ³gico',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'Tabela-verdade + RedaÃ§Ã£o',mes:1},
+{mat1:'ð§® RaciocÃ­nio LÃ³gico',mat2:'âï¸ Adm. RevisÃ£o',cls1:'mat-2',cls2:'mat-rev',note:'LÃ³gica matemÃ¡tica %',mes:1},
+{mat1:'ð§® RevisÃ£o',mat2:'âï¸ 100 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado semanal',mes:1},
+{mat1:'ð RevisÃ£o MÃªs 1',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:1},
+{mat1:'ð§® RaciocÃ­nio',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'Diagramas + InterpretaÃ§Ã£o',mes:1},
+{mat1:'ð§® RaciocÃ­nio',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'SequÃªncias + GramÃ¡tica',mes:1},
+{mat1:'ð¦ Leg. TrÃ¢nsito',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'CTB + SNT',mes:2},
+{mat1:'ð¦ Leg. TrÃ¢nsito',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'InfraÃ§Ãµes + PontuaÃ§Ã£o',mes:2},
+{mat1:'ð¦ Leg. TrÃ¢nsito',mat2:'ð PortuguÃªs',cls1:'mat-1',cls2:'mat-2',note:'SinalizaÃ§Ã£o + Res. CONTRAN',mes:2},
+{mat1:'ð¦ TrÃ¢nsito RevisÃ£o',mat2:'âï¸ 100 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
+{mat1:'ð RevisÃ£o',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
+{mat1:'ð D. Penal',mat2:'ð¦ Leg. TrÃ¢nsito',cls1:'mat-2',cls2:'mat-1',note:'Teoria crime + CTB',mes:2},
+{mat1:'ð D. Penal',mat2:'ð¦ Leg. TrÃ¢nsito',cls1:'mat-2',cls2:'mat-1',note:'Penas + Crimes hediondos',mes:2},
+{mat1:'ð D. Penal',mat2:'âï¸ D. Processual',cls1:'mat-2',cls2:'mat-2',note:'Lei drogas + IP',mes:2},
+{mat1:'âï¸ D. Processual',mat2:'ð D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'PrisÃµes + DUDH',mes:2},
+{mat1:'âï¸ D. Processual',mat2:'ð D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Flagrante + CADH',mes:2},
+{mat1:'ð Penal RevisÃ£o',mat2:'âï¸ 100 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'Simulado',mes:2},
+{mat1:'ð RevisÃ£o',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Domingo',mes:2},
+{mat1:'ð Leg. Especial',mat2:'ð D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Lei drogas/desarmamento',mes:2},
+{mat1:'ð Leg. Especial',mat2:'ð D. Humanos',cls1:'mat-2',cls2:'mat-3',note:'Org. Criminosas + ECA',mes:2},
+{mat1:'ð Rev. Constitucional',mat2:'âï¸ Rev. Administrativo',cls1:'mat-rev',cls2:'mat-rev',note:'RevisÃ£o MÃªs 2',mes:2},
+{mat1:'ð¦ Rev. TrÃ¢nsito',mat2:'ð Rev. Penal',cls1:'mat-rev',cls2:'mat-rev',note:'RevisÃ£o PRF',mes:2},
+{mat1:'âï¸ 120 QuestÃµes',mat2:'ð AnÃ¡lise erros',cls1:'mat-sim',cls2:'mat-rev',note:'PrÃ©-simulado',mes:2},
+{mat1:'ð Simulado Mensal',mat2:'âï¸ Rev. erros',cls1:'mat-sim',cls2:'mat-rev',note:'SÃ¡bado especial',mes:2},
+{mat1:'ð Domingo',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:2}
 ];
 // Fill Mes 3 and 4
 var mes3 = [
-{mat1:'📜 Const. Avançado',mat2:'🧮 Raciocínio Avançado',cls1:'mat-1',cls2:'mat-2',note:'Questões difíceis',mes:3},
-{mat1:'⚖️ Admin. Avançado',mat2:'📝 Português Avançado',cls1:'mat-2',cls2:'mat-2',note:'Questões difíceis',mes:3},
-{mat1:'🚦 Trânsito Avançado',mat2:'🔒 Penal Avançado',cls1:'mat-1',cls2:'mat-2',note:'Questões difíceis',mes:3},
-{mat1:'📋 Todas matérias',mat2:'✏️ 120 Questões',cls1:'mat-sim',cls2:'mat-sim',note:'Simulado',mes:3},
-{mat1:'🔄 Revisão',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3},
-{mat1:'💻 Informática',mat2:'⚡ Física',cls1:'mat-4',cls2:'mat-4',note:'Novas matérias',mes:3},
-{mat1:'💻 Informática',mat2:'⚡ Física',cls1:'mat-4',cls2:'mat-4',note:'Aplicações trânsito',mes:3},
-{mat1:'📋 Simulado',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:3},
-{mat1:'🔄 Domingo',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3},
-{mat1:'📜 Const.',mat2:'⚖️ Admin.',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
-{mat1:'🧮 Raciocínio',mat2:'📝 Português',cls1:'mat-2',cls2:'mat-2',note:'Pontos fracos',mes:3},
-{mat1:'🚦 Trânsito',mat2:'🔒 Penal',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
-{mat1:'📋 Simulado',mat2:'✏️ 150 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Grande simulado',mes:3},
-{mat1:'🔄 Domingo',mat2:'📖 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3}
+{mat1:'ð Const. AvanÃ§ado',mat2:'ð§® RaciocÃ­nio AvanÃ§ado',cls1:'mat-1',cls2:'mat-2',note:'QuestÃµes difÃ­ceis',mes:3},
+{mat1:'âï¸ Admin. AvanÃ§ado',mat2:'ð PortuguÃªs AvanÃ§ado',cls1:'mat-2',cls2:'mat-2',note:'QuestÃµes difÃ­ceis',mes:3},
+{mat1:'ð¦ TrÃ¢nsito AvanÃ§ado',mat2:'ð Penal AvanÃ§ado',cls1:'mat-1',cls2:'mat-2',note:'QuestÃµes difÃ­ceis',mes:3},
+{mat1:'ð Todas matÃ©rias',mat2:'âï¸ 120 QuestÃµes',cls1:'mat-sim',cls2:'mat-sim',note:'Simulado',mes:3},
+{mat1:'ð RevisÃ£o',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3},
+{mat1:'ð» InformÃ¡tica',mat2:'â¡ FÃ­sica',cls1:'mat-4',cls2:'mat-4',note:'Novas matÃ©rias',mes:3},
+{mat1:'ð» InformÃ¡tica',mat2:'â¡ FÃ­sica',cls1:'mat-4',cls2:'mat-4',note:'AplicaÃ§Ãµes trÃ¢nsito',mes:3},
+{mat1:'ð Simulado',mat2:'âï¸ AnÃ¡lise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:3},
+{mat1:'ð Domingo',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3},
+{mat1:'ð Const.',mat2:'âï¸ Admin.',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'ð§® RaciocÃ­nio',mat2:'ð PortuguÃªs',cls1:'mat-2',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'ð¦ TrÃ¢nsito',mat2:'ð Penal',cls1:'mat-1',cls2:'mat-2',note:'Pontos fracos',mes:3},
+{mat1:'ð Simulado',mat2:'âï¸ 150 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'Grande simulado',mes:3},
+{mat1:'ð Domingo',mat2:'ð Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'',mes:3}
 ];
 var mes4 = [
-{mat1:'📜 Const. Final',mat2:'⚖️ Admin. Final',cls1:'mat-1',cls2:'mat-2',note:'Revisão total',mes:4},
-{mat1:'🧮 Raciocínio Final',mat2:'📝 Português Final',cls1:'mat-2',cls2:'mat-2',note:'Revisão total',mes:4},
-{mat1:'🚦 Trânsito Final',mat2:'🔒 Penal Final',cls1:'mat-1',cls2:'mat-2',note:'Revisão total',mes:4},
-{mat1:'💻 Info Final',mat2:'⚡ Física Final',cls1:'mat-4',cls2:'mat-4',note:'',mes:4},
-{mat1:'📋 Simulado Final 1',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
-{mat1:'📋 Simulado Final 2',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
-{mat1:'📋 Simulado Final 3',mat2:'✏️ Análise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
-{mat1:'🏆 Rev. Estratégica',mat2:'✏️ 200 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'Última semana!',mes:4},
-{mat1:'🏆 Rev. Estratégica',mat2:'✏️ 200 Questões',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4},
-{mat1:'🏆 Leve revisão',mat2:'😴 Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Dia antes da prova',mes:4}
+{mat1:'ð Const. Final',mat2:'âï¸ Admin. Final',cls1:'mat-1',cls2:'mat-2',note:'RevisÃ£o total',mes:4},
+{mat1:'ð§® RaciocÃ­nio Final',mat2:'ð PortuguÃªs Final',cls1:'mat-2',cls2:'mat-2',note:'RevisÃ£o total',mes:4},
+{mat1:'ð¦ TrÃ¢nsito Final',mat2:'ð Penal Final',cls1:'mat-1',cls2:'mat-2',note:'RevisÃ£o total',mes:4},
+{mat1:'ð» Info Final',mat2:'â¡ FÃ­sica Final',cls1:'mat-4',cls2:'mat-4',note:'',mes:4},
+{mat1:'ð Simulado Final 1',mat2:'âï¸ AnÃ¡lise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'ð Simulado Final 2',mat2:'âï¸ AnÃ¡lise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'ð Simulado Final 3',mat2:'âï¸ AnÃ¡lise',cls1:'mat-sim',cls2:'mat-rev',note:'',mes:4},
+{mat1:'ð Rev. EstratÃ©gica',mat2:'âï¸ 200 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'Ãltima semana!',mes:4},
+{mat1:'ð Rev. EstratÃ©gica',mat2:'âï¸ 200 QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4},
+{mat1:'ð Leve revisÃ£o',mat2:'ð´ Descanso',cls1:'mat-rev',cls2:'mat-rev',note:'Dia antes da prova',mes:4}
 ];
 CRON = CRON.concat(mes3).concat(mes4);
-while(CRON.length < (parseInt(localStorage.getItem('prf_meses')||10)*30)) CRON.push({mat1:'🔄 Revisão',mat2:'✏️ Questões',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4});
+while(CRON.length < (parseInt(localStorage.getItem('prf_meses')||10)*30)) CRON.push({mat1:'ð RevisÃ£o',mat2:'âï¸ QuestÃµes',cls1:'mat-rev',cls2:'mat-sim',note:'',mes:4});
+// Apply total dias setting
+(function(){
+  var td=parseInt(localStorage.getItem('prf_totalDias'))||0;
+  if(td>30&&td<500){
+    if(!window._CRON_BASE) window._CRON_BASE=CRON.slice(0,Math.min(40,CRON.length));
+    while(CRON.length<td){var i=CRON.length%window._CRON_BASE.length;CRON.push(Object.assign({},window._CRON_BASE[i]));}
+    CRON.length=td;
+  }
+})();
+
 
 // Render today info now that CRON is defined
 renderStats();
@@ -894,19 +954,19 @@ function renderCron() {
     if(currentFilter!=='all'&&currentFilter!=='today'){var mm={mes1:1,mes2:2,mes3:3,mes4:4};if(day.mes!==mm[currentFilter])return;}
     if(currentFilter==='today'&&!isToday) return;
     var isDone=done[dayNum], isWknd=date.getDay()===0||date.getDay()===6;
-    if(day.mes!==curMes){curMes=day.mes;var mnames=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];var getM=function(d){return mnames[new Date(START_DATE.getTime()+d*86400000).getMonth()];};var getY=function(d){return new Date(START_DATE.getTime()+d*86400000).getFullYear();};var mn=['','Mês 1 — '+getM(0)+'/'+getM(20)+' '+getY(0),'Mês 2 — '+getM(21)+'/'+getM(39)+' '+getY(21),'Mês 3 — '+getM(40)+'/'+getM(53)+' '+getY(40),'Mês 4 — '+getM(54)+'/'+getM(119)+' '+getY(54)];html+='<div class="month-sep">📅 '+mn[day.mes]+'</div>';}
+    if(day.mes!==curMes){curMes=day.mes;var mnames=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];var getM=function(d){return mnames[new Date(START_DATE.getTime()+d*86400000).getMonth()];};var getY=function(d){return new Date(START_DATE.getTime()+d*86400000).getFullYear();};var mn=['','MÃªs 1 â '+getM(0)+'/'+getM(20)+' '+getY(0),'MÃªs 2 â '+getM(21)+'/'+getM(39)+' '+getY(21),'MÃªs 3 â '+getM(40)+'/'+getM(53)+' '+getY(40),'MÃªs 4 â '+getM(54)+'/'+getM(119)+' '+getY(54)];html+='<div class="month-sep">ð '+mn[day.mes]+'</div>';}
     var cls=isToday?'today-card':(isDone?'done-card':(isWknd?'weekend-card':''));
-    var ds=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    var ds=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
     var clr=isToday?'#00c6ff':isDone?'#00e676':day.mes===1?'#ff4081':day.mes===2?'#ff9800':day.mes===3?'#ffd700':'#00e676';
     html+='<div class="day-card '+cls+'" style="border-color:'+clr+'">';
-    html+='<div class="day-header"><div><span class="day-date">Dia '+dayNum+' — '+date.getDate()+'/'+(date.getMonth()+1)+'</span> <span class="day-dow">'+ds[date.getDay()]+'</span></div>';
+    html+='<div class="day-header"><div><span class="day-date">Dia '+dayNum+' â '+date.getDate()+'/'+(date.getMonth()+1)+'</span> <span class="day-dow">'+ds[date.getDay()]+'</span></div>';
     html+='<div style="display:flex;gap:5px;align-items:center">';
     if(isToday) html+='<span class="bx bx-bg">HOJE</span>';
-    if(isDone) html+='<span class="bx bx-g">✓</span>';
-    html+='<button class="btn '+(isDone?'btn-w':'btn-s')+'" style="font-size:.7em;padding:3px 8px" onclick="toggleCronDone('+dayNum+')">'+(isDone?'↩ Desfazer':'✅ Feito')+'</button>';
+    if(isDone) html+='<span class="bx bx-g">â</span>';
+    html+='<button class="btn '+(isDone?'btn-w':'btn-s')+'" style="font-size:.7em;padding:3px 8px" onclick="toggleCronDone('+dayNum+')">'+(isDone?'â© Desfazer':'â Feito')+'</button>';
     html+='</div></div>';
     html+='<div class="day-mats"><span class="day-mat '+day.cls1+'">'+day.mat1+'</span><span class="day-mat '+day.cls2+'">'+day.mat2+'</span></div>';
-    if(day.note) html+='<div style="font-size:.75em;color:#8fa3c7;margin-top:6px">💡 '+day.note+'</div>';
+    if(day.note) html+='<div style="font-size:.75em;color:#8fa3c7;margin-top:6px">ð¡ '+day.note+'</div>';
     html+='</div>';
   });
   container.innerHTML = html||'<div style="text-align:center;color:#8fa3c7;padding:40px">Nenhum dia encontrado.</div>';
@@ -921,36 +981,36 @@ function updatePomoDisplay(){
   var el=document.getElementById('pomoTime'); if(el)el.textContent=pad(m)+':'+pad(s);
   var ring=document.getElementById('pomoRing');
   if(ring){ring.classList.toggle('work-mode',pomoIsWork);ring.classList.toggle('rest-mode',!pomoIsWork);}
-  var st=document.getElementById('pomoStatus'); if(st)st.textContent=pomoIsWork?'🔴 Focado!':'🟢 Pausa!';
-  var btn=document.getElementById('pomoBtn'); if(btn)btn.textContent=pomoRunning?'⏸ Pausar':'▶ Iniciar';
+  var st=document.getElementById('pomoStatus'); if(st)st.textContent=pomoIsWork?'ð´ Focado!':'ð¢ Pausa!';
+  var btn=document.getElementById('pomoBtn'); if(btn)btn.textContent=pomoRunning?'â¸ Pausar':'â¶ Iniciar';
   var cnt=document.getElementById('pomoCount'); if(cnt)cnt.textContent=pomoCountN;
   var tot=document.getElementById('pomoTotal'); if(tot)tot.textContent=pomoTotalN;
 }
 function togglePomo(){
   if(pomoRunning){clearInterval(pomoInterval);pomoRunning=false;}
   else{pomoRunning=true;pomoInterval=setInterval(function(){pomoSecs--;
-    if(pomoSecs<=0){if(pomoIsWork){pomoTotalN++;pomoIsWork=false;pomoSecs=pomoBreak*60;showNotif('⏸ Pausa! '+pomoBreak+' min 🍵');}
-    else{pomoIsWork=true;pomoCountN++;pomoSecs=pomoWork*60;if(pomoCountN>4){pomoCountN=1;pomoTotalN=0;showNotif('🏆 Ciclo completo!');}else{showNotif('▶ Sessão '+pomoCountN+'/4 🎯');}}}
+    if(pomoSecs<=0){if(pomoIsWork){pomoTotalN++;pomoIsWork=false;pomoSecs=pomoBreak*60;showNotif('â¸ Pausa! '+pomoBreak+' min ðµ');}
+    else{pomoIsWork=true;pomoCountN++;pomoSecs=pomoWork*60;if(pomoCountN>4){pomoCountN=1;pomoTotalN=0;showNotif('ð Ciclo completo!');}else{showNotif('â¶ SessÃ£o '+pomoCountN+'/4 ð¯');}}}
     updatePomoDisplay();},1000);}
   updatePomoDisplay();
 }
 function resetPomo(){clearInterval(pomoInterval);pomoRunning=false;pomoIsWork=true;pomoSecs=pomoWork*60;pomoCountN=1;pomoTotalN=0;updatePomoDisplay();}
 updatePomoDisplay();
 
-// QUESTÕES
+// QUESTÃES
 function addQuest(){
   var subj=document.getElementById('qSubj');var num=parseInt((document.getElementById('qNum')||{}).value)||0;
   if(!subj||!num)return;
   var key='prf_quest_'+new Date().toDateString();var data=LS.get(key,{});
   data[subj.value]=(data[subj.value]||0)+num;LS.set(key,data);renderQuestGrid();
-  showNotif('✅ +'+num+' questões de '+subj.value+'!');
+  showNotif('â +'+num+' questÃµes de '+subj.value+'!');
 }
 function renderQuestGrid(){
   var container=document.getElementById('questGrid');if(!container)return;
   var key='prf_quest_'+new Date().toDateString();var data=LS.get(key,{});
   var total=Object.values(data).reduce(function(a,b){return a+b;},0);
-  var html='<div class="mb"><div class="ico">📊</div><div class="lbl">Total hoje</div><div class="tim" style="color:'+(total>=50?'#00e676':'#ff4081')+'">'+total+'</div></div>';
-  Object.entries(data).forEach(function(e){html+='<div class="mb"><div class="ico">✏️</div><div class="lbl" style="font-size:.65em">'+e[0].split(' ')[0]+'</div><div class="tim" style="color:#4aa8ff">'+e[1]+'</div></div>';});
+  var html='<div class="mb"><div class="ico">ð</div><div class="lbl">Total hoje</div><div class="tim" style="color:'+(total>=50?'#00e676':'#ff4081')+'">'+total+'</div></div>';
+  Object.entries(data).forEach(function(e){html+='<div class="mb"><div class="ico">âï¸</div><div class="lbl" style="font-size:.65em">'+e[0].split(' ')[0]+'</div><div class="tim" style="color:#4aa8ff">'+e[1]+'</div></div>';});
   container.innerHTML=html;
 }
 renderQuestGrid();
@@ -963,7 +1023,7 @@ function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal(
 function renderCal(){
   var title=document.getElementById('calTitle'),grid=document.getElementById('calGrid');
   if(!title||!grid)return;
-  var months=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  var months=['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   title.textContent=months[calMonth]+' '+calYear;
   var calData=LS.get('prf_cal2',{}),today=new Date();today.setHours(0,0,0,0);
   var first=new Date(calYear,calMonth,1).getDay(),daysIn=new Date(calYear,calMonth+1,0).getDate();
@@ -981,36 +1041,36 @@ function selectDay(y,m,d){
   selDate=new Date(y,m,d);var k=selDate.toISOString().split('T')[0];
   var calData=LS.get('prf_cal2',{}),dat=calData[k]||{};
   var sd=document.getElementById('selDay');if(sd)sd.textContent=d+'/'+(m+1)+'/'+y;
-  var si=document.getElementById('selDayInfo');if(si)si.innerHTML=dat.type?'✅ '+dat.type:'Sem registro';
+  var si=document.getElementById('selDayInfo');if(si)si.innerHTML=dat.type?'â '+dat.type:'Sem registro';
   var dn=document.getElementById('dayNote');if(dn)dn.value=dat.note||'';
 }
-function saveNote(){if(!selDate)return;var k=selDate.toISOString().split('T')[0];var calData=LS.get('prf_cal2',{});if(!calData[k])calData[k]={};calData[k].note=document.getElementById('dayNote').value;LS.set('prf_cal2',calData);showNotif('💾 Nota salva!');}
-function markStudied(){if(!selDate)return;var k=selDate.toISOString().split('T')[0];var calData=LS.get('prf_cal2',{});calData[k]={type:'studied',note:(calData[k]||{}).note||''};LS.set('prf_cal2',calData);renderCal();showNotif('✅ Marcado!');}
+function saveNote(){if(!selDate)return;var k=selDate.toISOString().split('T')[0];var calData=LS.get('prf_cal2',{});if(!calData[k])calData[k]={};calData[k].note=document.getElementById('dayNote').value;LS.set('prf_cal2',calData);showNotif('ð¾ Nota salva!');}
+function markStudied(){if(!selDate)return;var k=selDate.toISOString().split('T')[0];var calData=LS.get('prf_cal2',{});calData[k]={type:'studied',note:(calData[k]||{}).note||''};LS.set('prf_cal2',calData);renderCal();showNotif('â Marcado!');}
 function renderMonthStats(){
   var container=document.getElementById('monthStats');if(!container)return;
   var calData=LS.get('prf_cal2',{}),studied=0,total=new Date(calYear,calMonth+1,0).getDate();
   for(var d=1;d<=total;d++){var k=new Date(calYear,calMonth,d).toISOString().split('T')[0];if((calData[k]||{}).type==='studied')studied++;}
-  container.innerHTML='<div class="mb" style="padding:12px"><div class="ico">📚</div><div class="lbl">Dias estudados</div><div class="tim" style="color:#00e676">'+studied+'</div></div>';
+  container.innerHTML='<div class="mb" style="padding:12px"><div class="ico">ð</div><div class="lbl">Dias estudados</div><div class="tim" style="color:#00e676">'+studied+'</div></div>';
 }
 renderCal();
 
 // ACHIEVEMENTS
 var ACHIEVEMENTS=[
-  {id:'first',ico:'🎯',name:'Primeiro Dia!',check:function(){return stats.days>=1;}},
-  {id:'week',ico:'🔥',name:'7 Dias Seguidos!',check:function(){return stats.streak>=7;}},
-  {id:'month',ico:'🏆',name:'30 Dias!',check:function(){return stats.days>=30;}},
-  {id:'q1000',ico:'✏️',name:'1000 Questões!',check:function(){return stats.days*50>=1000;}},
-  {id:'streak30',ico:'💎',name:'30 Dias Consecutivos!',check:function(){return stats.streak>=30;}}
+  {id:'first',ico:'ð¯',name:'Primeiro Dia!',check:function(){return stats.days>=1;}},
+  {id:'week',ico:'ð¥',name:'7 Dias Seguidos!',check:function(){return stats.streak>=7;}},
+  {id:'month',ico:'ð',name:'30 Dias!',check:function(){return stats.days>=30;}},
+  {id:'q1000',ico:'âï¸',name:'1000 QuestÃµes!',check:function(){return stats.days*50>=1000;}},
+  {id:'streak30',ico:'ð',name:'30 Dias Consecutivos!',check:function(){return stats.streak>=30;}}
 ];
 function checkAchievements(){
   var unlocked=LS.get('prf_ach',[]);
-  ACHIEVEMENTS.forEach(function(a){if(!unlocked.includes(a.id)&&a.check()){unlocked.push(a.id);showNotif('🏆 Conquista: '+a.name+' '+a.ico);}});
+  ACHIEVEMENTS.forEach(function(a){if(!unlocked.includes(a.id)&&a.check()){unlocked.push(a.id);showNotif('ð Conquista: '+a.name+' '+a.ico);}});
   LS.set('prf_ach',unlocked);renderAchievements();
 }
 function renderAchievements(){
   var container=document.getElementById('achList');if(!container)return;
   var unlocked=LS.get('prf_ach',[]);
-  container.innerHTML=ACHIEVEMENTS.map(function(a){var u=unlocked.includes(a.id);return '<div class="ach '+(u?'unlocked':'')+'"><div class="ach-ico">'+a.ico+'</div><div><div style="font-weight:700;font-size:.87em">'+a.name+'</div></div>'+(u?'<span class="bx bx-g">✓</span>':'<span style="color:#8fa3c7">🔒</span>')+'</div>';}).join('');
+  container.innerHTML=ACHIEVEMENTS.map(function(a){var u=unlocked.includes(a.id);return '<div class="ach '+(u?'unlocked':'')+'"><div class="ach-ico">'+a.ico+'</div><div><div style="font-weight:700;font-size:.87em">'+a.name+'</div></div>'+(u?'<span class="bx bx-g">â</span>':'<span style="color:#8fa3c7">ð</span>')+'</div>';}).join('');
 }
 renderAchievements();
 
@@ -1018,7 +1078,7 @@ renderAchievements();
 var curProgKey='';
 function openProgModal(k,n){
   curProgKey=k;var prog=LS.get('prf_prog',{}),val=prog[k]||0;
-  document.getElementById('moProgTitle').textContent='📊 '+n;
+  document.getElementById('moProgTitle').textContent='ð '+n;
   document.getElementById('progSlider').value=val;
   document.getElementById('progVal').textContent=val+'%';
   document.getElementById('progBarMo').style.width=val+'%';
@@ -1028,27 +1088,27 @@ function saveProgModal(){
   var val=document.getElementById('progSlider').value;
   var prog=LS.get('prf_prog',{});prog[curProgKey]=parseInt(val);LS.set('prf_prog',prog);
   var bar=document.getElementById('prog-'+curProgKey);if(bar)bar.style.width=val+'%';
-  document.getElementById('moProg').classList.remove('open');showNotif('💾 '+val+'% salvo!');
+  document.getElementById('moProg').classList.remove('open');showNotif('ð¾ '+val+'% salvo!');
 }
 (function(){var prog=LS.get('prf_prog',{});Object.entries(prog).forEach(function(e){var b=document.getElementById('prog-'+e[0]);if(b)b.style.width=e[1]+'%';});})();
 
 // PLAN
 function savePlan(){
   var p={subj:document.getElementById('planSubj').value,topic:document.getElementById('planTopic').value,q:document.getElementById('planQ').value,note:document.getElementById('planNote').value,date:new Date().toLocaleDateString('pt-BR')};
-  LS.set('prf_plan',p);document.getElementById('planPreview').textContent='✅ Plano salvo para '+p.subj;showNotif('💾 Plano salvo!');
+  LS.set('prf_plan',p);document.getElementById('planPreview').textContent='â Plano salvo para '+p.subj;showNotif('ð¾ Plano salvo!');
 }
 function loadPlan(){
-  var p=LS.get('prf_plan',null);if(!p){showNotif('📋 Nenhum plano salvo.');return;}
-  document.getElementById('moPlanBody').innerHTML='<strong>Data:</strong> '+p.date+'<br><strong>Matéria:</strong> '+p.subj+'<br><strong>Tópico:</strong> '+(p.topic||'—')+'<br><strong>Obs:</strong> '+(p.note||'—');
+  var p=LS.get('prf_plan',null);if(!p){showNotif('ð Nenhum plano salvo.');return;}
+  document.getElementById('moPlanBody').innerHTML='<strong>Data:</strong> '+p.date+'<br><strong>MatÃ©ria:</strong> '+p.subj+'<br><strong>TÃ³pico:</strong> '+(p.topic||'â')+'<br><strong>Obs:</strong> '+(p.note||'â');
   document.getElementById('moPlan').classList.add('open');
 }
 
 // CONFIG
 function saveCfg(){
   var cfg={stM:document.getElementById('cStM').value,endM:document.getElementById('cEndM').value,stMkt:document.getElementById('cStMkt').value,endMkt:document.getElementById('cEndMkt').value,stWk:document.getElementById('cStWk').value,endWk:document.getElementById('cEndWk').value,stN:document.getElementById('cStN').value,endN:document.getElementById('cEndN').value,nome:document.getElementById('cNome').value};
-  LS.set('prf_cfg',cfg);showNotif('💾 Config salva!');
+  LS.set('prf_cfg',cfg);showNotif('ð¾ Config salva!');
 }
-function resetAll(){if(!confirm('Resetar tudo?'))return;localStorage.clear();stats={days:0,streak:0,hours:0,lastDate:''};renderStats();showNotif('🔄 Resetado!');}
+function resetAll(){if(!confirm('Resetar tudo?'))return;localStorage.clear();stats={days:0,streak:0,hours:0,lastDate:''};renderStats();showNotif('ð Resetado!');}
 (function(){var cfg=LS.get('prf_cfg',{});['cStM','cEndM','cStMkt','cEndMkt','cStWk','cEndWk','cStN','cEndN'].forEach(function(id){var k=id.replace('c','').replace(/([A-Z])/,function(m){return m.toLowerCase();}); var el=document.getElementById(id);if(el&&cfg[id.substring(1)])el.value=cfg[id.substring(1)];});})();
 
 // DOPAMINE
@@ -1058,11 +1118,11 @@ function markDop(){
   dop.streak=(dop.last===yesterday)?dop.streak+1:1;dop.last=today;LS.set('prf_dop',dop);
   var el=document.getElementById('dopDays');if(el)el.textContent=dop.streak;
   var bar=document.getElementById('prog-dopamina');if(bar)bar.style.width=Math.min(100,dop.streak*3.3)+'%';
-  showNotif('✅ Dopamina feita! Streak: '+dop.streak+' dias 🔥');
+  showNotif('â Dopamina feita! Streak: '+dop.streak+' dias ð¥');
 }
 (function(){var dop=LS.get('prf_dop',{streak:0});var el=document.getElementById('dopDays');if(el)el.textContent=dop.streak;})();
 
-function quickRew(n){showNotif('🎁 '+n+' — Aproveite! 😊');}
+function quickRew(n){showNotif('ð '+n+' â Aproveite! ð');}
 
 // SOCIAL TIMER
 var socialInterval=null;
@@ -1072,13 +1132,13 @@ function startSocialTimer(){
   if(socialInterval)clearInterval(socialInterval);
   socialInterval=setInterval(function(){secs--;var m=Math.floor(secs/60),s=secs%60;
     var el=document.getElementById('socialClock');if(el)el.textContent=pad(m)+':'+pad(s);
-    if(secs<=0){clearInterval(socialInterval);showNotif('⏰ Timer encerrado!');if(box)box.style.display='none';}
+    if(secs<=0){clearInterval(socialInterval);showNotif('â° Timer encerrado!');if(box)box.style.display='none';}
   },1000);
 }
 function stopSocial(){if(socialInterval)clearInterval(socialInterval);var box=document.getElementById('socialBox');if(box)box.style.display='none';}
 
 
-// ANOTAÇÕES DO DIA
+// ANOTAÃÃES DO DIA
 function updateNotesCount(){
 var ta=document.getElementById('dairyNotes');var cnt=document.getElementById('notesCharCount');
 if(ta&&cnt){cnt.textContent=ta.value.length+' / 5.500 caracteres';cnt.style.color=ta.value.length>5000?'#ff4081':'#8fa3c7';}
@@ -1086,15 +1146,15 @@ if(ta&&cnt){cnt.textContent=ta.value.length+' / 5.500 caracteres';cnt.style.colo
 function saveDairyNotes(){
 var ta=document.getElementById('dairyNotes');if(!ta)return;
 LS.set('prf_diary_'+new Date().toDateString(),ta.value);
-showNotif('💾 Anotações salvas!');
+showNotif('ð¾ AnotaÃ§Ãµes salvas!');
 }
 function clearDairyNotes(){
 var ta=document.getElementById('dairyNotes');if(!ta)return;
-if(confirm('Limpar anotações de hoje?')){
+if(confirm('Limpar anotaÃ§Ãµes de hoje?')){
 ta.value='';
 updateNotesCount();
 LS.set('prf_diary_'+new Date().toDateString(),'');
-showNotif('🗑️ Anotações limpas!');
+showNotif('ðï¸ AnotaÃ§Ãµes limpas!');
 }
 }
 (function(){
@@ -1341,6 +1401,39 @@ function savePlat(){
   showNotif('\uD83C\uDF0F Plataforma atualizada!');
 }
 
+function saveTotalDias() {
+  var inp = document.getElementById('cfgTotalDias');
+  if (!inp) return;
+  var dias = parseInt(inp.value) || 120;
+  if (dias < 30) dias = 30;
+  if (dias > 500) dias = 500;
+  inp.value = dias;
+  localStorage.setItem('prf_totalDias', dias);
+  if (!window._CRON_BASE) window._CRON_BASE = CRON.slice(0, Math.min(40, CRON.length));
+  while (CRON.length < dias) {
+    var idx = CRON.length % window._CRON_BASE.length;
+    CRON.push(Object.assign({}, window._CRON_BASE[idx]));
+  }
+  CRON.length = dias;
+  var dispEl = document.getElementById('sDiaNums');
+  if (dispEl) {
+    var cronDone = LS.get('prf_cronDone', {});
+    dispEl.textContent = Object.keys(cronDone).length + '/' + dias;
+  }
+  var statusEl = document.getElementById('diasStatus');
+  if (statusEl) statusEl.textContent = 'Cronograma: ' + dias + ' dias';
+  if (typeof renderCron === 'function') renderCron();
+  showNotif('\uD83D\uDCC5 Cronograma atualizado para ' + dias + ' dias!');
+}
+
+function loadCfgDias() {
+  var saved = parseInt(localStorage.getItem('prf_totalDias')) || 120;
+  var inp = document.getElementById('cfgTotalDias');
+  if (inp) inp.value = saved;
+  var statusEl = document.getElementById('diasStatus');
+  if (statusEl) statusEl.textContent = 'Cronograma atual: ' + saved + ' dias';
+}
+
 function _applyPlatUrl(url){
   document.querySelectorAll('a').forEach(function(a){
     var h=a.getAttribute('href')||'';
@@ -1417,6 +1510,13 @@ function saveMeses(){
   var theme=localStorage.getItem('prf_theme')||'dark';
   _applyTheme(theme);
   _initPlat();
+  loadCfgDias();
+  // Update sDiaNums display with stored or default days
+  (function(){
+    var td=parseInt(localStorage.getItem('prf_totalDias'))||CRON.length;
+    var el=document.getElementById('sDiaNums');
+    if(el){ var done=LS.get('prf_cronDone',{}); el.textContent=Object.keys(done).length+'/'+td; }
+  })();
   updateOracaoHojeCard();
 })();
 // ==================== FIM CONFIG EXTRAS ====================
