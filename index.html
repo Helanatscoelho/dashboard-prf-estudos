@@ -133,6 +133,14 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <body>
 <div class="header">
 <div><h1>&#x1F694; Dashboard PRF &amp; Marketing &#x2014; Helena</h1><p>Foco. Disciplina. Aprova&#xE7;&#xE3;o! &#x1F499; | In&#xED;cio: 27/05/2026</p></div>
+<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+  <button class="btn btn-s" id="pomoRegistrarBtn" onclick="abrirRegistroPomo()" style="background:linear-gradient(135deg,#1e6fd9,#00c6ff);font-size:.8em">&#x1F4DD; Concluir Sess&#xE3;o de Estudo</button>
+</div>
+<div id="pomoHistArea" style="margin-top:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+  <div style="font-size:.8em;color:#8fa3c7;margin-bottom:8px;font-weight:600">&#x1F4DA; Hist&#xF3;rico de Horas Estudadas</div>
+  <div id="pomoHistList" style="max-height:180px;overflow-y:auto"></div>
+  <button class="btn btn-w" onclick="limparHistPomo()" style="margin-top:8px;font-size:.75em;padding:4px 10px">&#x1F5D1; Limpar Hist&#xF3;rico</button>
+</div>
 <div class="tac"><div class="clock" id="clock">00:00:00</div><div style="font-size:.7em;color:#8fa3c7" id="dateD"></div></div>
 </div>
 <div class="motiv" id="motiv"></div>
@@ -688,7 +696,7 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 
 </div>
 
-<script>
+
 // LS DEFINIDO PRIMEIRO - antes de qualquer uso
 var LS = {
   get: function(k, d) {
@@ -848,7 +856,7 @@ function confetti() {
   },idx*180);})(i);
 }
 </script>
-<script>
+
 // CRONOGRAMA
 var START_DATE = new Date(2026, 4, 27);
 var CRON = [
@@ -1015,7 +1023,7 @@ function renderQuestGrid(){
 }
 renderQuestGrid();
 </script>
-<script>
+
 // CALENDAR
 var calYear=new Date().getFullYear(),calMonth=new Date().getMonth(),selDate=null;
 function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
@@ -1121,6 +1129,7 @@ function markDop(){
   showNotif('\u2705 Dopamina feita! Streak: '+dop.streak+' dias \uD83D\uDD25');
 }
 (function(){var dop=LS.get('prf_dop',{streak:0});var el=document.getElementById('dopDays');if(el)el.textContent=dop.streak;})();
+renderPomoHist();
 
 function quickRew(n){showNotif('\uD83C\uDF81 '+n+' \u2014 Aproveite! \uD83D\uDE0A');}
 
@@ -1516,6 +1525,88 @@ function saveMeses(){
   updateOracaoHojeCard();
 })();
 // ==================== FIM CONFIG EXTRAS ====================
+
+// HISTORICO POMO
+function getTodaySubjects() {
+  var today = new Date(); today.setHours(0,0,0,0);
+  for(var i=0;i<CRON.length;i++){
+    var d=new Date(START_DATE.getTime()+i*86400000);
+    d.setHours(0,0,0,0);
+    if(d.getTime()===today.getTime()) return CRON[i];
+  }
+  return null;
+}
+function abrirRegistroPomo(){
+  var totalSecs=(pomoTotalN>0?(pomoTotalN-1)*pomoWork*60:0)+(pomoWork*60-pomoSecs);
+  if(totalSecs<30){showNotif('\u23f1 Nenhum tempo registrado ainda!');return;}
+  var mins=Math.floor(totalSecs/60),hrs=Math.floor(mins/60),rmin=mins%60;
+  var tempoStr=hrs>0?(hrs+'h '+(rmin>0?rmin+'min':'')):(mins+'min');
+  document.getElementById('pomoModalTempo').textContent='\u23f1 Tempo estudado: '+tempoStr;
+  var day=getTodaySubjects();
+  var matDiv=document.getElementById('pomoModalMaterias');
+  matDiv.innerHTML='';
+  if(day&&day.mat1&&day.mat1.trim()){
+    matDiv.innerHTML+='<label style="display:flex;align-items:center;gap:8px;color:#fff;margin-bottom:8px;cursor:pointer"><input type="checkbox" id="pomoChk1" checked style="width:16px;height:16px"> <span>'+day.mat1+'</span></label>';
+  }
+  if(day&&day.mat2&&day.mat2.trim()){
+    matDiv.innerHTML+='<label style="display:flex;align-items:center;gap:8px;color:#fff;margin-bottom:8px;cursor:pointer"><input type="checkbox" id="pomoChk2" checked style="width:16px;height:16px"> <span>'+day.mat2+'</span></label>';
+  }
+  if(!day||(!day.mat1&&!day.mat2)){
+    matDiv.innerHTML='<label style="display:flex;align-items:center;gap:8px;color:#fff;margin-bottom:8px;cursor:pointer"><input type="checkbox" id="pomoChkL" checked style="width:16px;height:16px"> <span>Estudo Livre</span></label>';
+  }
+  matDiv.innerHTML+='<div style="margin-top:8px"><label style="color:#8fa3c7;font-size:.85em;display:block;margin-bottom:4px">Observa\u00e7\u00e3o (opcional):</label><input id="pomoHistNote" class="inp w100" placeholder="Ex: Revis\u00e3o, dificuldades..." style="font-size:.85em"></div>';
+  document.getElementById('pomoRegistroModal').style.display='flex';
+  window._pomoModalSecs=totalSecs;
+}
+function fecharRegistroPomo(){document.getElementById('pomoRegistroModal').style.display='none';}
+function salvarRegistroPomo(){
+  var totalSecs=window._pomoModalSecs||0;
+  var mins=Math.floor(totalSecs/60),hrsRound=Math.round((mins/60)*100)/100;
+  var mats=[];
+  var c1=document.getElementById('pomoChk1'),c2=document.getElementById('pomoChk2'),cL=document.getElementById('pomoChkL');
+  if(c1&&c1.checked) mats.push(c1.parentElement.querySelector('span').textContent);
+  if(c2&&c2.checked) mats.push(c2.parentElement.querySelector('span').textContent);
+  if(cL&&cL.checked) mats.push('Estudo Livre');
+  if(!mats.length){showNotif('\u26a0 Selecione ao menos uma mat\u00e9ria!');return;}
+  var note=document.getElementById('pomoHistNote')?document.getElementById('pomoHistNote').value.trim():'';
+  var log=JSON.parse(localStorage.getItem('prf_hist_log')||'[]');
+  var entry={dt:_odk(),hr:hrsRound,min:mins,mats:mats,note:note};
+  log.unshift(entry);if(log.length>60)log=log.slice(0,60);
+  localStorage.setItem('prf_hist_log',JSON.stringify(log));
+  stats.hours=Math.round((stats.hours+hrsRound)*100)/100;
+  localStorage.setItem('prf_stats3',JSON.stringify(stats));
+  renderStats();fecharRegistroPomo();renderPomoHist();
+  showNotif('\u2705 '+mins+'min registrado! Mat\u00e9rias: '+mats.join(', '));
+}
+function renderPomoHist(){
+  var el=document.getElementById('pomoHistList');if(!el)return;
+  var log=JSON.parse(localStorage.getItem('prf_hist_log')||'[]');
+  if(!log.length){el.innerHTML='<div style="color:#8fa3c7;font-size:.8em;text-align:center;padding:8px">Nenhum registro ainda.</div>';return;}
+  el.innerHTML=log.map(function(e){
+    var minsStr=e.min+'min';
+    if(e.min>=60){var h=Math.floor(e.min/60),m=e.min%60;minsStr=h+'h'+(m?m+'min':'');}
+    return '<div style="background:rgba(0,198,255,.06);border:1px solid rgba(30,111,217,.2);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:.8em">'+
+      '<div style="color:#ffd700;font-weight:600">\u23f1 '+minsStr+' \u2014 '+e.mats.join(' + ')+'</div>'+
+      '<div style="color:#8fa3c7;margin-top:2px">'+e.dt+(e.note?' \u2014 <em>'+e.note+'</em>':'')+'</div>'+
+      '</div>';
+  }).join('');
+}
+function limparHistPomo(){if(confirm('Limpar todo o hist\u00f3rico de estudo?')){localStorage.removeItem('prf_hist_log');renderPomoHist();}}
+
 </script>
+
+<!-- MODAL REGISTRO POMO -->
+<div id="pomoRegistroModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:linear-gradient(135deg,#0d1b2a,#1b3a6b);border:1px solid rgba(30,111,217,.4);border-radius:16px;padding:24px;max-width:420px;width:90%;max-height:80vh;overflow-y:auto">
+    <h3 style="color:#ffd700;margin-bottom:4px">&#x1F4DD; Registrar Estudo</h3>
+    <p id="pomoModalTempo" style="color:#1e6fd9;font-size:1.1em;font-weight:700;margin-bottom:12px"></p>
+    <p style="color:#8fa3c7;font-size:.85em;margin-bottom:8px">Selecione as mat&#xE9;rias que voc&#xEA; estudou:</p>
+    <div id="pomoModalMaterias" style="margin-bottom:16px"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-s" onclick="salvarRegistroPomo()" style="background:linear-gradient(135deg,#00e676,#1b3a6b)">&#x2705; Salvar no Hist&#xF3;rico</button>
+      <button class="btn btn-w" onclick="fecharRegistroPomo()">&#x274C; Cancelar</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
