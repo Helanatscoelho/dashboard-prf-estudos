@@ -576,7 +576,9 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
   <button class="btn btn-p" onclick="saveTotalDias()">&#x1F504; Atualizar Cronograma</button>
   <span id="diasStatus" style="font-size:.8em;color:#8fa3c7">Cronograma atual: 120 dias</span>
 </div>
-</div>
+
+<div class="srow" style="margin-bottom:10px;margin-top:14px"><div class="slbl">&#x1F4C5; Data de in&#xED;cio</div><input type="date" class="inp" id="cfgStartDate" style="width:150px"></div>
+<div class="srow" style="gap:8px;align-items:center;margin-top:6px"><button class="btn btn-s" onclick="saveStartDate()" style="background:#2196F3">&#x1F4C5; Atualizar Data</button><span id="startDateStatus" style="font-size:12px;color:#8fa8c8"></span></div></div>
 
 <!-- PLATAFORMA CONFIG CARD -->
 <div class="card mt12">
@@ -859,6 +861,7 @@ function confetti() {
 <script>
 // CRONOGRAMA
 var START_DATE = new Date(2026, 4, 27);
+(function(){var _sd=localStorage.getItem('prf_startDate');if(_sd){var _d=new Date(_sd+'T00:00:00');if(!isNaN(_d.getTime())){START_DATE=_d;}}})();
 var CRON = [
 {mat1:'\uD83D\uDCDC D. Constitucional',mat2:'\uD83D\uDCDD Portugu\u00EAs',cls1:'mat-1',cls2:'mat-2',note:'Art. 1\u20134 + Interpreta\u00E7\u00E3o',mes:1},
 {mat1:'\uD83D\uDCDC D. Constitucional',mat2:'\uD83D\uDCDD Portugu\u00EAs',cls1:'mat-1',cls2:'mat-2',note:'Art. 5\u00BA + Morfologia',mes:1},
@@ -946,7 +949,7 @@ while(CRON.length < (parseInt(localStorage.getItem('prf_meses')||10)*30)) CRON.p
 // Render today info now that CRON is defined
 renderStats();
 renderTodayInfo();
-updateOracaoHojeCard();
+try{updateOracaoHojeCard();}catch(e){}
 
 // CRONOGRAMA GRID
 var currentFilter = 'all';
@@ -1593,6 +1596,10 @@ function renderPomoHist(){
 }
 function limparHistPomo(){if(confirm('Limpar todo o hist\u00f3rico de estudo?')){localStorage.removeItem('prf_hist_log');renderPomoHist();}}
 
+
+function saveStartDate(){var inp=document.getElementById('cfgStartDate');if(!inp)return;var val=inp.value;if(!val){showNotif('\u26A0\uFE0F Selecione uma data');return;}var d=new Date(val+'T00:00:00');if(isNaN(d.getTime())){showNotif('\u26A0\uFE0F Data inv\u00E1lida');return;}localStorage.setItem('prf_startDate',val);var st=document.getElementById('startDateStatus');if(st)st.textContent='Data: '+val;showNotif('\u2705 Data atualizada! Recarregue para aplicar.');}
+function initCfgStartDate(){var inp=document.getElementById('cfgStartDate');if(!inp)return;var saved=localStorage.getItem('prf_startDate');if(saved){inp.value=saved;var st=document.getElementById('startDateStatus');if(st)st.textContent='Data: '+saved;}else{var y=START_DATE?START_DATE.getFullYear():2026;var mo=START_DATE?START_DATE.getMonth()+1:5;var dd=START_DATE?START_DATE.getDate():27;inp.value=y+'-'+String(mo).padStart(2,'0')+'-'+String(dd).padStart(2,'0');}}
+initCfgStartDate();
 </script>
 
 <!-- MODAL REGISTRO POMO -->
