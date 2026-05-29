@@ -133,14 +133,6 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <body>
 <div class="header">
 <div><h1>&#x1F694; Dashboard PRF &amp; Marketing &#x2014; Helena</h1><p>Foco. Disciplina. Aprova&#xE7;&#xE3;o! &#x1F499; | In&#xED;cio: 27/05/2026</p></div>
-<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-  <button class="btn btn-s" id="pomoRegistrarBtn" onclick="abrirRegistroPomo()" style="background:linear-gradient(135deg,#1e6fd9,#00c6ff);font-size:.8em">&#x1F4DD; Concluir Sess&#xE3;o de Estudo</button>
-</div>
-<div id="pomoHistArea" style="margin-top:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
-  <div style="font-size:.8em;color:#8fa3c7;margin-bottom:8px;font-weight:600">&#x1F4DA; Hist&#xF3;rico de Horas Estudadas</div>
-  <div id="pomoHistList" style="max-height:180px;overflow-y:auto"></div>
-  <button class="btn btn-w" onclick="limparHistPomo()" style="margin-top:8px;font-size:.75em;padding:4px 10px">&#x1F5D1; Limpar Hist&#xF3;rico</button>
-</div>
 <div class="tac"><div class="clock" id="clock">00:00:00</div><div style="font-size:.7em;color:#8fa3c7" id="dateD"></div></div>
 </div>
 <div class="motiv" id="motiv"></div>
@@ -390,6 +382,14 @@ textarea.inp{resize:vertical;min-height:60px;width:100%}
 <button class="btn btn-w" onclick="resetPomo()">&#x23F9; Reset</button>
 </div>
 <div style="margin-top:8px;font-size:.8em;color:#8fa3c7">Sess&#xE3;o <span id="pomoCount">1</span>/4 | <span id="pomoTotal">0</span> &#x1F345; hoje</div>
+<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+  <button class="btn btn-s" id="pomoRegistrarBtn" onclick="abrirRegistroPomo()" style="background:linear-gradient(135deg,#1e6fd9,#00c6ff);font-size:.8em">&#x1F4DD; Concluir Sess&#xE3;o de Estudo</button>
+</div>
+<div id="pomoHistArea" style="margin-top:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+  <div style="font-size:.8em;color:#8fa3c7;margin-bottom:8px;font-weight:600">&#x1F4DA; Hist&#xF3;rico de Horas Estudadas</div>
+  <div id="pomoHistList" style="max-height:180px;overflow-y:auto"></div>
+  <button class="btn btn-w" onclick="limparHistPomo()" style="margin-top:8px;font-size:.75em;padding:4px 10px">&#x1F5D1; Limpar Hist&#xF3;rico</button>
+</div>
 </div>
 </div>
 </div>
